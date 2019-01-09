@@ -14,7 +14,7 @@ public class CommonService {
     @Autowired
     private CommonMapper commonMapper;
 
-    @Cacheable(value = "header", key = "'navigation'")
+    @Cacheable(value = "header", key = "'navigationList'")
     public List<Navigation> getNavigations() {
         return commonMapper.getNavigations();
     }

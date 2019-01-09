@@ -20,7 +20,7 @@
 
     <div class="nav">
         <#list navigationList as nav>
-            <a href="${nav.url}">${nav.title}</a>
+            <a href="${nav.url}" title="${nav.title}">${nav.title}</a>
         </#list>
     </div>
 
@@ -31,9 +31,7 @@
         </div>
         <ul>
             <#list navigationList as nav>
-                <a href="${nav.url}">
-                    <li>${nav.title}</li>
-                </a>
+                <a href="${nav.url}" title="${nav.title}"><li>${nav.title}</li></a>
             </#list>
         </ul>
     </nav>
