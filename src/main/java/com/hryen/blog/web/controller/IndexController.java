@@ -22,7 +22,7 @@ public class IndexController {
     @GetMapping("/")
     public String getIndex(Model model) {
 
-        List<Navigation> navigationList = commonService.getNavigations();
+        List<Navigation> navigationList = commonService.getNavigation();
         model.addAttribute("navigationList", navigationList);
 
         String blogTitle = sysConfigService.getBlogTitle();

@@ -1,6 +1,6 @@
 package com.hryen.blog;
 
-import com.hryen.blog.service.SysConfigService;
+import com.hryen.blog.util.PasswordUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +12,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class ApplicationTests {
 
     @Autowired
-    private SysConfigService sysConfigService;
+    private PasswordUtils passwordUtils;
 
     @Test
     public void test1() {
+        System.out.println(passwordUtils.encrypt("admin"));
+    }
+
+    @Test
+    public void test2() {
+        System.out.println(passwordUtils.decrypt("+/sBS0Gisb4="));
     }
 
 }

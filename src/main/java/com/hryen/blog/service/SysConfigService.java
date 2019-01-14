@@ -29,6 +29,11 @@ public class SysConfigService {
         return Integer.valueOf(sysConfigMapper.getSysConfig("index.page.size"));
     }
 
+    @Cacheable(value = SYS_CONFIG_CACHE_VALUE, key = "'blog.owner'")
+    public String getBlogOwner() {
+        return sysConfigMapper.getSysConfig("blog.owner");
+    }
+
     @CacheEvict(value = SYS_CONFIG_CACHE_VALUE, key = "'blog.title'")
     public void updateBlogTitle(String title) {
         sysConfigMapper.updateSysConfig("blog.title", title);
@@ -42,6 +47,11 @@ public class SysConfigService {
     @CacheEvict(value = SYS_CONFIG_CACHE_VALUE, key = "'index.page.size'")
     public void updateIndexPageSize(Integer size) {
         sysConfigMapper.updateSysConfig("index.page.size", String.valueOf(size));
+    }
+
+    @CacheEvict(value = SYS_CONFIG_CACHE_VALUE, key = "'blog.owner'")
+    public void updateBlogOwner(String owner) {
+        sysConfigMapper.updateSysConfig("blog.owner", owner);
     }
 
 }

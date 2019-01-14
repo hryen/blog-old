@@ -10,5 +10,5 @@ import java.util.List;
 public interface CommonMapper {
 
     @Select("SELECT * FROM `navigation` ORDER BY `order`")
-    List<Navigation> getNavigations();
+    List<Navigation> getNavigation();
 }

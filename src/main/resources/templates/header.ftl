@@ -14,8 +14,7 @@
 
     <div class="header">
         <h2>${blogTitle}</h2>
-        <img class="mobile-nav-menu" src="${request.contextPath}/img/baseline-menu-24px.svg"
-             onclick="openMobileNav()"></img>
+        <img class="mobile-nav-menu" src="${request.contextPath}/img/baseline-menu-24px.svg" onclick="openMobileNav()" />
     </div>
 
     <div class="nav">
@@ -23,15 +22,3 @@
             <a href="${nav.url}" title="${nav.title}">${nav.title}</a>
         </#list>
     </div>
-
-    <div hidden="true" id="bg" class="bg" onclick="closeMobileNav()"></div>
-    <nav hidden='true' id="mobile-nav" class="mobile-nav">
-        <div class="close">
-            <img src="img/baseline-close-24px.svg" onclick="closeMobileNav()"></img>
-        </div>
-        <ul>
-            <#list navigationList as nav>
-                <a href="${nav.url}" title="${nav.title}"><li>${nav.title}</li></a>
-            </#list>
-        </ul>
-    </nav>
