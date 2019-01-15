@@ -2,7 +2,6 @@ package com.hryen.blog.web.handler;
 
 import com.hryen.blog.model.Navigation;
 import com.hryen.blog.service.CommonService;
-import com.hryen.blog.service.SysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
 import org.springframework.http.HttpStatus;
@@ -17,15 +16,12 @@ import java.util.Map;
 public class ErrorViewResolverHandler implements ErrorViewResolver {
 
     @Autowired
-    private SysConfigService sysConfigService;
-
-    @Autowired
     private CommonService commonService;
 
     @Override
     public ModelAndView resolveErrorView(HttpServletRequest request, HttpStatus status, Map<String, Object> model) {
-        String blogTitle = sysConfigService.getBlogTitle();
-        String blogOwner = sysConfigService.getBlogOwner();
+        String blogTitle = commonService.getBlogTitle();
+        String blogOwner = commonService.getBlogOwner();
         List<Navigation> navigationList = commonService.getNavigation();
 
         ModelAndView modelAndView = new ModelAndView();
@@ -33,7 +29,7 @@ public class ErrorViewResolverHandler implements ErrorViewResolver {
         modelAndView.addObject("blogTitle", blogTitle);
         modelAndView.addObject("blogOwner", blogOwner);
         modelAndView.addObject("navigationList", navigationList);
-        modelAndView.setViewName("error/common");
+        modelAndView.setViewName("common/error");
 
         return modelAndView;
     }

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>${blogTitle}</title>
+    <title>${title}</title>
     <meta name="description" content="${blogDescription}"/>
     <meta name="viewport" content="initial-scale=1, minimum-scale=1, width=device-width"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">

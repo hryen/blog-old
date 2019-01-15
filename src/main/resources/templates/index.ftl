@@ -1,2 +1,2 @@
-<#assign test = "this is header">
-<#include "header.ftl">
+<#assign title = blogTitle>
+<#include "common/header.ftl">

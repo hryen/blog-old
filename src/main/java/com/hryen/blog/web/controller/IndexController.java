@@ -1,36 +1,44 @@
 package com.hryen.blog.web.controller;
 
-import com.hryen.blog.model.Navigation;
-import com.hryen.blog.service.CommonService;
-import com.hryen.blog.service.SysConfigService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
 
 @Controller
 public class IndexController {
-
-    @Autowired
-    private SysConfigService sysConfigService;
-
-    @Autowired
-    private CommonService commonService;
-
-    @GetMapping("/")
-    public String getIndex(Model model) {
-
-        List<Navigation> navigationList = commonService.getNavigation();
-        model.addAttribute("navigationList", navigationList);
-
-        String blogTitle = sysConfigService.getBlogTitle();
-        model.addAttribute("blogTitle", blogTitle);
-
-        String blogDescription = sysConfigService.getBlogDescription();
-        model.addAttribute("blogDescription", blogDescription);
-
-        return "index";
-    }
+//
+//    @Autowired
+//    private CommonService commonService;
+//
+//    @Autowired
+//    private IndexService indexService;
+//
+//    @GetMapping("/")
+//    public String getIndexWithPage(String page, Model model) {
+//
+//        // 检查参数
+//        int PageNumber = ControllerUtils.checkPage(page);
+//        // 如果参数非法 跳转到首页
+//        if (-1 == PageNumber) {
+//            return "redirect:/";
+//        }
+//
+//        // 分页
+//        Pagination pagination = indexService.getPagination(PageNumber);
+//        model.addAttribute("pagination", pagination);
+//
+//        // 文章list
+//        List<Article> articleList = indexService.getIndexWithPage(PageNumber, pagination.getStartIndex());
+//        model.addAttribute("articleList", articleList);
+//
+//        List<Navigation> navigationList = commonService.getNavigation();
+//        model.addAttribute("navigationList", navigationList);
+//
+//        String blogTitle = sysConfigService.getBlogTitle();
+//        model.addAttribute("blogTitle", blogTitle);
+//
+//        String blogDescription = sysConfigService.getBlogDescription();
+//        model.addAttribute("blogDescription", blogDescription);
+//
+//        return "index";
+//    }
 }

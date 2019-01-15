@@ -1,11 +1,15 @@
 package com.hryen.blog.web.admin;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class AdminIndexController extends AdminBaseController{
+@Controller
+@RequestMapping("/admin")
+public class AdminIndexController {
 
     @GetMapping("/index")
     public String getAdminIndex(HttpServletRequest request, Model model) {
