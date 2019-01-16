@@ -31,10 +31,10 @@ public class ArticleController {
             return "error/404";
         }
 
-        model.addAttribute("article", article);
-
         // 获取博客的 标题，描述，导航，所属者
         Map<String, Object> commonAttributes = controllerUtils.getCommonAttributes();
+
+        model.addAttribute("article", article);
         model.addAllAttributes(commonAttributes);
 
         return "article";

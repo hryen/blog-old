@@ -12,7 +12,7 @@ public class IndexController {
 //    @Autowired
 //    private IndexService indexService;
 //
-//    @GetMapping("/")
+//    @GetMapping("")
 //    public String getIndexWithPage(String page, Model model) {
 //
 //        // 检查参数

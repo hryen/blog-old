@@ -18,4 +18,9 @@ public class AdminIndexController {
         return "admin/index";
     }
 
+    @GetMapping("")
+    public String redirect() {
+        return "redirect:/admin/index";
+    }
+
 }
