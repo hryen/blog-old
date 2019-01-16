@@ -1,5 +1,5 @@
-<#assign title = article.title + " | " + blogTitle>
-
+<#assign title = article.title + " - " + blogTitle>
+<#assign description = article.title>
 <#include "common/header.ftl">
 
 ${article.title}
