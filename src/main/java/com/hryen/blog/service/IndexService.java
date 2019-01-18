@@ -1,52 +1,49 @@
 package com.hryen.blog.service;
 
+import com.hryen.blog.mapper.ArticleMapper;
+import com.hryen.blog.model.Article;
+import com.hryen.blog.model.Pagination;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class IndexService {
-//
-//    @Autowired
-//    private ArticleMapper articleMapper;
-//
-//    @Autowired
-//    private RedisTemplate redisTemplate = new RedisTemplate();
-//
-//    public List<Article> getIndexWithPage(int page, int startIndex) {
-//
+
+    @Autowired
+    private CommonService commonService;
+
+    @Autowired
+    private ArticleMapper articleMapper;
+
+    public List<Article> getIndexWithPage(Integer pageNumber, Integer startIndex) {
+
 //        // 创建文章集合
 //        List<Article> articleList = new ArrayList<>();
-//
+
 //        // 如果是第一页 查询置顶文章
 //        if(1 == page) {
 //            List<Article> stickyArticleList = articleMapper.getStickyArticles();
 //            articleList.addAll(stickyArticleList);
 //        }
-//
-//        // 查询最新文章 带分页
-//        List<Article> newestArticleList = articleMapper.getNewestArticlesWithPage(startIndex, this.getIndexPageSize());
+
+        // 查询最新文章 带分页
+        List<Article> newestArticleList = articleMapper.getNewestArticlesWithPage(startIndex, commonService.getIndexPageSize());
 //        articleList.addAll(newestArticleList);
-//
+
 //        // 更新文章的标题
 //        ArticleUtils.updateTitle(articleList, 30);
-//
+
 //        return articleList;
-//    }
-//
-//    public Pagination getPagination(int page) {
-//        Integer articleTotalRecord = articleMapper.getArticleTotalRecord();
-//        return new Pagination(page, this.getIndexPageSize(), articleTotalRecord);
-//    }
-//
-//    public String getBlogTitle() {
-//        return (String) redisTemplate.opsForValue().get("blog_option_blog_title");
-//    }
-//
-//    public String getBlogDescription() {
-//        return (String) redisTemplate.opsForValue().get("blog_option_blog_description");
-//    }
-//
-//    private Integer getIndexPageSize() {
-//        return (Integer) redisTemplate.opsForValue().get("blog_option_index_page_size");
-//    }
+        return newestArticleList;
+    }
+
+    // 获取分页
+    public Pagination getPagination(Integer pageNumber) {
+        Integer articleTotalRecord = articleMapper.getArticleTotalRecord();
+        Integer indexPageSize = commonService.getIndexPageSize();
+        return new Pagination(pageNumber, indexPageSize, articleTotalRecord);
+    }
 
 }

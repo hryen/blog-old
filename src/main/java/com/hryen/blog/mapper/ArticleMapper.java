@@ -39,23 +39,20 @@ public interface ArticleMapper {
 
 
 
-
-
-
-//    // 查询非隐藏非置顶文章 按日期排序 带分页
-//    @Select("SELECT * FROM article WHERE status=0 ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
-//    @Results({
-//            @Result(column = "id", property = "id", id = true),
-//            @Result(column = "publish_date", property = "publishDate"),
-//            @Result(column = "last_modified_date", property = "lastModifiedDate"),
-//            @Result(column = "markdown_content", property = "markdownContent"),
-//            @Result(column = "html_content", property = "htmlContent"),
-//            @Result(column = "category_id", property = "category", javaType = Category.class,
-//                    one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryByCategoryId")),
-//            @Result(column = "id", property = "tagList", javaType = List.class,
-//                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
-//    })
-//    List<Article> getNewestArticlesWithPage(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
+    // 查询非隐藏非置顶文章 按日期排序 带分页
+    @Select("SELECT * FROM article WHERE status=0 ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
+    @Results({
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "publish_date", property = "publishDate"),
+            @Result(column = "last_modified_date", property = "lastModifiedDate"),
+            @Result(column = "markdown_content", property = "markdownContent"),
+            @Result(column = "html_content", property = "htmlContent"),
+            @Result(column = "category_name", property = "category", javaType = Category.class,
+                    one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryByCategoryName")),
+            @Result(column = "id", property = "tagList", javaType = List.class,
+                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
+    })
+    List<Article> getNewestArticlesWithPage(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
 
 
 
