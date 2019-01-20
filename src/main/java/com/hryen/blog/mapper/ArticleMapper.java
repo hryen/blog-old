@@ -13,6 +13,10 @@ public interface ArticleMapper {
     @Select("SELECT COUNT(0) FROM article WHERE status!=1")
     Integer getArticleTotalRecord();
 
+    // 根据分类name查询文章数 不计算隐藏文章
+    @Select("SELECT COUNT(0) FROM article WHERE category_name=#{categoryName} AND status!=1")
+    Integer getArticleTotalRecordByCategoryName(String categoryName);
+
     // 根据标签name查询文章数 不计算隐藏文章
     @Select("SELECT COUNT(0) FROM article WHERE id IN(SELECT article_id FROM article_tag WHERE tag_name=#{tagName}) AND status!=1")
     Integer getArticleTotalRecordByTagName(String tagName);
@@ -45,8 +49,8 @@ public interface ArticleMapper {
     })
     List<Article> getNewestArticlesWithPage(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
 
-    // 根据分类name查询非隐藏非置顶文章 按日期排序 带分页
-    @Select("SELECT * FROM article WHERE status=0 AND category_name=#{categoryName} ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
+    // 根据分类name查询非隐藏文章 按日期排序 带分页
+    @Select("SELECT * FROM article WHERE status!=1 AND category_name=#{categoryName} ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
     @Results({
             @Result(column = "id", property = "id", id = true),
             @Result(column = "publish_date", property = "publishDate"),
@@ -59,8 +63,8 @@ public interface ArticleMapper {
     })
     List<Article> getArticlesByCategoryNameWithPage(@Param("categoryName") String categoryName, @Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
 
-    // 根据标签name查询非隐藏非置顶文章 按日期排序 带分页
-    @Select("SELECT * FROM article WHERE id IN(SELECT article_id FROM article_tag WHERE tag_name=#{tagName}) AND status=0 ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
+    // 根据标签name查询非隐藏文章 按日期排序 带分页
+    @Select("SELECT * FROM article WHERE id IN(SELECT article_id FROM article_tag WHERE tag_name=#{tagName}) AND status!=1 ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
     @Results({
             @Result(column = "id", property = "id", id = true),
             @Result(column = "publish_date", property = "publishDate"),

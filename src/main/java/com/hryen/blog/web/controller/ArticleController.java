@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
@@ -22,13 +24,18 @@ public class ArticleController {
     private ControllerUtils controllerUtils;
 
     @GetMapping("/{str}")
-    public String getArticleByArticlePermalinkOrId(@PathVariable("str") String str, Model model) {
+    public String getArticleByArticlePermalinkOrId(@PathVariable("str") String str, Model model, HttpServletRequest request) {
+
+        Object user = request.getSession().getAttribute("user");
 
         Article article = articleService.getArticleByArticlePermalinkOrId(str);
 
-        // 如果文章不存在或被隐藏 返回404
-        if (null == article || '1' == article.getStatus()) {
-            return "error/404";
+        // 如果 没有登录
+        if (null == user) {
+            // 如果文章不存在 被隐藏 返回404
+            if (null == article || '1' == article.getStatus()) {
+                return "error/404";
+            }
         }
 
         // 获取博客的 标题，描述，导航，所属者

@@ -44,7 +44,7 @@ public class ControllerUtils {
 
 
 
-    // 获取博客的 标题，描述，导航，所属者 返回map
+    // 获取博客的 标题，描述，导航，所属者，所有标签list 返回一个map
     public Map<String, Object> getCommonAttributes() {
 
         String blogTitle = commonService.getBlogTitle();
