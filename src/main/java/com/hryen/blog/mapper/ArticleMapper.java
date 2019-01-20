@@ -17,8 +17,8 @@ public interface ArticleMapper {
     @Select("SELECT COUNT(0) FROM article WHERE id IN(SELECT article_id FROM article_tag WHERE tag_name=#{tagName}) AND status!=1")
     Integer getArticleTotalRecordByTagName(String tagName);
 
-    // 根据文章id查询文章
-    @Select("SELECT * FROM article WHERE id=#{articleId}")
+    // 根据文章id或固定链接查询文章
+    @Select("SELECT * FROM article WHERE id=#{str} OR permalink=#{str}")
     @Results({
             @Result(column = "id", property = "id", id = true),
             @Result(column = "publish_date", property = "publishDate"),
@@ -29,7 +29,7 @@ public interface ArticleMapper {
             @Result(column = "id", property = "tagList", javaType = List.class,
                     many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
     })
-    Article getArticleByArticleId(String articleId);
+    Article getArticleByArticlePermalinkOrId(String str);
 
     // 查询所有非隐藏非置顶文章 按日期排序 带分页
     @Select("SELECT * FROM article WHERE status=0 ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")

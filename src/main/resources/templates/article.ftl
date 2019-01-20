@@ -26,4 +26,5 @@
 
     </div>
 </main>
+
 <#include "common/footer.ftl">

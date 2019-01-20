@@ -18,6 +18,9 @@ public class Article implements Serializable {
     // 标题
     private String title;
 
+    // 固定链接
+    private String permalink;
+
     // 发布日期
     private Date publishDate;
 
@@ -64,6 +67,14 @@ public class Article implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getPermalink() {
+        return permalink;
+    }
+
+    public void setPermalink(String permalink) {
+        this.permalink = permalink;
     }
 
     public Date getPublishDate() {

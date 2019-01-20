@@ -21,10 +21,10 @@ public class ArticleController {
     @Autowired
     private ControllerUtils controllerUtils;
 
-    @GetMapping("/{id}")
-    public String getArticleByArticleId(@PathVariable("id") String articleId, Model model) {
+    @GetMapping("/{str}")
+    public String getArticleByArticlePermalinkOrId(@PathVariable("str") String str, Model model) {
 
-        Article article = articleService.getArticleByArticleId(articleId);
+        Article article = articleService.getArticleByArticlePermalinkOrId(str);
 
         // 如果文章不存在或被隐藏 返回404
         if (null == article || '1' == article.getStatus()) {

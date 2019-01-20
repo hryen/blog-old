@@ -9,7 +9,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="initial-scale=1, minimum-scale=1, width=device-width, shrink-to-fit=no"/>
     <#if description??>
-        <meta name="description" content="${description}"/>
+    <meta name="description" content="${description}"/>
     </#if>
 </head>
 <body>
@@ -23,6 +23,6 @@
 
     <nav class="nav d-flex align-items-center">
         <#list navigationList as nav>
-            <a href="${nav.url}" title="${nav.title}">${nav.title}</a>
+        <a href="${nav.url}" title="${nav.title}">${nav.title}</a>
         </#list>
     </nav>

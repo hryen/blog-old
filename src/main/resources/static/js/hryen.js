@@ -34,7 +34,7 @@ function backToTop() {
 
 
 
-// 分页相关 start
+// jump page
 // 监控jumpPageInput输入框回车事件
 var jumpPageInput = document.getElementById("jumpPageInput");
 if (null != jumpPageInput) {
@@ -58,4 +58,3 @@ function jumpPage() {
         location.href = location.pathname + "?page=" + pageNumber;
     }
 }
-// 分页相关 end

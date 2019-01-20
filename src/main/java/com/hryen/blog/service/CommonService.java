@@ -17,25 +17,25 @@ public class CommonService {
     private CommonMapper commonMapper;
 
     // 博客标题
-    @Cacheable(value = SYS_CONFIG_CACHE_PREFIX, key = "'blog.title'")
+    @Cacheable(value = SYS_CONFIG_CACHE_PREFIX, key = "'blog.title'", unless="#result == null")
     public String getBlogTitle() {
         return commonMapper.getSysConfig("blog.title");
     }
 
     // 博客描述
-    @Cacheable(value = SYS_CONFIG_CACHE_PREFIX, key = "'blog.description'")
+    @Cacheable(value = SYS_CONFIG_CACHE_PREFIX, key = "'blog.description'", unless="#result == null")
     public String getBlogDescription() {
         return commonMapper.getSysConfig("blog.description");
     }
 
     // 首页size
-    @Cacheable(value = SYS_CONFIG_CACHE_PREFIX, key = "'index.page.size'")
+    @Cacheable(value = SYS_CONFIG_CACHE_PREFIX, key = "'index.page.size'", unless="#result == null")
     public Integer getIndexPageSize() {
         return Integer.valueOf(commonMapper.getSysConfig("index.page.size"));
     }
 
     // 博客所属
-    @Cacheable(value = SYS_CONFIG_CACHE_PREFIX, key = "'blog.owner'")
+    @Cacheable(value = SYS_CONFIG_CACHE_PREFIX, key = "'blog.owner'", unless="#result == null")
     public String getBlogOwner() {
         return commonMapper.getSysConfig("blog.owner");
     }
@@ -66,7 +66,7 @@ public class CommonService {
     }
 
     // 获取导航list
-    @Cacheable(value = "blog_common", key = "'navigationList'")
+    @Cacheable(value = "blog_common", key = "'navigationList'", unless="#result == null")
     public List<Navigation> getNavigation() {
         return commonMapper.getNavigations();
     }

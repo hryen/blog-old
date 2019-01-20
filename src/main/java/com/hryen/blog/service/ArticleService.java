@@ -12,9 +12,9 @@ public class ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
 
-    @Cacheable(value = "blog_article", key = "#articleId")
-    public Article getArticleByArticleId(String articleId) {
-        return articleMapper.getArticleByArticleId(articleId);
+    @Cacheable(value = "blog_article", key = "#str", unless="#result == null")
+    public Article getArticleByArticlePermalinkOrId(String str) {
+        return articleMapper.getArticleByArticlePermalinkOrId(str);
     }
 
 }
