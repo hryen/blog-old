@@ -1,8 +1,5 @@
 package com.hryen.blog.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -22,17 +19,13 @@ public class Article implements Serializable {
     private String title;
 
     // 发布日期
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date publishDate;
 
     // 最后修改日期
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastModifiedDate;
 
     // 分类
-    private Category category;
+    private String categoryName;
 
     // 标签
     private List<Tag> tagList;
@@ -46,7 +39,7 @@ public class Article implements Serializable {
     // html格式内容
     private String htmlContent;
 
-    // 状态 0正常 1隐藏
+    // 状态 0正常 1隐藏 2置顶
     private Character status;
 
     public String getId() {
@@ -89,12 +82,12 @@ public class Article implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public List<Tag> getTagList() {

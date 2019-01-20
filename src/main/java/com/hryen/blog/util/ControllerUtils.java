@@ -1,7 +1,9 @@
 package com.hryen.blog.util;
 
 import com.hryen.blog.model.Navigation;
+import com.hryen.blog.model.Tag;
 import com.hryen.blog.service.CommonService;
+import com.hryen.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +17,13 @@ public class ControllerUtils {
     @Autowired
     private CommonService commonService;
 
+    @Autowired
+    private TagService tagService;
+
+    // 检查pageNumber合法性
     public int checkPage(String page) {
 
-        // 如果没有页码 返回第一页
+        // 如果没有页码 返回1
         if (null == page) {
             return 1;
         }
@@ -46,11 +52,15 @@ public class ControllerUtils {
         List<Navigation> navigationList = commonService.getNavigation();
         String blogOwner = commonService.getBlogOwner();
 
+        List<Tag> tagList = tagService.getAllTags();
+        tagList = TagUtils.updateTagsLevel(tagList);
+
         Map<String, Object> map = new HashMap<>();
         map.put("blogTitle", blogTitle);
         map.put("blogDescription", blogDescription);
         map.put("navigationList", navigationList);
         map.put("blogOwner", blogOwner);
+        map.put("tagList", tagList);
 
         return map;
     }

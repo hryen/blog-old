@@ -19,8 +19,13 @@ public class ApplicationInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         // 清空redis
-        logger.info("Execute Redis 'FLUSHALL'");
-        redisUtils.flushAll();
+        try {
+            logger.info("Clear redis");
+            redisUtils.flushAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Clear redis failed");
+        }
+
     }
 
 }

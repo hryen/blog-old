@@ -19,7 +19,7 @@ public interface CommonMapper {
     @Update("UPDATE `sys_config` SET `value` = #{value} WHERE variable = #{variable}")
     void updateSysConfig(@PathVariable("variable") String variable, @PathVariable("value") String value);
 
-    // 获取导航list
+    // 获取导航list 根据order排序
     @Select("SELECT * FROM `navigation` ORDER BY `order`")
-    List<Navigation> getNavigation();
+    List<Navigation> getNavigations();
 }

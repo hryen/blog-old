@@ -10,7 +10,7 @@ public class RedisUtils {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    // 清空所有
+    // flushAll
     public void flushAll() {
         stringRedisTemplate.getConnectionFactory().getConnection().flushAll();
     }

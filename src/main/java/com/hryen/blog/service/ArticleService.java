@@ -12,8 +12,7 @@ public class ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
 
-    // unless = "#result == null" 如果是null 不缓存
-    @Cacheable(value = "article", key = "#articleId", unless = "#result == null")
+    @Cacheable(value = "blog_article", key = "#articleId")
     public Article getArticleByArticleId(String articleId) {
         return articleMapper.getArticleByArticleId(articleId);
     }

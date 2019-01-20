@@ -2,6 +2,7 @@ package com.hryen.blog.model;
 
 import java.io.Serializable;
 
+// 导航数据模型
 public class Navigation implements Serializable {
 
     private static final long serialVersionUID = 2132777180894839572L;

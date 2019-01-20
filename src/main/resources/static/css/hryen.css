@@ -1,7 +1,9 @@
+
+
 body {
     margin: 0;
     background-color: #fafafa;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .container {
@@ -18,19 +20,50 @@ body {
 
 
 
-/* commons start */
-.d-flex {
-    display: flex;
+/* Material Icons */
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+/* Custom icon color. */
+.material-icons.black222 { color: #222222; }
+
+
+
+/* common start */
+.d-flex { display: flex; }
+
+.align-items-center { align-items: center; }
+
+.text-center { text-align: center; }
+
+h1, h2, h3, h4, h5, h6 {
+    color: #333333;
+    margin: 0;
 }
 
-.align-items-center {
-    align-items: center;
-}
+h1 { font-size: 2.6em; }
 
-.text-center {
-    text-align: center;
-}
-/* commons end */
+h2 { font-size: 1.95em; }
+
+h3 { font-size: 1.521em; }
+
+h4 { font-size: 1.3em; }
+
+h5 { font-size: 1.079em; }
+
+h6 { font-size: 0.871em; }
+/* common end */
 
 /* header start */
 .header {
@@ -63,7 +96,7 @@ body {
 .nav a {
     color: #000;
     text-decoration: none;
-    font-size: .875rem;
+    font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0.01071em;
@@ -95,25 +128,14 @@ body {
 	top: 90%;
 }
 
-.backtotop-ico {
-	color: #222222;
-    display: inline-block;
-    border-top: 2px solid;
-    border-right: 2px solid;
-    width: 15px;
-    height: 15px;
-    transform: rotate(-45deg);
-}
-
-
 .first-article {
     box-shadow: 0 1px 5px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
     max-width: 100%;
     color: #fff;
     background-color: #424242;
     border-radius: 4px;
-    padding: 46px;
-    padding-right: 20%;
+    padding: 36px;
+    padding-right: 24%;
 }
 
 .first-article h2 {
@@ -159,14 +181,15 @@ body {
 
 .articles {
     max-width: 66.666667%;
-    padding: 20px;
+    padding: 18px;
     box-sizing: border-box;
 }
 
 
 
 .article {
-    padding: 24px 0;
+    padding: 22px 0;
+    box-sizing: border-box;
 }
 
 .article .title {
@@ -215,7 +238,7 @@ body {
 
 .aside {
     max-width: 33.333333%;
-    padding: 20px;
+    padding: 18px;
     box-sizing: border-box;
 }
 
@@ -244,7 +267,7 @@ body {
 /* tags start */
 
 .aside .tags {
-    padding: 16px;
+    padding: 14px;
     background-color: #eeeeee;
     border-radius: 4px;
 }

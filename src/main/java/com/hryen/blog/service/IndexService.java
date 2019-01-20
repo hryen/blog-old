@@ -4,6 +4,7 @@ import com.hryen.blog.mapper.ArticleMapper;
 import com.hryen.blog.model.Article;
 import com.hryen.blog.model.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class IndexService {
     @Autowired
     private ArticleMapper articleMapper;
 
+    @Cacheable(value = "blog_index", key = "'articleList'")
     public List<Article> getIndexWithPage(Integer pageNumber, Integer startIndex) {
 
 //        // 创建文章集合

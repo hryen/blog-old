@@ -34,7 +34,28 @@ function backToTop() {
 
 
 
-// insert year to copyright
-var year = new Date().getFullYear();
-var copyright = document.getElementById("copyright");
-copyright.innerHTML = "&copy; " + year + " " + copyright.innerHTML;
+// 分页相关 start
+// 监控jumpPageInput输入框回车事件
+var jumpPageInput = document.getElementById("jumpPageInput");
+if (null != jumpPageInput) {
+    jumpPageInput.onkeydown = function(ev) {
+        if (ev.keyCode == 13) {
+            var pageNumber = jumpPageInput.value;
+            // 如果不是空 则触发jumpPage()
+            if ("" != pageNumber) {
+                jumpPage();
+            }
+        }
+    }
+}
+
+// 跳转到指定页数
+function jumpPage() {
+    // 获取跳转的页码
+    var pageNumber = document.getElementById("jumpPageInput").value;
+    // 如果不是空 则执行跳转
+    if ("" != pageNumber) {
+        location.href = location.pathname + "?page=" + pageNumber;
+    }
+}
+// 分页相关 end
