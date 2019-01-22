@@ -5,7 +5,11 @@
 
     <#--list中第一篇文章 要么是置顶的要么是最新的-->
     <div class="first-article">
-        <h2><a href="${request.contextPath}/article/${articleList[0].id}">${articleList[0].title}</a></h2>
+        <#if articleList[0].permalink??>
+            <h2><a href="${request.contextPath}/article/${articleList[0].permalink}">${articleList[0].title}</a></h2>
+        <#else>
+            <h2><a href="${request.contextPath}/article/${articleList[0].id}">${articleList[0].title}</a></h2>
+        </#if>
         ${articleList[0].summary}
     </div>
 
@@ -22,8 +26,15 @@
                     <#continue>
                 </#if>
                 <div class="article">
-                    <h6 class="title"><a href="${request.contextPath}/article/${article.id}">${article.title}</a></h6>
+
+                    <#if article.permalink??>
+                        <h6 class="title"><a href="${request.contextPath}/article/${article.permalink}">${article.title}</a></h6>
+                    <#else>
+                        <h6 class="title"><a href="${request.contextPath}/article/${article.id}">${article.title}</a></h6>
+                    </#if>
+
                     <p class="date">${article.publishDate?string("MMM dd, yyyy")}</p>
+
                     ${article.summary}
                 </div>
             </#list>

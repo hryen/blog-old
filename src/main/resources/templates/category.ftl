@@ -13,7 +13,11 @@
 
             <#list articleList as article>
                 <div class="article">
-                    <h6 class="title"><a href="${request.contextPath}/article/${article.id}">${article.title}</a></h6>
+                    <#if article.permalink??>
+                        <h6 class="title"><a href="${request.contextPath}/article/${article.permalink}">${article.title}</a></h6>
+                    <#else>
+                        <h6 class="title"><a href="${request.contextPath}/article/${article.id}">${article.title}</a></h6>
+                    </#if>
                     <p class="date">${article.publishDate?string("MMM dd, yyyy")}</p>
                     ${article.summary}
                 </div>
