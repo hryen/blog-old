@@ -36,4 +36,13 @@ public class Navigation implements Serializable {
     public void setOrder(Integer order) {
         this.order = order;
     }
+
+    @Override
+    public String toString() {
+        return "Navigation{" +
+                "title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", order=" + order +
+                '}';
+    }
 }

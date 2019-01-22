@@ -12,10 +12,9 @@ public class FreemarkerExceptionHandler implements TemplateExceptionHandler {
     @Override
     public void handleTemplateException(TemplateException te, Environment env, Writer out) throws TemplateException {
         try {
-            out.write("Error");
-            out.close();
+            out.write("ERROR");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new TemplateException("Failed to print error message. Cause: " + e, env);
         }
     }
 

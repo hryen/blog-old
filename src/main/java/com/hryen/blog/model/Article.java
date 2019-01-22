@@ -140,4 +140,22 @@ public class Article implements Serializable {
     public void setStatus(Character status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id='" + id + '\'' +
+                ", type='" + type + '\'' +
+                ", title='" + title + '\'' +
+                ", permalink='" + permalink + '\'' +
+                ", publishDate=" + publishDate +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", categoryName='" + categoryName + '\'' +
+                ", tagList=" + tagList +
+                ", summary='" + summary + '\'' +
+                ", markdownContent='" + markdownContent + '\'' +
+                ", htmlContent='" + htmlContent + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

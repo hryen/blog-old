@@ -40,4 +40,12 @@ public class Tag implements Serializable {
         this.level = level;
     }
 
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "name='" + name + '\'' +
+                ", articleCount=" + articleCount +
+                ", level=" + level +
+                '}';
+    }
 }

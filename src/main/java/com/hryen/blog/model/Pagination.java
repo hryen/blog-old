@@ -65,4 +65,15 @@ public class Pagination {
     public void setTotalPage(Integer totalPage) {
         this.totalPage = totalPage;
     }
+
+    @Override
+    public String toString() {
+        return "Pagination{" +
+                "PageNumber=" + PageNumber +
+                ", pageSize=" + pageSize +
+                ", startIndex=" + startIndex +
+                ", totalRecord=" + totalRecord +
+                ", totalPage=" + totalPage +
+                '}';
+    }
 }

@@ -1,7 +1,6 @@
 <#assign title = blogTitle>
 <#assign description = blogDescription>
 <#include "common/header.ftl">
-
 <main>
 
     <#--list中第一篇文章 要么是置顶的要么是最新的-->
