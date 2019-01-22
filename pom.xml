@@ -56,19 +56,6 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
-        <!--markdown-->
-        <dependency>
-            <groupId>com.vladsch.flexmark</groupId>
-            <artifactId>flexmark</artifactId>
-            <version>${flexmark.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vladsch.flexmark</groupId>
-            <artifactId>flexmark-util</artifactId>
-            <version>${flexmark.version}</version>
-        </dependency>
-
-
         <!--other-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

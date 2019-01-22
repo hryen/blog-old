@@ -21,7 +21,10 @@
                             </#list>
                         </#if>
                     </p>
-                    ${article.htmlContent}
+            <div class="markdown-body">
+                ${article.htmlContent}
+            </div>
+
         </article>
 
     </div>

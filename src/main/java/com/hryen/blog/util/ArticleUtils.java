@@ -1,9 +1,6 @@
 package com.hryen.blog.util;
 
 import com.hryen.blog.model.Article;
-import com.vladsch.flexmark.ast.Node;
-import com.vladsch.flexmark.html.HtmlRenderer;
-import com.vladsch.flexmark.parser.Parser;
 import java.util.List;
 
 public class ArticleUtils {
@@ -23,15 +20,6 @@ public class ArticleUtils {
             return title.substring(0, index) + "...";
         }
         return title;
-    }
-
-    // markdown to html
-    public static String markdownToHTML(String str) {
-        Parser parser = Parser.builder().build();
-        Node node = parser.parse(str);
-        HtmlRenderer renderer = HtmlRenderer.builder().build();
-        String render = renderer.render(node);
-        return render;
     }
 
 }
