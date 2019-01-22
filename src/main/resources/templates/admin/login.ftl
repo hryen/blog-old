@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Log In</title>
-    </head>
-    <body>
-        <form action="${request.contextPath}/admin/login" method="post">
-            Username:<input type="text" name="username">
-            Password:<input type="password" name="password">
-            <input type="submit" value="submit">
-            <input type="reset" value="reset">
-        </form>
-    </body>
+<head>
+    <title>Login</title>
+    <style>
+        .input {
+            width: 200px;
+            height: 20px;
+            margin: 2px 0;
+        }
+    </style>
+</head>
+<body>
+<form action="/admin/login" method="post">
+    <#if message??><p style="color: red;margin: 3px 0;">${message}</p></#if>
+    <input class="input" type="text" name="username" placeholder="Username">
+    <br>
+    <input class="input" type="password" name="password" placeholder="Password">
+    <br>
+    <input type="submit" value="submit">
+    <input type="reset" value="reset">
+</form>
+</body>
 </html>

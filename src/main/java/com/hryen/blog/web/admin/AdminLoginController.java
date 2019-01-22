@@ -22,11 +22,12 @@ public class AdminLoginController {
     }
 
     @PostMapping("/login")
-    public String login(String username, String password, HttpServletRequest request) {
+    public String login(String username, String password, HttpServletRequest request, Model model) {
         if (username.equals("henry") && password.equals("123.com")) {
             request.getSession().setAttribute("user", "henry");
         } else {
-            return "redirect:/admin/login";
+            model.addAttribute("message", "Login failed");
+            return "admin/login";
         }
         return "redirect:/admin";
     }
