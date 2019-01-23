@@ -11,13 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/admin")
 public class AdminIndexController {
 
+    // admin首页
     @GetMapping("/index")
     public String getAdminIndex(HttpServletRequest request, Model model) {
-        Object username = request.getSession().getAttribute("user");
-        model.addAttribute("username", username);
+        Object user = request.getSession().getAttribute("user");
+        model.addAttribute("user", user);
         return "admin/index";
     }
 
+    // 跳转到admin首页
     @GetMapping("")
     public String redirect() {
         return "redirect:/admin/index";

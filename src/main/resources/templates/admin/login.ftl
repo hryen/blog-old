@@ -13,7 +13,7 @@
 <body>
 <form action="/admin/login" method="post">
     <#if message??><p style="color: red;margin: 3px 0;">${message}</p></#if>
-    <input class="input" type="text" name="username" placeholder="Username">
+    <input class="input" type="text" name="username" placeholder="Username" autofocus>
     <br>
     <input class="input" type="password" name="password" placeholder="Password">
     <br>

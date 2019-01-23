@@ -4,6 +4,6 @@
     <title>Index - Admin</title>
 </head>
 <body>
-Welcome back, ${username}.
+Welcome back, ${user.username}.
 </body>
 </html>

@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: #fafafa;
+    background-color: #ffffff;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
@@ -14,6 +14,25 @@ body {
         width: auto;
         margin: 0 24px;
     }
+}
+
+
+
+/*文章页*/
+.title {
+    margin: 0 0 0.2em 0;
+    font-size: 2em;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #24292e;
+}
+
+.info {
+    margin: 0 0 16px 0;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.6;
 }
 
 
@@ -129,24 +148,12 @@ body {
 .align-items-center { align-items: center; }
 
 .text-center { text-align: center; }
-
-h1, h2, h3, h4, h5, h6 {
-    color: #333333;
-    margin: 0;
-}
-
-h1 { font-size: 2.6em; }
-
-h2 { font-size: 1.95em; }
-
-h3 { font-size: 1.521em; }
-
-h4 { font-size: 1.3em; }
-
-h5 { font-size: 1.079em; }
-
-h6 { font-size: 0.871em; }
 /* common end */
+
+
+
+
+
 
 /* header start */
 .header {
@@ -168,6 +175,11 @@ h6 { font-size: 0.871em; }
     letter-spacing: 0em;
 }
 /* header end */
+
+
+
+
+
 
 /* nav start */
 .nav {
@@ -192,6 +204,9 @@ h6 { font-size: 0.871em; }
 
 
 
+
+
+/* footer start */
 .footer {
 	margin-top: 48px;
 	margin-bottom: 32px;
@@ -204,12 +219,35 @@ h6 { font-size: 0.871em; }
     line-height: 1.5;
     letter-spacing: 0.01071em;
 }
+/* footer end */
+
+
+
+
+
 
 #backtotop {
 	position: fixed;
-	right: 3%;
+	right: 2%;
 	top: 90%;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .first-article {
     box-shadow: 0 1px 5px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
@@ -246,13 +284,6 @@ h6 { font-size: 0.871em; }
     font-weight: 400;
     line-height: 1.33;
 }
-
-
-
-
-
-
-
 
 .content {
     display: flex;
