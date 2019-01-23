@@ -12,15 +12,15 @@
 </head>
 <body>
 <div class="container">
-
+    <#--header-->
     <header class="header d-flex align-items-center">
         <div class="site-title text-center">
             <a href="${request.contextPath}/">${blogTitle!}</a>
         </div>
     </header>
-
+    <#--navigation-->
     <nav class="nav d-flex align-items-center">
         <#list navigationList as nav>
-        <a href="${nav.url}" title="${nav.title}">${nav.title}</a>
+            <a href="${nav.url}" title="${nav.title}">${nav.title}</a>
         </#list>
     </nav>
