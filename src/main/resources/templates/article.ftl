@@ -2,25 +2,22 @@
 <#assign description = article.title>
 <#include "common/header.ftl">
 
-<main style="margin-top: 20px;">
-    <article style="max-width: 100%; margin: 0 auto;padding: 0 24px;">
+<main>
+    <article class="article">
 
-                <h2 class="title">${article.title}</h2>
-                <p class="info">
-                    ${article.publishDate?string("MMM dd, yyyy")}
+        <h2 class="title">${article.title}</h2>
+        <p class="info">
+            ${article.publishDate?string("MMM dd, yyyy")}
+            ${article.categoryName!}
 
-                    <#if article.categoryName??>
-                        ${article.categoryName}
-                    </#if>
+            <#if article.tagList?? && article.tagList?size gt 0>
+                <#list article.tagList as tag>
+                    ${tag.name}
+                </#list>
+            </#if>
+        </p>
 
-                    <#if article.tagList?? && article.tagList?size gt 0>
-                        <#list article.tagList as tag>
-                            ${tag.name}
-                        </#list>
-                    </#if>
-                </p>
-
-            <div class="markdown-body" style="max-width: 96%;margin: 0 auto;">
+        <div class="markdown-body">
             ${article.htmlContent}
         </div>
 
