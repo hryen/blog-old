@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface TagMapper {
 
-    // 查询所有标签
+    // 1.查询所有标签
     @Select("SELECT * FROM tag")
     @Results({
             @Result(column = "name", property = "name", id = true),
@@ -18,7 +18,7 @@ public interface TagMapper {
     })
     List<Tag> getAllTags();
 
-    // 根据文章id查询所关联的所有标签
+    // 2.根据文章id查询所关联的所有标签
     @Select("SELECT * FROM tag WHERE name IN(SELECT tag_name FROM article_tag WHERE article_id=#{articleId})")
     @Results({
             @Result(column = "name", property = "name", id = true),
@@ -26,5 +26,9 @@ public interface TagMapper {
                     one = @One(select = "com.hryen.blog.mapper.ArticleMapper.getArticleTotalRecordByTagName", fetchType = FetchType.LAZY))
     })
     List<Tag> getTagsByArticleId(String articleId);
+
+    // 3.向tag表添加一个tag 如果已存在 则更新name
+    @Insert("INSERT INTO tag(name) VALUES (#{tagName}) ON DUPLICATE KEY UPDATE name=#{tagName}")
+    void insertArticleBindTag(@Param("tagName") String tagName);
 
 }

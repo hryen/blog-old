@@ -29,7 +29,7 @@ main {
 }
 
 .article .title {
-    margin: 0 0 0.2em 0;
+    margin: 0 0 0.3em 0;
     font-size: 2em;
     line-height: 1.2;
     font-weight: 400;
@@ -37,11 +37,29 @@ main {
 }
 
 .article .info {
-    margin: 0 0 16px 0;
+    margin-top: 0;
+    margin-bottom: 16px;
     color: rgba(0, 0, 0, 0.87);
     font-size: 0.9rem;
     font-weight: 400;
-    line-height: 1.6;
+}
+
+.article .info * {
+    margin-left: 10px;
+}
+
+.article .info > :first-child {
+     margin-left: 0;
+}
+
+.article .info a {
+    margin-left: 0;
+    color: #222;
+    text-decoration: none;
+}
+
+.article .info a:hover {
+    text-decoration: underline;
 }
 
 .article .markdown-body {
@@ -77,6 +95,9 @@ main {
 
 /* Custom icon color. */
 .material-icons.black222 { color: #222222; }
+
+/* Custom icon style. */
+.material-icons { vertical-align: text-bottom; }
 
 
 
@@ -243,8 +264,11 @@ main {
 }
 /* footer end */
 
-
-
+/*other*/
+.error-info {
+    margin: 10%;
+    font-weight: 400;
+}
 
 
 

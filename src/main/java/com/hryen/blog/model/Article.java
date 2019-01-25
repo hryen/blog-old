@@ -1,5 +1,7 @@
 package com.hryen.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -22,9 +24,11 @@ public class Article implements Serializable {
     private String permalink;
 
     // 发布日期
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date publishDate;
 
     // 最后修改日期
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date lastModifiedDate;
 
     // 分类
@@ -44,6 +48,9 @@ public class Article implements Serializable {
 
     // 状态 0正常 1隐藏 2置顶
     private Character status;
+
+    // 是否允许评论
+    private boolean commentStatus;
 
     public String getId() {
         return id;
@@ -141,6 +148,14 @@ public class Article implements Serializable {
         this.status = status;
     }
 
+    public boolean isCommentStatus() {
+        return commentStatus;
+    }
+
+    public void setCommentStatus(boolean commentStatus) {
+        this.commentStatus = commentStatus;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
@@ -156,6 +171,7 @@ public class Article implements Serializable {
                 ", markdownContent='" + markdownContent + '\'' +
                 ", htmlContent='" + htmlContent + '\'' +
                 ", status=" + status +
+                ", commentStatus=" + commentStatus +
                 '}';
     }
 }

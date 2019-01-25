@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -42,6 +44,7 @@ public class CommonService {
 
     // 更新博客标题
     @CacheEvict(value = SYS_CONFIG_CACHE_PREFIX, key = "'blog.title'")
+    @Transactional
     public void updateBlogTitle(String title) {
         commonMapper.updateSysConfig("blog.title", title);
     }
@@ -49,18 +52,21 @@ public class CommonService {
 
     // 更新博客描述
     @CacheEvict(value = SYS_CONFIG_CACHE_PREFIX, key = "'blog.description'")
+    @Transactional
     public void updateBlogDescription(String description) {
         commonMapper.updateSysConfig("blog.description", description);
     }
 
     // 更新首页size
     @CacheEvict(value = SYS_CONFIG_CACHE_PREFIX, key = "'index.page.size'")
+    @Transactional
     public void updateIndexPageSize(Integer size) {
         commonMapper.updateSysConfig("index.page.size", String.valueOf(size));
     }
 
     // 更新博客所属
     @CacheEvict(value = SYS_CONFIG_CACHE_PREFIX, key = "'blog.owner'")
+    @Transactional
     public void updateBlogOwner(String owner) {
         commonMapper.updateSysConfig("blog.owner", owner);
     }
