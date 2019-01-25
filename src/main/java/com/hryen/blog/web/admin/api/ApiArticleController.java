@@ -3,6 +3,7 @@ package com.hryen.blog.web.admin.api;
 import com.hryen.blog.model.Article;
 import com.hryen.blog.service.ApiArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
@@ -51,6 +52,9 @@ public class ApiArticleController {
             apiArticleService.updateArticleSettingsByArticleId(data);
             resultMap.put("result", true);
             resultMap.put("message", "Success");
+        } catch (DuplicateKeyException e) {
+            resultMap.put("result", false);
+            resultMap.put("message", "Duplicate Key");
         } catch (Exception e) {
             e.printStackTrace();
             resultMap.put("result", false);
