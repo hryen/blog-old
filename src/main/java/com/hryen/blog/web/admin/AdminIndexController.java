@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/admin")
 public class AdminIndexController {
 
-    // admin首页
+    // 1.后台首页
     @GetMapping("/index")
     public String getAdminIndex(HttpServletRequest request, Model model) {
         Object user = request.getSession().getAttribute("user");

@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-<form action="/admin/login" method="post">
+<form action="${request.contextPath}/admin/login" method="post">
     <#if message??><p style="color: red;margin: 3px 0;">${message}</p></#if>
     <input class="input" type="text" name="username" placeholder="Username" autofocus>
     <br>
