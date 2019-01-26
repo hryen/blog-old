@@ -23,7 +23,7 @@
 
 
 <script>
-    Vue.prototype.$axios = axios.create({ baseURL: '${request.contextPath}/' });
+    Vue.prototype.$axios = axios.create({ baseURL: '${request.contextPath}' });
 
     var Main = {
         data() {
