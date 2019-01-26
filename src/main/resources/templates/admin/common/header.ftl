@@ -23,7 +23,7 @@
             <el-aside width="240px">
                 <el-menu default-active=${active}>
 
-                    <a style="text-decoration: none;" href="${request.contextPath}/admin/index">
+                    <a style="text-decoration: none;" href="${request.contextPath}/admin">
                         <el-menu-item index="1"><i class="el-icon-info"></i><span slot="title">仪表盘</span>
                         </el-menu-item>
                     </a>
