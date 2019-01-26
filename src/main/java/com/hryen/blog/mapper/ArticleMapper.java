@@ -22,9 +22,17 @@ public interface ArticleMapper {
     @Select("SELECT COUNT(0) FROM article WHERE category_name=#{categoryName} AND status IN(0,2)")
     Integer getArticleTotalRecordByCategoryName(String categoryName);
 
+    // 根据分类name查询文章数
+    @Select("SELECT COUNT(0) FROM article WHERE category_name=#{categoryName}")
+    Integer countArticleTotalRecordByCategoryName(String categoryName);
+
     // 根据标签name查询文章数 不计算隐藏文章
     @Select("SELECT COUNT(0) FROM article WHERE id IN(SELECT article_id FROM article_tag WHERE tag_name=#{tagName}) AND status IN(0,2)")
     Integer getArticleTotalRecordByTagName(String tagName);
+
+    // 根据标签name查询文章数
+    @Select("SELECT COUNT(0) FROM article WHERE id IN(SELECT article_id FROM article_tag WHERE tag_name=#{tagName})")
+    Integer countArticleTotalRecordByTagName(String tagName);
 
     // 根据文章id或固定链接查询文章
     @Select("SELECT * FROM article WHERE id=#{str} OR permalink=#{str}")

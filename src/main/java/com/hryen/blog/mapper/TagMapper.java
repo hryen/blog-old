@@ -14,6 +14,15 @@ public interface TagMapper {
     @Results({
             @Result(column = "name", property = "name", id = true),
             @Result(column = "name", property = "articleCount", javaType = Integer.class,
+                    one = @One(select = "com.hryen.blog.mapper.ArticleMapper.countArticleTotalRecordByTagName"))
+    })
+    List<Tag> listAllTag();
+
+    // 1.查询所有标签
+    @Select("SELECT * FROM tag")
+    @Results({
+            @Result(column = "name", property = "name", id = true),
+            @Result(column = "name", property = "articleCount", javaType = Integer.class,
                     one = @One(select = "com.hryen.blog.mapper.ArticleMapper.getArticleTotalRecordByTagName"))
     })
     List<Tag> getAllTags();

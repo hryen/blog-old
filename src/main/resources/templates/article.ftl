@@ -5,8 +5,8 @@
     <article class="article">
         <h2 class="title">${article.title}</h2>
         <p class="info">
-            <i class="material-icons md-18 md-dark">date_range</i>
-            ${article.publishDate?string("MMM dd, yyyy")}
+            ${article.lastModifiedDate?string("MMM dd, yyyy")}
+
             <#--category-->
             <#if article.categoryName?exists>
                 <i class="material-icons md-18 md-dark">folder</i>

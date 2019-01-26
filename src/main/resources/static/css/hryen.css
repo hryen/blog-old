@@ -48,10 +48,6 @@ main {
     margin-left: 10px;
 }
 
-.article .info > :first-child {
-     margin-left: 0;
-}
-
 .article .info a {
     margin-left: 0;
     color: #222;
