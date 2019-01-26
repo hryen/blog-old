@@ -89,4 +89,10 @@ public class ApiArticleService {
         }
     }
 
+    // 7.按文章id将文章从已删除修改为已隐藏
+    @Transactional
+    public void restoreArticleById(String articleId) {
+        articleMapper.updateArticleStatusByArticleId(articleId, 1);
+    }
+
 }

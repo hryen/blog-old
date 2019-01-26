@@ -147,7 +147,7 @@
 
 
 <script>
-    Vue.prototype.$axios = axios.create({ baseURL: 'http://localhost:90' });
+    Vue.prototype.$axios = axios.create({ baseURL: '${request.contextPath}' });
 	
     var Main = {
 		data() {

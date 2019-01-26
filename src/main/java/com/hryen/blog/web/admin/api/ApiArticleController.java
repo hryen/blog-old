@@ -87,4 +87,26 @@ public class ApiArticleController {
         }
     }
 
+    // 7.按文章id将文章从已删除修改为已隐藏
+    @PostMapping("/restoreArticleById")
+    public Map restoreArticleById(@RequestBody Map data) {
+
+        // 获取文章id
+        String articleId = (String) data.get("articleId");
+
+        Map<String, Object> resultMap = new LinkedHashMap<>();
+        try {
+            // 执行恢复
+            apiArticleService.restoreArticleById(articleId);
+            resultMap.put("result", true);
+            resultMap.put("message", "Success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("result", false);
+            resultMap.put("message", "failure");
+        } finally {
+            return resultMap;
+        }
+    }
+
 }
