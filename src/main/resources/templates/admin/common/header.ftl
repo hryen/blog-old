@@ -12,18 +12,18 @@
 <body style="margin: 0;background-color: #F2F6FC">
 <div id="app">
     <el-container>
-        <!-- header -->
+        <#-- header -->
         <el-header style="background-color: #6699CC;height: 80px;border-top-left-radius: 6px;border-top-right-radius: 6px;">
         </el-header>
 
 
 
         <el-container>
-            <!-- menu -->
+            <#-- menu -->
             <el-aside width="240px">
-                <el-menu default-active=${active}>
+                <el-menu default-active=${activeMenu}>
 
-                    <a style="text-decoration: none;" href="${request.contextPath}/admin">
+                    <a style="text-decoration: none;" href="${request.contextPath}/admin/index">
                         <el-menu-item index="1"><i class="el-icon-info"></i><span slot="title">仪表盘</span>
                         </el-menu-item>
                     </a>

@@ -1,10 +1,10 @@
-<#assign title = "文章列表 - 文章管理">
-<#assign active = "2-2">
+<#assign title = "所有文章 - 文章管理">
+<#assign activeMenu = "2-2">
 <#include "common/header.ftl">
 
 			<el-container>
                 <el-main>
-<!-- breadcrumb -->
+<#-- breadcrumb -->
                     <el-breadcrumb separator="/" style="margin-bottom: 20px;float: left;">
                         <el-breadcrumb-item><a href="${request.contextPath}/admin">首页</a></el-breadcrumb-item>
                         <el-breadcrumb-item>文章管理</el-breadcrumb-item>
@@ -13,7 +13,7 @@
 					<el-row style="float: right;">
 						<el-button size="mini" icon="el-icon-refresh" plain @click="getAllArticleWithPage()">刷新</el-button>
 					</el-row>
-<!-- table -->
+<#-- table -->
                     <template>
                         <el-table border size="medium" stripe :data="tableData"
 						:default-sort="{prop: 'publishDate', order: 'descending'}"
@@ -87,7 +87,7 @@
                         </el-table>
                     </template>
 
-<!-- pagination -->
+<#-- pagination -->
                     <el-pagination prev-text="上一页" next-text="下一页" style="margin-top: 10px;"
 					@size-change="handleSizeChange" @current-change="handleCurrentChange"
 					layout="total, sizes, prev, pager, next, jumper"
@@ -96,7 +96,7 @@
 
                 </el-main>
 				
-<!-- footer -->
+<#-- footer -->
 				<#include "common/footer.ftl">
             </el-container>
         </el-container>
@@ -104,7 +104,7 @@
 	
 	
 	
-<!-- dialogSetting -->
+<#-- dialogSetting -->
 	<el-dialog title="设置" :visible.sync="dialogSetting" width="30%">
 		<el-form :model="form" label-width="80px">
 			<el-form-item label="标题"><el-input v-model="form.title"></el-input></el-form-item>

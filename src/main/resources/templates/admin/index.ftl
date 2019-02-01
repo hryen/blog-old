@@ -1,5 +1,5 @@
 <#assign title = "首页">
-<#assign active = "1">
+<#assign activeMenu = "1">
 <#include "common/header.ftl">
 
             <el-container>
