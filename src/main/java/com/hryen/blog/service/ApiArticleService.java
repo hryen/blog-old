@@ -5,10 +5,12 @@ import com.hryen.blog.mapper.TagMapper;
 import com.hryen.blog.model.Article;
 import com.hryen.blog.model.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ApiArticleService {
@@ -18,6 +20,9 @@ public class ApiArticleService {
 
     @Autowired
     private TagMapper tagMapper;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     // 1.获取所有文章的总数 不包含回收站里的
     public Integer getAllArticleTotalRecord() {
@@ -75,9 +80,14 @@ public class ApiArticleService {
             articleMapper.insertArticleBindTag(id, tagName);
         }
 
+        //删除redis
+        cleanRedisArticleByArticleId(id);
+        cleanRedisArticleByArticlePermalink(permalink);
+
     }
 
     // 6.根据文章id删除文章 realDelete为true代表删除 为false代表标记为删除
+
     @Transactional
     public void deleteArticleByArticleId(String id, boolean realDelete) {
         if (realDelete) {
@@ -87,12 +97,30 @@ public class ApiArticleService {
         } else {
             articleMapper.updateArticleStatusByArticleId(id, 3); // status:3代表已删除
         }
+
+        //删除redis
+        cleanRedisArticleByArticleId(id);
     }
 
     // 7.按文章id将文章从已删除修改为已隐藏
     @Transactional
     public void restoreArticleById(String articleId) {
         articleMapper.updateArticleStatusByArticleId(articleId, 1);
+        cleanRedisArticleByArticleId(articleId);
+    }
+
+    // 按文章id删除redis
+    private void cleanRedisArticleByArticleId(String id) {
+        if (null != id) {
+            stringRedisTemplate.boundValueOps("blog_article::" + id).expire(0, TimeUnit.SECONDS);
+        }
+    }
+
+    // 按文章固定链接删除redis
+    private void cleanRedisArticleByArticlePermalink(String permalink) {
+        if (null != permalink) {
+            stringRedisTemplate.boundValueOps("blog_article::" + permalink).expire(0, TimeUnit.SECONDS);
+        }
     }
 
 }
