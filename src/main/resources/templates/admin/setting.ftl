@@ -10,12 +10,16 @@
                         <el-breadcrumb-item>博客设置</el-breadcrumb-item>
                     </el-breadcrumb>
 
-                    <el-tabs v-model="activeName">
-                        <el-tab-pane label="用户管理" name="userManagement">用户管理</el-tab-pane>
+                    <el-tabs value="cacheManagement">
+
                         <el-tab-pane label="缓存管理" name="cacheManagement">
                             <el-button @click="cleanIndexArticleListCache">清除首页文章缓存</el-button>
                             <el-button @click="cleanArticleCache">清除所有文章缓存</el-button>
                             <el-button @click="cleanBlogSysConfigCache">清除博客设置缓存</el-button>
+                        </el-tab-pane>
+
+                        <el-tab-pane label="用户管理" name="userManagement">
+
                         </el-tab-pane>
                     </el-tabs>
                 </el-main>
@@ -36,9 +40,7 @@
 
     var Main = {
         data() {
-            return {
-                activeName: 'userManagement'
-            }
+            return {}
         },
 
         mounted() {},
