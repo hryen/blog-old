@@ -5,7 +5,7 @@
             <el-container>
                 <el-main>
                     <!-- breadcrumb -->
-                    <el-breadcrumb separator="/" style="margin-bottom: 20px;float: left;">
+                    <el-breadcrumb separator="/" style="margin-bottom: 20px;">
                         <el-breadcrumb-item>首页</el-breadcrumb-item>
                     </el-breadcrumb>
 
