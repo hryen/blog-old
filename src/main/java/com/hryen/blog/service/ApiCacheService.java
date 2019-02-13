@@ -16,14 +16,20 @@ public class ApiCacheService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    // 清除所有文章缓存
+    // 1.清除首页文章缓存
+    public void cleanIndexArticleListCache() {
+        stringRedisTemplate.delete("blog_index::articleList");
+        logger.info("Clean index articles list cache");
+    }
+
+    // 2.清除所有文章缓存
     public void cleanArticleCache() {
         Set<String> keys = stringRedisTemplate.keys("blog_article*");
         stringRedisTemplate.delete(keys);
         logger.info("Clean articles cache");
     }
 
-    // 清除所有博客设置缓存
+    // 3.清除所有博客设置缓存
     public void cleanBlogSysConfigCache() {
         Set<String> keys = stringRedisTemplate.keys("blog_sys.config*");
         keys.add("blog_common::navigationList");

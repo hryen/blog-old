@@ -13,6 +13,7 @@
                     <el-tabs v-model="activeName">
                         <el-tab-pane label="用户管理" name="userManagement">用户管理</el-tab-pane>
                         <el-tab-pane label="缓存管理" name="cacheManagement">
+                            <el-button @click="cleanIndexArticleListCache">清除首页文章缓存</el-button>
                             <el-button @click="cleanArticleCache">清除所有文章缓存</el-button>
                             <el-button @click="cleanBlogSysConfigCache">清除博客设置缓存</el-button>
                         </el-tab-pane>
@@ -43,6 +44,36 @@
         mounted() {},
 
         methods: {
+            cleanIndexArticleListCache() {
+                this.$confirm('此操作将清除首页文章缓存, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$axios.get('/admin/api/cache/cleanIndexArticleListCache')
+                        .then((response) => {
+                        if (response.data.result) {
+                    this.$message({
+                        type: 'success',
+                        message: response.data.message
+                    });
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: response.data.message
+                    });
+                }
+            }).catch((error) => {
+                    console.log(error);
+            });
+            }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '操作已取消'
+                    });
+            });
+            },
+
             cleanArticleCache() {
                 this.$confirm('此操作将清除所有文章缓存, 是否继续?', '提示', {
                     confirmButtonText: '确定',

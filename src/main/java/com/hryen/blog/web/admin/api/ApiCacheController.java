@@ -14,7 +14,19 @@ public class ApiCacheController {
     @Autowired
     private ApiCacheService apiCacheService;
 
-    // 清除所有文章缓存
+    // 1.清除首页文章缓存
+    @GetMapping("/cleanIndexArticleListCache")
+    public Result cleanIndexArticleListCache() {
+        try {
+            apiCacheService.cleanIndexArticleListCache();
+            return new Result(true, "Successful");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "Failed");
+        }
+    }
+
+    // 2.清除所有文章缓存
     @GetMapping("/cleanArticleCache")
     public Result cleanArticleCache() {
         try {
@@ -26,7 +38,7 @@ public class ApiCacheController {
         }
     }
 
-    // 清除所有博客设置缓存
+    // 3.清除所有博客设置缓存
     @GetMapping("/cleanBlogSysConfigCache")
     public Result cleanBlogSysConfigCache() {
         try {
