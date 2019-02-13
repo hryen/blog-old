@@ -6,7 +6,7 @@
                 <el-main>
                     <!-- breadcrumb -->
                     <el-breadcrumb separator="/" style="margin-bottom: 20px;">
-                        <el-breadcrumb-item><a href="${request.contextPath}/admin">首页</a></el-breadcrumb-item>
+                        <el-breadcrumb-item><a href="${request.contextPath}/admin/index">首页</a></el-breadcrumb-item>
                         <el-breadcrumb-item>博客设置</el-breadcrumb-item>
                     </el-breadcrumb>
 

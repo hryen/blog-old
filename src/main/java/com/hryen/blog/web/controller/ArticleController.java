@@ -30,10 +30,15 @@ public class ArticleController {
 
         Article article = articleService.getArticleByArticlePermalinkOrId(str);
 
-        // 如果 没有登录
+        // 如果 没登录
         if (null == user) {
-            // 如果文章不存在 被隐藏 返回404
+            //  被隐藏 返回404
             if (null == article || '1' == article.getStatus()) {
+                return "error/404";
+            }
+        } else {
+            // 如果登录
+            if (null == article) {
                 return "error/404";
             }
         }

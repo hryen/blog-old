@@ -35,7 +35,10 @@
 
                     <p class="date">${article.publishDate?string("MMM dd, yyyy")}</p>
 
-                    ${article.summary}
+                    <div class="markdown-body">
+                        ${article.summary}
+                    </div>
+
                 </div>
             </#list>
 

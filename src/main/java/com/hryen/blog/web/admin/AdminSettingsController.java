@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminSettingController {
+public class AdminSettingsController {
 
-    @GetMapping("/setting")
-    public String getAdminSetting(Model model) {
-        return "admin/setting";
+    @GetMapping("/settings")
+    public String getAdminSettings(Model model) {
+        return "admin/settings";
     }
 }
