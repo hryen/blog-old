@@ -19,11 +19,7 @@ public class ErrorViewResolverHandler implements ErrorViewResolver {
     @Override
     public ModelAndView resolveErrorView(HttpServletRequest request, HttpStatus status, Map<String, Object> model) {
 
-        // TODO 最后记得更新一下错误处理器
-
-        if (401 == status.value()) {
-            return new ModelAndView("redirect:/admin/login");
-        }
+        // TODO 最后记得更新一下错误处理器向前台页面传的值
 
         // 获取博客的 标题，描述，导航，所属者
         Map<String, Object> commonAttributes = controllerUtils.getCommonAttributes();

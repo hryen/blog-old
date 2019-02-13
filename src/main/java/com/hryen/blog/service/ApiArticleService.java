@@ -4,6 +4,8 @@ import com.hryen.blog.mapper.ArticleMapper;
 import com.hryen.blog.mapper.TagMapper;
 import com.hryen.blog.model.Article;
 import com.hryen.blog.model.Pagination;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class ApiArticleService {
+
+    private Logger logger = LoggerFactory.getLogger(ApiArticleService.class);
 
     @Autowired
     private ArticleMapper articleMapper;
@@ -84,22 +88,27 @@ public class ApiArticleService {
         cleanRedisArticleByArticleId(id);
         cleanRedisArticleByArticlePermalink(permalink);
 
+        logger.info("Update article settings: " + id);
+
     }
 
     // 6.根据文章id删除文章 realDelete为true代表删除 为false代表标记为删除
-
     @Transactional
     public void deleteArticleByArticleId(String id, boolean realDelete) {
         if (realDelete) {
             // 根据文章id清除文章与标签的关联
             articleMapper.cleanArticleBindTags(id);
             articleMapper.deleteArticleByArticleId(id);
+            logger.info("Delete article: " + id);
         } else {
             articleMapper.updateArticleStatusByArticleId(id, 3); // status:3代表已删除
+            logger.info("Hidden article: " + id);
         }
 
         //删除redis
         cleanRedisArticleByArticleId(id);
+
+
     }
 
     // 7.按文章id将文章从已删除修改为已隐藏
@@ -107,6 +116,8 @@ public class ApiArticleService {
     public void restoreArticleById(String articleId) {
         articleMapper.updateArticleStatusByArticleId(articleId, 1);
         cleanRedisArticleByArticleId(articleId);
+
+        logger.info("Restore article: " + articleId);
     }
 
     // 按文章id删除redis

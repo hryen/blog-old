@@ -9,7 +9,7 @@
     <script src="${request.contextPath}/js/axios.min.js"></script>
     <title>${title}</title>
 </head>
-<body style="margin: 0;background-color: #F2F6FC">
+<body style="margin: 0;">
 <div id="app">
     <el-container>
         <#-- header -->

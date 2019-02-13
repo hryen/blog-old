@@ -13,7 +13,7 @@ import java.io.File;
 @Component
 public class ApplicationInitializer implements CommandLineRunner {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(ApplicationInitializer.class);
 
     @Autowired
     private RedisUtils redisUtils;
