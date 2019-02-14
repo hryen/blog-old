@@ -11,9 +11,9 @@
     <groupId>com.hryen</groupId>
     <artifactId>blog</artifactId>
     <version>0.1</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>blog</name>
-    <description>a blog</description>
+    <description>Just a blog</description>
 
     <properties>
         <java.version>1.8</java.version>

@@ -31,12 +31,13 @@ public class ApplicationInitializer implements CommandLineRunner {
 
 
         // create upload directory
-        try {
-            File uploadParent = ResourceUtils.getFile("classpath:");
-            File upload = new File(uploadParent, "upload");
-            upload.mkdir();
-            logger.info("create upload directory Successful!");
-        } catch (Exception e) { logger.error("create upload directory failed!"); }
+//        try {
+//            //File uploadParent = ResourceUtils.getFile("classpath:");
+//            //File upload = new File(uploadParent, "upload");
+//            File upload = new File("upload");
+//            upload.mkdir();
+//            logger.info("create upload directory Successful!");
+//        } catch (Exception e) { logger.error("create upload directory failed!"); }
 
     }
 
