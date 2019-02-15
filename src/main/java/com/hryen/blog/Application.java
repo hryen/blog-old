@@ -18,7 +18,8 @@ public class Application {
         ConfigurableApplicationContext run = SpringApplication.run(Application.class, args);
 
         String serverPort = run.getEnvironment().getProperty("server.port");
-        logger.info("Application started at http://localhost:" + serverPort);
+
+        logger.info("Application is running at http://localhost:" + serverPort);
     }
 
 }
