@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class AdminWebMvcConfigure implements WebMvcConfigurer {
+public class ApplicationWebMvcConfigure implements WebMvcConfigurer {
 
     @Autowired
     private AdminInterceptorHandler adminInterceptorHandler;
