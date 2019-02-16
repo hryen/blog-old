@@ -1,0 +1,52 @@
+package com.hryen.blog.web.admin.api;
+
+import com.hryen.blog.model.UploadResult;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@RestController
+@RequestMapping("/admin/api")
+public class ApiUploadController {
+
+    // 上传文件
+    @PostMapping("/upload")
+    public UploadResult upload(MultipartFile multipartFile) {
+        try {
+            // 获取提交的文件名称
+            String originalFilename = multipartFile.getOriginalFilename();
+
+            // 将文件重新命名 加上日期前缀
+            String newFilename = new Date().getTime() + "_" + originalFilename;
+
+            // 创建目录对象 类似/upload/2019/02
+            File resourcesDir = ResourceUtils.getFile("classpath:");
+            File staticDir = new File(resourcesDir, "static");
+            File uploadDir = new File(staticDir, "upload");
+            File yearDir = new File(uploadDir, new SimpleDateFormat("yyyy").format(new Date()));
+            File monthDir = new File(yearDir, new SimpleDateFormat("MM").format(new Date()));
+
+            // 如果目录不存在 则创建
+            if (!monthDir.exists()) { monthDir.mkdirs(); }
+
+            // 创建要上传的File对象
+            File uploadFile = new File(monthDir, newFilename);
+
+            // 执行上传
+            multipartFile.transferTo(uploadFile);
+
+            // 文件上传后的uri
+            String uploadFileUri = "/upload/"+yearDir.getName()+"/"+monthDir.getName()+"/"+newFilename;
+
+            return new UploadResult(true,"Successful", uploadFileUri);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new UploadResult(false,"Failed");
+        }
+    }
+
+}

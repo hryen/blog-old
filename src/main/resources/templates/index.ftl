@@ -3,15 +3,20 @@
 <#include "common/header.ftl">
 <main>
 
-    <#--list中第一篇文章 要么是置顶的要么是最新的-->
-    <div class="first-article">
-        <#if articleList[0].permalink??>
-            <h2><a href="${request.contextPath}/article/${articleList[0].permalink}">${articleList[0].title}</a></h2>
-        <#else>
-            <h2><a href="${request.contextPath}/article/${articleList[0].id}">${articleList[0].title}</a></h2>
+    <#--置顶文章 list中第一篇文章 如果是置顶文章则显示 否则不显示-->
+    <#if articleList?exists && articleList?size gt 0>
+        <#if articleList[0].status == '2'>
+            <div class="first-article">
+            <#if articleList[0].permalink??>
+                <h2><a href="${request.contextPath}/article/${articleList[0].permalink}">${articleList[0].title}</a></h2>
+            <#else>
+                <h2><a href="${request.contextPath}/article/${articleList[0].id}">${articleList[0].title}</a></h2>
+            </#if>
+            ${articleList[0].summary}
+            </div>
         </#if>
-        ${articleList[0].summary}
-    </div>
+    </#if>
+
 
 
     <div class="content">
@@ -22,7 +27,8 @@
             <hr>
 
             <#list articleList as article>
-                <#if article_index = 0>
+                <#--如果list第一篇文章是置顶文章 跳过此次遍历 因为这个文章在上面已经显示成置顶文章了-->
+                <#if article_index = 0 && article.status == '2'>
                     <#continue>
                 </#if>
                 <div class="article">
@@ -42,7 +48,7 @@
                 </div>
             </#list>
 
-            <#include "common/pagination.ftl">
+            <#--<#include "common/pagination.ftl">-->
 
         </div>
 

@@ -49,6 +49,21 @@ public interface ArticleMapper {
     })
     Article getArticleByArticlePermalinkOrId(String str);
 
+    // 查询置顶文章
+    @Select("SELECT * FROM article WHERE status=2")
+    @Results({
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "publish_date", property = "publishDate"),
+            @Result(column = "last_modified_date", property = "lastModifiedDate"),
+            @Result(column = "markdown_content", property = "markdownContent"),
+            @Result(column = "html_content", property = "htmlContent"),
+            @Result(column = "category_name", property = "categoryName"),
+            @Result(column = "comment_status", property = "commentStatus"),
+            @Result(column = "id", property = "tagList", javaType = List.class,
+                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
+    })
+    Article getStickyArticle();
+
     // 查询所有非隐藏非置顶文章 按日期排序 带分页
     @Select("SELECT * FROM article WHERE status=0 ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
     @Results({

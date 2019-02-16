@@ -46,7 +46,7 @@ public class Article implements Serializable {
     // html格式内容
     private String htmlContent;
 
-    // 状态 0正常 1隐藏 2置顶
+    // 状态 0已发布 1已隐藏 2已置顶 3已删除
     private Character status;
 
     // 是否允许评论
