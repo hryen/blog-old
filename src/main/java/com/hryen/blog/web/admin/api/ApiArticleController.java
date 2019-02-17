@@ -93,4 +93,17 @@ public class ApiArticleController {
         }
     }
 
+    // 8.新建文章
+    @PostMapping("/newArticle")
+    public Result newArticle(@RequestBody Article article) {
+        try {
+            // 执行新建
+            apiArticleService.newArticle(article);
+            return new Result(true, "Successful");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "Failed");
+        }
+    }
+
 }

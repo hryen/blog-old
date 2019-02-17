@@ -4,6 +4,7 @@ import com.hryen.blog.mapper.ArticleMapper;
 import com.hryen.blog.mapper.TagMapper;
 import com.hryen.blog.model.Article;
 import com.hryen.blog.model.Pagination;
+import com.hryen.blog.model.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -118,6 +120,25 @@ public class ApiArticleService {
         cleanRedisArticleByArticleId(articleId);
 
         logger.info("Restore article: " + articleId);
+    }
+
+    // 8.新建文章
+    @Transactional
+    public void newArticle(Article article) {
+        // TODO article.id 换成twitter雪花算法
+        article.setId( new SimpleDateFormat("yyMMddHHmm").format(new Date()));
+        article.setPublishDate(new Date());
+        article.setLastModifiedDate(new Date());
+
+        // 向数据库插入文章
+        articleMapper.newArticle(article);
+
+        // 向数据库插入文章与标签的关系
+        List<Tag> tagList = article.getTagList();
+        for (Tag tag : tagList) {
+            articleMapper.insertArticleBindTag(article.getId(), tag.getName());
+        }
+
     }
 
     // 按文章id删除redis

@@ -7,6 +7,10 @@
     <script src="${request.contextPath}/js/vue.min.js"></script>
     <script src="${request.contextPath}/js/element-ui.min.js"></script>
     <script src="${request.contextPath}/js/axios.min.js"></script>
+    <#if isEdit?? && isEdit == true>
+        <link rel="stylesheet" href="${request.contextPath}/css/quill.snow.css">
+        <script src="${request.contextPath}/js/quill.min.js"></script>
+    </#if>
     <title>${title}</title>
 </head>
 <body style="margin: 0;">
@@ -20,7 +24,7 @@
 
         <el-container>
             <#-- menu -->
-            <el-aside width="240px">
+            <el-aside id="left-menu" width="240px">
                 <el-menu default-active=${activeMenu}>
 
                     <a style="text-decoration: none;" href="${request.contextPath}/admin/index">

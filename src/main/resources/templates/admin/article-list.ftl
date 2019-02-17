@@ -128,7 +128,7 @@
 				</el-select>
 			</el-form-item>
 			<el-form-item label="允许评论">
-				<el-select style="width: 100%;" :value.sync="form.commentStatus" @change="handleFormcommentStatusSelectChange">
+				<el-select style="width: 100%;" :value.sync="form.commentStatus" @change="handleFormCommentStatusSelectChange">
 					<el-option label="是" value="1"></el-option>
 					<el-option label="否" value="0"></el-option>
 				</el-select>
@@ -195,7 +195,7 @@
 			handleFormStatusSelectChange(val) {
 				this.form.status = val;
 			},
-			handleFormcommentStatusSelectChange(val) {
+			handleFormCommentStatusSelectChange(val) {
 				this.form.commentStatus = val;
 			},
 			handleSubmitForm() {
