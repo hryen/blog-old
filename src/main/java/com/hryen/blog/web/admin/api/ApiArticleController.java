@@ -100,10 +100,18 @@ public class ApiArticleController {
             // 执行新建
             apiArticleService.newArticle(article);
             return new Result(true, "Successful");
+        } catch (DuplicateKeyException e) {
+            return new Result(false, "Permalink already exists");
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false, "Failed");
         }
+    }
+
+    // 9.根据文章id获取文章
+    @GetMapping("getArticleByArticleId/{id}")
+    public Article getArticleByArticleId(@PathVariable("id") String articleId) {
+        return apiArticleService.getArticleByArticleId(articleId);
     }
 
 }

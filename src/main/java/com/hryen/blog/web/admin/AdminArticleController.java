@@ -8,22 +8,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/article")
 public class AdminArticleController {
 
-    // 1.所有文章页面
+    // 1.新建文章页面
+    @GetMapping("/new")
+    public String getArticleNew() {
+        return "admin/article-new-markdown";
+    }
+
+    // 2.所有文章页面
     @GetMapping("/list")
     public String getArticleList() {
         return "admin/article-list";
-    }
-
-    // 2.新建文章页面
-    @GetMapping("/new")
-    public String getArticleNew() {
-        return "admin/article-new";
     }
 
     // 3.回收站页面
     @GetMapping("/trash")
     public String getArticleTrash() {
         return "admin/article-trash";
+    }
+
+    // 4.编辑文章页面
+    @GetMapping("/edit/{id}")
+    public String getArticleEdit() {
+        return "admin/article-edit";
     }
 
 }

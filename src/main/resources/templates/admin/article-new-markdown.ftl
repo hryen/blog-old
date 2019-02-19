@@ -21,9 +21,10 @@
                               style="width: calc(50% - 13px);margin: 0 0 10px 10px"></el-input>
 
                     <#--content-->
-
-                        <#--quill editor-->
-                        <div id="quillEditor" style="height: 55%;margin-bottom: 10px;"></div>
+                        <#--markdown editor-->
+                        <div id="markdownEditor" style="margin-bottom: 10px;">
+                            <textarea id="markdownEditorTextarea"></textarea>
+                        </div>
 
                     <#--category-->
                     <el-select v-model="article.categoryName" placeholder="请选择分类"
@@ -45,7 +46,7 @@
                         </el-form-item>
 
                         <#--status-->
-                        <el-form-item label="文章状态">
+                        <el-form-item label="文章状态" style="margin-bottom: 10px;">
                             <el-radio-group v-model="article.status">
                                 <el-radio label="0">已发布</el-radio>
                                 <el-radio label="1">已隐藏</el-radio>
@@ -55,7 +56,7 @@
                     </el-form>
 
                     <#--publish-->
-                    <el-button type="primary" @click="publish()">发布</el-button>
+                    <el-button type="primary" @click="publishArticle()">发布</el-button>
 
                 </el-main>
 				
@@ -71,24 +72,64 @@
 
 <script>
     Vue.prototype.$axios = axios.create({ baseURL: '${request.contextPath}' });
-	
+
     var Main = {
 		data() {
 			return {
+                easyMDE: '',
                 categoryNameList: [],
                 tagNameList: [],
-			    article: {title: '', permalink: '', htmlContent: '', categoryName: '', tagNameList: [], commentStatus: true, status: '0'},
-                quillEditor : ''
+                article: {title: '', permalink: '', markdownContent: '', htmlContent: '',
+                    categoryName: '', tagNameList: [], commentStatus: true, status: '0'}
             }
 		},
 		
 		mounted() {
+		    this.initMarked();
+            this.initMarkdownEditor();
             this.getCategoryNameList();
             this.getTagNameList();
-            this.initQuillEditor();
         },
 		
 		methods: {
+		    initMarked: function() {
+                marked.setOptions({
+                    baseUrl: 'https://blog.hryen.com',
+                    breaks: false,
+                    gfm: true,
+                    headerIds: true,
+                    highlight: function(code) {
+                        return hljs.highlightAuto(code).value;
+                    },
+                    langPrefix: 'lang-',
+                    renderer: new marked.Renderer(),
+                    sanitize: false,
+                    smartLists: true,
+                    tables: true
+                });
+            },
+
+            initMarkdownEditor: function () {
+		        var toolbarIcons = [
+                    "bold","italic","strikethrough","|",
+                    "heading","heading-smaller","heading-bigger","|",
+                    "heading-1","heading-2","heading-3","|",
+                    "code","quote","unordered-list","ordered-list","|",
+                    "link","image","table","horizontal-rule","|",
+                    "preview","side-by-side","fullscreen","guide"
+                ];
+                this.easyMDE = new EasyMDE({
+                    toolbar: toolbarIcons,
+                    element: document.getElementById('markdownEditorTextarea'),
+                    indentWithTabs: false,
+                    tabSize: 4,
+                    status: ["autosave", "lines"],
+                    previewRender: function(plainText) {
+                        return marked(plainText); // Returns HTML from a custom parser
+                    }
+                });
+            },
+
             getCategoryNameList: function () {
                 // 获取全部分类
                 this.$axios.get('/admin/api/category/listAllCategory')
@@ -111,7 +152,7 @@
             });
             },
 
-            publish: function () {
+            publishArticle: function () {
                 // 如果没有填写标题
                 if (this.article.title.trim() === "") {
                     this.$message({
@@ -130,8 +171,11 @@
                     return;
                 }
 
+                // markdownContent
+                this.article.markdownContent = this.easyMDE.value();
+
                 // htmlContent
-                this.article.htmlContent = this.quillEditor.container.firstChild.innerHTML;
+                this.article.htmlContent = marked(this.article.markdownContent);
 
                 // 后台的article对象里包含的tagList是tag对象的list 这里将tagNameList转成tag对象的list
                 var tagList = [];
@@ -144,6 +188,7 @@
                 this.$axios.post('/admin/api/article/newArticle', {
                     title: this.article.title,
                     permalink: this.article.permalink,
+                    markdownContent: this.article.markdownContent,
                     htmlContent: this.article.htmlContent,
                     categoryName: this.article.categoryName,
                     tagList: tagList,
@@ -169,36 +214,8 @@
                     }
 
                 }).catch((error) => { console.log(error); });
-            },
-
-            initQuillEditor: function () {
-                var toolbarOptions = [
-                    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                    ['blockquote', 'code-block'],
-
-                    [{ 'header': 1 }, { 'header': 2 }],            // custom button values
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-                    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-                    [{ 'direction': 'rtl' }],                         // text direction
-
-                    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-                    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-                    [{ 'font': [] }],
-                    [{ 'align': [] }],
-                    ['link', 'image'],                                // link and image
-
-                    ['clean']                                         // remove formatting button
-                ];
-                this.quillEditor = new Quill('#quillEditor', {
-                    theme: 'snow',
-                    modules: {
-                        toolbar: toolbarOptions
-                    }
-                });
             }
+
         }
     }
 	

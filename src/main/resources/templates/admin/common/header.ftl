@@ -8,8 +8,18 @@
     <script src="${request.contextPath}/js/element-ui.min.js"></script>
     <script src="${request.contextPath}/js/axios.min.js"></script>
     <#if isEdit?? && isEdit == true>
+        <#--quill-->
         <link rel="stylesheet" href="${request.contextPath}/css/quill.snow.css">
         <script src="${request.contextPath}/js/quill.min.js"></script>
+        <#--easymde-->
+        <link rel="stylesheet" href="${request.contextPath}/css/easymde.min.css">
+        <link rel="stylesheet" href="${request.contextPath}/css/github-markdown.css">
+        <script src="${request.contextPath}/js/easymde.min.js"></script>
+        <#--marked-->
+        <script src="${request.contextPath}/js/marked.min.js"></script>
+        <#--highlight-->
+        <link rel="stylesheet" href="${request.contextPath}/css/tomorrow.css">
+        <script src="${request.contextPath}/js/highlight.min.js"></script>
     </#if>
     <title>${title}</title>
 </head>
@@ -25,7 +35,7 @@
         <el-container>
             <#-- menu -->
             <el-aside id="left-menu" width="240px">
-                <el-menu default-active=${activeMenu}>
+                <el-menu default-active=${activeMenu!0}>
 
                     <a style="text-decoration: none;" href="${request.contextPath}/admin/index">
                         <el-menu-item index="1"><i class="el-icon-info"></i><span slot="title">仪表盘</span>

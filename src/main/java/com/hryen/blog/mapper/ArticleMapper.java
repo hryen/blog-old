@@ -176,13 +176,13 @@ public interface ArticleMapper {
     void insertArticleBindTag(@Param("id") String id, @Param("tagName") String tagName);
 
     // 7.新建文章
-    @Insert("INSERT INTO article(id, type, title," +
+    @Insert("INSERT INTO article(id, title," +
             "permalink, publish_date, last_modified_date," +
             "category_name, summary, markdown_content," +
             "html_content, status, comment_status)" +
             "VALUES" +
-            "(#{article.id}, #{article.type}, #{article.title}," +
-            "#{article.permalink}, #{article.publishDate}, #{article.lastModifiedDate}," +
+            "(#{article.id}, #{article.title}, #{article.permalink}," +
+            "#{article.publishDate}, #{article.lastModifiedDate}," +
             "#{article.categoryName}, #{article.summary}, #{article.markdownContent}," +
             "#{article.htmlContent}, #{article.status}, #{article.commentStatus})")
     void newArticle(@Param("article") Article article);

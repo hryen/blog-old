@@ -129,6 +129,7 @@ public class ApiArticleService {
         article.setId( new SimpleDateFormat("yyMMddHHmm").format(new Date()));
         article.setPublishDate(new Date());
         article.setLastModifiedDate(new Date());
+        System.out.println(article);
 
         // 向数据库插入文章
         articleMapper.newArticle(article);
@@ -155,4 +156,8 @@ public class ApiArticleService {
         }
     }
 
+    // 根据文章id获取文章
+    public Article getArticleByArticleId(String articleId) {
+        return articleMapper.getArticleByArticlePermalinkOrId(articleId);
+    }
 }

@@ -14,9 +14,6 @@ public class Article implements Serializable {
     // id
     private String id;
 
-    // 类型
-    private String type;
-
     // 标题
     private String title;
 
@@ -58,14 +55,6 @@ public class Article implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getTitle() {
@@ -160,7 +149,6 @@ public class Article implements Serializable {
     public String toString() {
         return "Article{" +
                 "id='" + id + '\'' +
-                ", type='" + type + '\'' +
                 ", title='" + title + '\'' +
                 ", permalink='" + permalink + '\'' +
                 ", publishDate=" + publishDate +

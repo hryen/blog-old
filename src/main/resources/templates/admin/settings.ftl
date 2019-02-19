@@ -4,13 +4,32 @@
 
             <el-container>
                 <el-main>
-                    <!-- breadcrumb -->
-                    <el-breadcrumb separator="/" style="margin-bottom: 20px;">
-                        <el-breadcrumb-item><a href="${request.contextPath}/admin/index">首页</a></el-breadcrumb-item>
-                        <el-breadcrumb-item>博客设置</el-breadcrumb-item>
-                    </el-breadcrumb>
 
-                    <el-tabs value="cacheManagement">
+                    <el-tabs value="blogManagement">
+
+                        <el-tab-pane label="博客管理" name="blogManagement">
+                            <el-form ref="blogManagementForm" :model="blogManagementForm" label-width="110px" style="width: 50%;">
+                                <el-form-item label="博客名称">
+                                    <el-input v-model="blogManagementForm.title"></el-input>
+                                </el-form-item>
+                                <el-form-item label="博客描述">
+                                    <el-input v-model="blogManagementForm.description"></el-input>
+                                </el-form-item>
+                                <el-form-item label="博客所属">
+                                    <el-input v-model="blogManagementForm.owner"></el-input>
+                                </el-form-item>
+                                <el-form-item label="首页每页文章数">
+                                    <el-input v-model="blogManagementForm.indexPageSize"></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button type="primary" @click="blogManagementFormSubmit">保存</el-button>
+                                </el-form-item>
+                            </el-form>
+                        </el-tab-pane>
+
+                        <el-tab-pane label="导航管理" name="navManagement">
+
+                        </el-tab-pane>
 
                         <el-tab-pane label="缓存管理" name="cacheManagement">
                             <el-button @click="cleanIndexArticleListCache">清除首页文章缓存</el-button>
@@ -18,9 +37,6 @@
                             <el-button @click="cleanBlogSysConfigCache">清除博客设置缓存</el-button>
                         </el-tab-pane>
 
-                        <el-tab-pane label="用户管理" name="userManagement">
-
-                        </el-tab-pane>
                     </el-tabs>
                 </el-main>
 
@@ -40,12 +56,18 @@
 
     var Main = {
         data() {
-            return {}
+            return {
+                blogManagementForm: {title: '', owner: '', description: '', indexPageSize: ''}
+            }
         },
 
         mounted() {},
 
         methods: {
+            blogManagementFormSubmit() {
+                console.log(this.blogManagementForm);
+            },
+
             cleanIndexArticleListCache() {
                 this.$confirm('此操作将清除首页文章缓存, 是否继续?', '提示', {
                     confirmButtonText: '确定',

@@ -246,7 +246,7 @@
 				this.dialogSetting = true;
 			},
             handleEdit(row) {
-                console.log(row.id);
+                window.location.href = "/admin/article/edit/"+row.id;
             },
             handleDelete(row) {
                 this.doDelete(row.id);
