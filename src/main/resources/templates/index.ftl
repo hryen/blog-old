@@ -23,15 +23,15 @@
 
         <div class="articles">
 
-            <h6>Latest articles</h6>
-            <hr>
+            <#--<h6>Latest articles</h6>-->
+            <#--<hr>-->
 
             <#list articleList as article>
                 <#--如果list第一篇文章是置顶文章 跳过此次遍历 因为这个文章在上面已经显示成置顶文章了-->
                 <#if article_index = 0 && article.status == '2'>
                     <#continue>
                 </#if>
-                <div class="article">
+                <div class="article" style="padding: 24px 0;">
 
                     <#if article.permalink??>
                         <h6 class="title"><a href="${request.contextPath}/article/${article.permalink}">${article.title}</a></h6>
@@ -41,7 +41,7 @@
 
                     <p class="date">${article.publishDate?string("MMM dd, yyyy")}</p>
 
-                    <div class="markdown-body">
+                    <div class="markdown-body" style="max-width: 100%;">
                         ${article.summary}
                     </div>
 

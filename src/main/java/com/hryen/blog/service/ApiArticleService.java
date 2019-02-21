@@ -5,6 +5,7 @@ import com.hryen.blog.mapper.TagMapper;
 import com.hryen.blog.model.Article;
 import com.hryen.blog.model.Pagination;
 import com.hryen.blog.model.Tag;
+import com.hryen.blog.util.Snowflake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class ApiArticleService {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    private Snowflake snowflake;
 
     // 1.获取所有文章的总数 不包含回收站里的
     public Integer getAllArticleTotalRecord() {
@@ -125,13 +129,16 @@ public class ApiArticleService {
     // 8.新建文章
     @Transactional
     public void newArticle(Article article) {
-        // TODO article.id 换成twitter雪花算法
-        article.setId( new SimpleDateFormat("yyMMddHHmm").format(new Date()));
-        article.setPublishDate(new Date());
-        article.setLastModifiedDate(new Date());
-        System.out.println(article);
+        // set id
+        article.setId(String.valueOf(snowflake.nextId()));
 
-        // 向数据库插入文章
+        // set publish date
+        article.setPublishDate(new Date());
+
+        // set last modified date
+        article.setLastModifiedDate(new Date());
+
+        // insert
         articleMapper.newArticle(article);
 
         // 向数据库插入文章与标签的关系

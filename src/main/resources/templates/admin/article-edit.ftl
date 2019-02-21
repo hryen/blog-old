@@ -78,13 +78,14 @@
                 easyMDE: '',
                 categoryNameList: [],
                 tagNameList: [],
-                article: {title: '', permalink: '', markdownContent: '', htmlContent: '',
+                article: {title: '', permalink: '', markdownContent: '', htmlContent: '', summary: '',
                     categoryName: '', tagNameList: [], commentStatus: true, status: '0'}
             }
         },
 
         mounted() {
             this.initMarked();
+            this.initMarkdownEditor();
             this.getArticleByArticleId();
             this.getCategoryNameList();
             this.getTagNameList();
@@ -92,14 +93,25 @@
 
         methods: {
             getArticleByArticleId: function() {
-                var articleId = window.location.pathname.substring(20);
-
                 // 获取文章
-                this.$axios.get('/admin/api/article/getArticleByArticleId/'+articleId)
+                this.$axios.get('/admin/api/article/getArticleByArticleId/${articleId}')
                     .then((response) => {
+
+                        // 如果文章不存在
+                        if (response.data == '') {
+                            this.$alert('文章不存在，点击确定返回文章列表', '提示', {
+                                type: 'warning',
+                                confirmButtonText: '确定',
+                                callback: action => {
+                                    window.location.href="/admin/article/list";
+                                }
+                            });
+                            return;
+                        }
+
                         this.article = response.data;
 
-                        this.initMarkdownEditor();
+                        this.easyMDE.value(this.article.markdownContent);
 
                         // 后台传过来的article.tagList是标签对象的数组 但页面的选择器需要的是标签名称的数组
                         var tagNameList = [];
@@ -137,7 +149,6 @@
                     "preview","side-by-side","fullscreen","guide"
                 ];
                 this.easyMDE = new EasyMDE({
-                    initialValue: this.article.markdownContent,
                     toolbar: toolbarIcons,
                     element: document.getElementById('markdownEditorTextarea'),
                     indentWithTabs: false,
@@ -181,20 +192,14 @@
                     return;
                 }
 
-                //如果没有选择分类
-                if (this.article.categoryName === "") {
-                    this.$message({
-                        type: 'warning',
-                        message: '请选择文章分类'
-                    });
-                    return;
-                }
-
                 // markdownContent
                 this.article.markdownContent = this.easyMDE.value();
 
                 // htmlContent
                 this.article.htmlContent = marked(this.article.markdownContent);
+
+                // TODO summary 要修改成让用户输入摘要
+                this.article.summary = this.article.htmlContent;
 
                 // 后台的article对象里包含的tagList是tag对象的list 这里将tagNameList转成tag对象的list
                 var tagList = [];
@@ -204,10 +209,12 @@
                     tagList.push(tag);
                 }
 
-                this.$axios.post('/admin/api/article/newArticle', {
+                // TODO 编辑文章 保存方法 要修改 后台还没写api
+                this.$axios.post('/admin/api/article/saveArticle', {
                     title: this.article.title,
                     permalink: this.article.permalink,
                     htmlContent: this.article.htmlContent,
+                    summary: this.article.summary,
                     categoryName: this.article.categoryName,
                     tagList: tagList,
                     commentStatus: this.article.commentStatus,

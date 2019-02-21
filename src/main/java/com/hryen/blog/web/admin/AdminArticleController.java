@@ -1,7 +1,9 @@
 package com.hryen.blog.web.admin;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -11,7 +13,7 @@ public class AdminArticleController {
     // 1.新建文章页面
     @GetMapping("/new")
     public String getArticleNew() {
-        return "admin/article-new-markdown";
+        return "admin/article-new";
     }
 
     // 2.所有文章页面
@@ -27,8 +29,9 @@ public class AdminArticleController {
     }
 
     // 4.编辑文章页面
-    @GetMapping("/edit/{id}")
-    public String getArticleEdit() {
+    @GetMapping("/edit/{articleId}")
+    public String getArticleEdit(@PathVariable("articleId") String articleId, Model model) {
+        model.addAttribute("articleId", articleId);
         return "admin/article-edit";
     }
 
