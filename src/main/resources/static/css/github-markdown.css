@@ -694,3 +694,11 @@
 .markdown-body hr {
   border-bottom-color: #eee;
 }
+
+/* 自定义tasks样式 */
+.tasks {
+  list-style: none;
+  padding-left: unset!important;
+}
+
+.tasks input { margin-right: 5px; }

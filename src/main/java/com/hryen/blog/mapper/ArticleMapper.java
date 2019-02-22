@@ -187,4 +187,25 @@ public interface ArticleMapper {
             "#{article.htmlContent}, #{article.status}, #{article.commentStatus})")
     void newArticle(@Param("article") Article article);
 
+    // 8.按文章id更新文章内容和设置
+    @Update("UPDATE article SET title=#{title}," +
+            "permalink=#{permalink}," +
+            "category_name=#{categoryName}," +
+            "comment_status=#{commentStatus}," +
+            "last_modified_date=#{lastModifiedDate}," +
+            "status=#{status}," +
+            "markdown_content=#{markdownContent}," +
+            "html_content=#{htmlContent}," +
+            "summary=#{summary} WHERE id=#{id}")
+    void updateArticleSettingsAndContentByArticleId(@Param("id") String id,
+                                          @Param("title") String title,
+                                          @Param("permalink") String permalink,
+                                          @Param("categoryName") String categoryName,
+                                          @Param("commentStatus") boolean commentStatus,
+                                          @Param("lastModifiedDate") Date lastModifiedDate,
+                                          @Param("status") Integer status,
+                                          @Param("markdownContent") String markdownContent,
+                                          @Param("htmlContent") String htmlContent,
+                                          @Param("summary") String summary);
+
 }

@@ -59,43 +59,7 @@ public class ApiArticleService {
     // 5.根据文章id更新文章设置
     @Transactional
     public void updateArticleSettingsByArticleId(Map data) {
-        // 类型转换
-        String id = (String) data.get("id");
-        String title = (String) data.get("title");
-        String permalink = (String) data.get("permalink");
-        Integer status = Integer.valueOf(String.valueOf(data.get("status")));
-        String categoryName = (String) data.get("categoryName");
-        boolean commentStatus = (boolean) data.get("commentStatus");
-        ArrayList<String> tagNameList = (ArrayList) data.get("tagNameList");
-
-        // 更新设置
-        articleMapper.updateArticleSettingsByArticleId(id,
-                title,
-                permalink,
-                categoryName,
-                commentStatus,
-                new Date(),
-                status);
-
-        // 更新标签关联 先删除已存在关联 再重新关联
-        // 如果是新标签 要先创建
-        articleMapper.cleanArticleBindTags(id);
-
-        for (String tagName : tagNameList) {
-            // 将标签转成全小写
-            tagName = tagName.toLowerCase();
-            // 尝试添加标签
-            tagMapper.insertArticleBindTag(tagName);
-            // 将文章和标签关联
-            articleMapper.insertArticleBindTag(id, tagName);
-        }
-
-        //删除redis
-        cleanRedisArticleByArticleId(id);
-        cleanRedisArticleByArticlePermalink(permalink);
-
-        logger.info("Update article settings: " + id);
-
+        updateArticleSettingsAndContent(data, false);
     }
 
     // 6.根据文章id删除文章 realDelete为true代表删除 为false代表标记为删除
@@ -149,6 +113,12 @@ public class ApiArticleService {
 
     }
 
+    // 9.根据文章id更新文章 包含内容
+    @Transactional
+    public void updateArticleByArticleId(Map data) {
+        updateArticleSettingsAndContent(data, true);
+    }
+
     // 按文章id删除redis
     private void cleanRedisArticleByArticleId(String id) {
         if (null != id) {
@@ -167,4 +137,63 @@ public class ApiArticleService {
     public Article getArticleByArticleId(String articleId) {
         return articleMapper.getArticleByArticlePermalinkOrId(articleId);
     }
+
+    // 更新文章设置或内容
+    private void updateArticleSettingsAndContent(Map data, boolean updateContent) {
+        // 类型转换
+        String id = (String) data.get("id");
+        String title = (String) data.get("title");
+        String permalink = (String) data.get("permalink");
+        Integer status = Integer.valueOf(String.valueOf(data.get("status")));
+        String categoryName = (String) data.get("categoryName");
+        boolean commentStatus = (boolean) data.get("commentStatus");
+        ArrayList<String> tagNameList = (ArrayList) data.get("tagNameList");
+
+        // 如果内容需要更新
+        if (updateContent) {
+            // 获取内容部分
+            String markdownContent = (String) data.get("markdownContent");
+            String htmlContent = (String) data.get("htmlContent");
+            String summary = (String) data.get("summary");
+
+            //执行更新
+            articleMapper.updateArticleSettingsAndContentByArticleId(id,
+                    title,
+                    permalink,
+                    categoryName,
+                    commentStatus,
+                    new Date(),
+                    status,
+                    markdownContent,
+                    htmlContent,
+                    summary);
+        } else {
+            // 更新设置
+            articleMapper.updateArticleSettingsByArticleId(id,
+                    title,
+                    permalink,
+                    categoryName,
+                    commentStatus,
+                    new Date(),
+                    status);
+        }
+
+        // 更新标签关联 先删除已存在关联 再重新关联
+        // 如果是新标签 要先创建
+        articleMapper.cleanArticleBindTags(id);
+
+        for (String tagName : tagNameList) {
+            // 将标签转成全小写
+            tagName = tagName.toLowerCase();
+            // 尝试添加标签
+            tagMapper.insertArticleBindTag(tagName);
+            // 将文章和标签关联
+            articleMapper.insertArticleBindTag(id, tagName);
+        }
+
+        //删除redis
+        cleanRedisArticleByArticleId(id);
+        cleanRedisArticleByArticlePermalink(permalink);
+    }
+
 }

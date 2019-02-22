@@ -1,6 +1,6 @@
 <#assign title = "新建文章 - 文章管理">
 <#assign activeMenu = "2-1">
-<#assign isEdit = true>
+<#assign editor = true>
 <#include "common/header.ftl">
 
 			<el-container>
@@ -33,9 +33,11 @@
                     </el-select>
 
                     <#--tags-->
+                    <#--数据绑定到this.article.tagNameList-->
                     <el-select v-model="article.tagNameList" placeholder="请选择标签或直接输入"
                                multiple filterable allow-create default-first-option clearable
                                style="width: calc(50% - 13px);margin: 0 0 10px 10px">
+                        <#--遍历this.tagNameList-->
                         <el-option v-for="tagName in tagNameList" :value="tagName"></el-option>
                     </el-select>
 
@@ -110,12 +112,53 @@
             },
 
             initMarkdownEditor: function () {
-		        var toolbarIcons = [
-                    "bold","italic","strikethrough","|",
-                    "heading","heading-smaller","heading-bigger","|",
-                    "heading-1","heading-2","heading-3","|",
+                var toolbarIcons = [
+                    "bold","italic","strikethrough","heading","|",
                     "code","quote","unordered-list","ordered-list","|",
                     "link","image","table","horizontal-rule","|",
+                    {
+                        name: "superscript",
+                        action: function customFunction(editor){
+                            var cm = editor.codemirror;
+                            cm.replaceSelection('<sup></sup>');
+                            cm.focus();
+                        },
+                        className: "fa fa-superscript",
+                        title: "Insert Superscript",
+                    },
+                    {
+                        name: "subscript",
+                        action: function customFunction(editor){
+                            var cm = editor.codemirror;
+                            cm.replaceSelection('<sub></sub>');
+                            cm.focus()
+                        },
+                        className: "fa fa-subscript",
+                        title: "Insert Subscript",
+                    },
+                    {
+                        name: "tasks",
+                        action: function customFunction(editor){
+                            var cm = editor.codemirror;
+                            cm.replaceSelection('\n<ul class="tasks">\n' +
+                                '    <li><input disabled="" type="checkbox">task1 to do</li>\n' +
+                                '    <li><input checked="" disabled="" type="checkbox">task2 done</li>\n' +
+                                '</ul>\n\n');
+                            cm.focus();
+                        },
+                        className: "fa fa-check-square",
+                        title: "Insert Tasks",
+                    },
+                    {
+                        name: "readMore",
+                        action: function customFunction(editor){
+                            var cm = editor.codemirror;
+                            cm.replaceSelection('\n<!--more-->\n\n');
+                            cm.focus();
+                        },
+                        className: "fa fa-ellipsis-h",
+                        title: "Insert ReadMore",
+                    },"|",
                     "preview","side-by-side","fullscreen","guide"
                 ];
                 this.easyMDE = new EasyMDE({
@@ -145,7 +188,7 @@
                 // 获取全部标签
                 this.$axios.get('/admin/api/tag/listAllTag')
                     .then((response) => {
-                    // 后台传过来的category是分类对象的数组 但页面的选择器需要的是分类名称的数组
+                    // 后台传过来的是标签对象的数组 但页面的选择器需要的是标签名称的数组
                     for (var i = 0; i < response.data.length; i++) {
                     this.tagNameList.push(response.data[i].name);
                 }
@@ -171,6 +214,13 @@
                     return;
                 }
 
+                // permalink
+                if (this.article.permalink == null || this.article.permalink.trim() === "") {
+                    this.article.permalink = null;
+                } else {
+                    this.article.permalink = this.article.permalink.trim();
+                }
+
                 // markdownContent
                 this.article.markdownContent = this.easyMDE.value();
 
@@ -178,7 +228,8 @@
                 this.article.htmlContent = marked(this.article.markdownContent);
 
                 // summary
-                this.article.summary = this.article.htmlContent;
+                var moreIndex = this.article.htmlContent.indexOf("<!--more-->");
+                this.article.summary = this.article.htmlContent.substring(0, moreIndex);
 
                 // 后台的article对象里包含的tagList是tag对象的list 这里将tagNameList转成tag对象的list
                 var tagList = [];

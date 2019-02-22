@@ -7,10 +7,7 @@
     <script src="${request.contextPath}/js/vue.min.js"></script>
     <script src="${request.contextPath}/js/element-ui.min.js"></script>
     <script src="${request.contextPath}/js/axios.min.js"></script>
-    <#if isEdit?? && isEdit == true>
-        <#--quill-->
-        <link rel="stylesheet" href="${request.contextPath}/css/quill.snow.css">
-        <script src="${request.contextPath}/js/quill.min.js"></script>
+    <#if editor?? && editor == true>
         <#--easymde-->
         <link rel="stylesheet" href="${request.contextPath}/css/easymde.min.css">
         <link rel="stylesheet" href="${request.contextPath}/css/github-markdown.css">

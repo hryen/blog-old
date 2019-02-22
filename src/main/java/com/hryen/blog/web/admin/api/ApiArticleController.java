@@ -43,7 +43,7 @@ public class ApiArticleController {
         return apiArticleService.getTrashArticleWithPage(pageSize, currentPage);
     }
 
-    // 5.按文章id更新文章设置
+    // 5.按文章id更新文章设置 不包含文章内容
     @PostMapping("/updateArticleSettingsByArticleId")
     public Result updateArticleSettingsByArticleId(@RequestBody Map data) {
         try {
@@ -112,6 +112,20 @@ public class ApiArticleController {
     @GetMapping("getArticleByArticleId/{id}")
     public Article getArticleByArticleId(@PathVariable("id") String articleId) {
         return apiArticleService.getArticleByArticleId(articleId);
+    }
+
+    // 10.根据文章id更新文章 包含内容
+    @PostMapping("/updateArticleByArticleId")
+    public Result updateArticleByArticleId(@RequestBody Map data) {
+        try {
+            apiArticleService.updateArticleByArticleId(data);
+            return new Result(true, "Successful");
+        } catch (DuplicateKeyException e) {
+            return new Result(false, "Permalink already exists");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "Failed");
+        }
     }
 
 }
