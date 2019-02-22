@@ -4,8 +4,10 @@ A blog application based Spring Boot.
 
 # Thanks
 
-* [spring-boot](https://github.com/spring-projects/spring-boot)
-* [BCrypt](https://github.com/spring-projects/spring-security/tree/master/crypto/src/main/java/org/springframework/security/crypto/bcrypt)
+* [Spring Boot](https://github.com/spring-projects/spring-boot)
+* [Freemarker](https://github.com/apache/freemarker)
+* [MyBatis](https://github.com/mybatis/mybatis-3)
+* [BCrypt](https://github.com/spring-projects/spring-security/tree/master/crypto/src/main/java/org/springframework/security/crypto/bcrypt) - BCrypt implements OpenBSD-style Blowfish password hashing using the scheme described in "A Future-Adaptable Password Scheme" by Niels Provos and David Mazieres
 * [Vue.js](https://github.com/vuejs/vue) - Vue.js is a progressive, incrementally-adoptable JavaScript framework for building UI on the web
 * [Element](https://github.com/ElemeFE/element) - Vue.js 2.0 UI Toolkit for Web
 * [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
