@@ -177,7 +177,7 @@
                 // htmlContent
                 this.article.htmlContent = marked(this.article.markdownContent);
 
-                // TODO summary 要修改成让用户输入摘要
+                // summary
                 this.article.summary = this.article.htmlContent;
 
                 // 后台的article对象里包含的tagList是tag对象的list 这里将tagNameList转成tag对象的list
