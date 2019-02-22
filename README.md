@@ -6,10 +6,10 @@ A blog application based Spring Boot.
 
 * [spring-boot](https://github.com/spring-projects/spring-boot)
 * [BCrypt](https://github.com/spring-projects/spring-security/tree/master/crypto/src/main/java/org/springframework/security/crypto/bcrypt)
-* [Vue.js](https://github.com/vuejs/vue)
-* [Element](https://github.com/ElemeFE/element)
-* [axios](https://github.com/axios/axios)
-* [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
-* [Marked](https://github.com/markedjs/marked)
-* [highlight.js](https://github.com/highlightjs/highlight.js)
-* [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)：The minimal amount of CSS to replicate the GitHub Markdown style
+* [Vue.js](https://github.com/vuejs/vue): Vue.js is a progressive, incrementally-adoptable JavaScript framework for building UI on the web
+* [Element](https://github.com/ElemeFE/element):  Vue.js 2.0 UI Toolkit for Web
+* [axios](https://github.com/axios/axios): Promise based HTTP client for the browser and node.js
+* [EasyMDE](https://github.com/Ionaru/easy-markdown-editor): A simple, beautiful, and embeddable JavaScript Markdown editor
+* [Marked](https://github.com/markedjs/marked): A markdown parser and compiler. Built for speed
+* [highlight.js](https://github.com/highlightjs/highlight.js): Javascript syntax highlighter
+* [github-markdown-css](https://github.com/sindresorhus/github-markdown-css): The minimal amount of CSS to replicate the GitHub Markdown style
