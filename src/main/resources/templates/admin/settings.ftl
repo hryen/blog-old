@@ -19,7 +19,9 @@
                                     <el-input v-model="blogManagementForm.owner"></el-input>
                                 </el-form-item>
                                 <el-form-item label="首页每页文章数">
-                                    <el-input v-model="blogManagementForm.indexPageSize"></el-input>
+                                    <el-input-number v-model="blogManagementForm.indexPageSize"
+                                                     controls-position="right" :min="1">
+                                    </el-input-number>
                                 </el-form-item>
                                 <el-form-item>
                                     <el-button type="primary" @click="blogManagementFormSubmit">保存</el-button>
