@@ -12,4 +12,4 @@ A blog application based Spring Boot.
 * [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 * [Marked](https://github.com/markedjs/marked)
 * [highlight.js](https://github.com/highlightjs/highlight.js)
-* [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
+* [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)：The minimal amount of CSS to replicate the GitHub Markdown style
