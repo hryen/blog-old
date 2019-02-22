@@ -11,17 +11,46 @@
                         <el-breadcrumb-item>所有文章</el-breadcrumb-item>
                     </el-breadcrumb>
 					<el-row style="float: right;">
-						<el-button size="mini" icon="el-icon-refresh" plain @click="getAllArticleWithPage()">刷新</el-button>
+						<el-button size="mini" icon="el-icon-refresh" plain @click="handleListArticleWithPage()">刷新</el-button>
 					</el-row>
 <#-- table -->
                     <template>
-                        <el-table border size="medium" stripe :data="tableData"
+                        <el-table size="medium" stripe :data="tableData"
 						:default-sort="{prop: 'publishDate', order: 'descending'}"
 						v-loading="loading" max-height="666" tooltip-effect="dark"
 						style="width: 100%;">
-						
+
+							<el-table-column type="expand">
+								<template slot-scope="props">
+									<el-form label-position="left" inline class="table-expand">
+										<el-form-item label="ID">
+											<span>{{ props.row.id }}</span>
+										</el-form-item>
+
+										<el-form-item label="链接">
+											<span v-if="props.row.permalink === null">/article/{{ props.row.id }}</span>
+											<span v-else>/article/{{ props.row.permalink }}</span>
+										</el-form-item>
+
+
+										<el-form-item label="标签">
+											<el-tag v-for="tag in props.row.tagList"
+													size="small" type="info" disable-transitions
+													style="margin-right: 5px;">
+												{{ tag.name }}
+											</el-tag>
+										</el-form-item>
+
+										<el-form-item label="评论">
+											<span v-if="props.row.commentStatus === true">允许</span>
+											<span v-else>禁止</span>
+										</el-form-item>
+									</el-form>
+								</template>
+							</el-table-column>
+
 							<el-table-column type="index" :index="1" width="50" align="center"></el-table-column>
-							
+
 							<el-table-column label="状态" prop="status" sortable width="76" align="center">
 							    <template slot-scope="scope">
 									<span v-if="scope.row.status === '0'">
@@ -40,40 +69,22 @@
 							    </template>
 							</el-table-column>
 							
-                            <el-table-column label="标题" prop="title" show-overflow-tooltip sortable></el-table-column>
+                            <el-table-column label="标题" prop="title"  show-overflow-tooltip sortable></el-table-column>
+
+							<el-table-column label="分类" prop="categoryName" width="200" show-overflow-tooltip sortable></el-table-column>
 							
-							<el-table-column label="所属分类" prop="categoryName" show-overflow-tooltip></el-table-column>
-							
-							<el-table-column label="固定链接" prop="permalink" show-overflow-tooltip>
-								<template slot-scope="scope">
-									<span v-if="scope.row.permalink === null">/article/{{ scope.row.id }}</span>
-									<span v-else>/article/{{ scope.row.permalink }}</span>
-								</template>
-							</el-table-column>
-							
-							<el-table-column label="允许评论" prop="commentStatus" width="110" sortable align="center">
-								<template slot-scope="scope">
-									<span v-if="scope.row.commentStatus === true">是</span>
-									<span v-else>否</span>
-								</template>
-							</el-table-column>
-							
-							<el-table-column label="发布日期" prop="publishDate" width="150" show-overflow-tooltip sortable>
+							<el-table-column label="发布日期" prop="publishDate" width="200" show-overflow-tooltip sortable>
 							    <template slot-scope="scope">
 									<!-- 截取日期 只显示到分 -->
 							        <span>{{ scope.row.publishDate.substring(0,16) }}</span>
 							    </template>
 							</el-table-column>
-							
-                            <el-table-column label="最后修改日期" prop="lastModifiedDate" width="150" show-overflow-tooltip sortable>
-                                <template slot-scope="scope">
-                                    <span>{{ scope.row.lastModifiedDate.substring(0,16) }}</span>
-                                </template>
-                            </el-table-column>
-							
-							<el-table-column label="类型" prop="type" width="104" show-overflow-tooltip sortable></el-table-column>
-							
-							<el-table-column label="ID" prop="id" width="98" show-overflow-tooltip sortable></el-table-column>
+
+							<el-table-column label="最后修改日期" prop="lastModifiedDate" width="200" show-overflow-tooltip sortable>
+								<template slot-scope="scope">
+									<span>{{ scope.row.lastModifiedDate.substring(0,16) }}</span>
+								</template>
+							</el-table-column>
 
                             <el-table-column label="操作" width="240">
                                 <template slot-scope="scope">
@@ -104,8 +115,8 @@
 	
 	
 	
-<#-- dialogSetting -->
-	<el-dialog title="设置" :visible.sync="dialogSetting" width="30%">
+<#-- dialogArticleSettings -->
+	<el-dialog title="设置" :visible.sync="dialogArticleSettings" width="30%">
 		<el-form :model="form" label-width="80px">
 			<el-form-item label="标题"><el-input v-model="form.title"></el-input></el-form-item>
 			<el-form-item label="固定链接"><el-input v-model="form.permalink"></el-input></el-form-item>
@@ -157,7 +168,7 @@
 				pageSize: 10,
 				currentPage: 1,
 				total: '',
-				dialogSetting: false,
+				dialogArticleSettings: false,
 				form: {id: '', title: '', permalink: '', status: '', categoryName: '', tagNameList: [], commentStatus: true},
 				categoryNameList: [],
 				tagNameList: []
@@ -166,7 +177,7 @@
 		
 		mounted() {
 			this.getAllArticleTotalRecord();
-			this.getAllArticleWithPage();
+			this.handleListArticleWithPage();
 			this.getCategoryNameList();
 			this.getTagNameList();
 		},
@@ -208,7 +219,7 @@
 					return;
 				}
 				
-				this.dialogSetting = false;
+				this.dialogArticleSettings = false;
 				
 				if (this.form.commentStatus === "1") { this.form.commentStatus = true; }
 				else { this.form.commentStatus = false; }
@@ -219,15 +230,20 @@
 				
 				this.updateArticleSettingsByArticleId(this.form);
 			},
-			handleClose() {
-				this.form.tags = [];
-				this.dialogSetting = false;
+
+			handleClose: function() {
+				this.dialogArticleSettings = false;
 			},
-			handleView(row) {
-				if (null != row.permalink) { window.open("/article/"+row.permalink); }
-				else { window.open("/article/"+row.id); }
+
+			handleView: function(row) {
+				if (null != row.permalink) {
+					window.open("/article/"+row.permalink);
+				} else {
+					window.open("/article/"+row.id);
+				}
             },
-			handleSetting(row) {
+
+			handleSetting: function(row) {
 				this.form.id = row.id;
 				this.form.title = row.title.trim();
 				this.form.permalink = row.permalink;
@@ -240,22 +256,23 @@
 				}
 				
 				this.form.status = row.status;
+
 				if (row.commentStatus) { this.form.commentStatus = "1"; }
 				else { this.form.commentStatus = "0"; }
 				
-				this.dialogSetting = true;
+				this.dialogArticleSettings = true;
 			},
             handleEdit(row) {
                 window.location.href = "/admin/article/edit/"+row.id;
             },
-            handleDelete(row) {
+            handleDelete: function(row) {
                 this.doDelete(row.id);
             },
-            handleSizeChange() {
-				this.getAllArticleWithPage();
+            handleSizeChange: function() {
+				this.handleListArticleWithPage();
             },
-            handleCurrentChange() {
-                this.getAllArticleWithPage();
+            handleCurrentChange: function() {
+                this.handleListArticleWithPage();
             },
 			
 			// 更新文章设置
@@ -276,7 +293,7 @@
 							message: response.data.message
 						});
 						// 更新成功 刷新文章列表
-						this.getAllArticleWithPage();
+						this.handleListArticleWithPage();
 					} else {
 						this.$message({
 							type: 'error',
@@ -301,9 +318,9 @@
 			},
 			
 			// 获取所有文章 带分页 按日期排序
-            getAllArticleWithPage: function () {
+			handleListArticleWithPage: function () {
 				this.loading = true;
-                this.$axios.get('/admin/api/article/getAllArticleWithPage', {
+                this.$axios.get('/admin/api/article/listArticleWithPage', {
 					params: {
 						currentPage: this.currentPage,
 						pageSize: this.pageSize
@@ -337,7 +354,7 @@
 								message: response.data.message
 							});
 							// 删除成功 刷新文章列表
-							this.getAllArticleWithPage();
+							this.handleListArticleWithPage();
 							// 总数减一 就不去服务器在查了
 							this.total--;
 						} else {

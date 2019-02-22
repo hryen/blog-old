@@ -122,7 +122,7 @@ public interface ArticleMapper {
             @Result(column = "id", property = "tagList", javaType = List.class,
                     many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
     })
-    List<Article> getAllArticleWithPage(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
+    List<Article> listArticleWithPage(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
 
     // 根据文章id更新文章状态
     @Update("UPDATE article SET status=#{status} WHERE id=#{id}")

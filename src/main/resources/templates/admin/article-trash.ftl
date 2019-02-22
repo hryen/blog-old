@@ -15,15 +15,44 @@
 					</el-row>
 <#-- table -->
                     <template>
-                        <el-table border size="medium" stripe :data="tableData"
+                        <el-table size="medium" stripe :data="tableData"
 						:default-sort="{prop: 'publishDate', order: 'descending'}"
 						v-loading="loading" max-height="666" tooltip-effect="dark"
 						style="width: 100%;">
-						
+
+							<el-table-column type="expand">
+								<template slot-scope="props">
+									<el-form label-position="left" inline class="table-expand">
+										<el-form-item label="ID">
+											<span>{{ props.row.id }}</span>
+										</el-form-item>
+
+										<el-form-item label="链接">
+											<span v-if="props.row.permalink === null">/article/{{ props.row.id }}</span>
+											<span v-else>/article/{{ props.row.permalink }}</span>
+										</el-form-item>
+
+
+										<el-form-item label="标签">
+											<el-tag v-for="tag in props.row.tagList"
+													size="small" type="info" disable-transitions
+													style="margin-right: 5px;">
+												{{ tag.name }}
+											</el-tag>
+										</el-form-item>
+
+										<el-form-item label="评论">
+											<span v-if="props.row.commentStatus === true">允许</span>
+											<span v-else>禁止</span>
+										</el-form-item>
+									</el-form>
+								</template>
+							</el-table-column>
+
 							<el-table-column type="index" :index="1" width="50" align="center"></el-table-column>
-							
+
 							<el-table-column label="状态" prop="status" sortable width="76" align="center">
-							    <template slot-scope="scope">
+								<template slot-scope="scope">
 									<span v-if="scope.row.status === '0'">
 										<el-tag disable-transitions size="small">已发布</el-tag>
 									</span>
@@ -37,43 +66,25 @@
 										<el-tag disable-transitions type="warning" size="small">已删除</el-tag>
 										</span>
 									<span v-else>{{ scope.row.status }}</span>
-							    </template>
-							</el-table-column>
-							
-                            <el-table-column label="标题" prop="title" show-overflow-tooltip sortable></el-table-column>
-							
-							<el-table-column label="所属分类" prop="categoryName" show-overflow-tooltip></el-table-column>
-							
-							<el-table-column label="固定链接" prop="permalink" show-overflow-tooltip>
-								<template slot-scope="scope">
-									<span v-if="scope.row.permalink === null">/article/{{ scope.row.id }}</span>
-									<span v-else>/article/{{ scope.row.permalink }}</span>
 								</template>
 							</el-table-column>
-							
-							<el-table-column label="允许评论" prop="commentStatus" width="110" sortable align="center">
+
+							<el-table-column label="标题" prop="title"  show-overflow-tooltip sortable></el-table-column>
+
+							<el-table-column label="分类" prop="categoryName" width="200" show-overflow-tooltip sortable></el-table-column>
+
+							<el-table-column label="发布日期" prop="publishDate" width="200" show-overflow-tooltip sortable>
 								<template slot-scope="scope">
-									<span v-if="scope.row.commentStatus === true">是</span>
-									<span v-else>否</span>
-								</template>
-							</el-table-column>
-							
-							<el-table-column label="发布日期" prop="publishDate" width="150" show-overflow-tooltip sortable>
-							    <template slot-scope="scope">
 									<!-- 截取日期 只显示到分 -->
-							        <span>{{ scope.row.publishDate.substring(0,16) }}</span>
-							    </template>
+									<span>{{ scope.row.publishDate.substring(0,16) }}</span>
+								</template>
 							</el-table-column>
-							
-                            <el-table-column label="最后修改日期" prop="lastModifiedDate" width="150" show-overflow-tooltip sortable>
-                                <template slot-scope="scope">
-                                    <span>{{ scope.row.lastModifiedDate.substring(0,16) }}</span>
-                                </template>
-                            </el-table-column>
-							
-							<el-table-column label="类型" prop="type" width="104" show-overflow-tooltip sortable></el-table-column>
-							
-							<el-table-column label="ID" prop="id" width="98" show-overflow-tooltip sortable></el-table-column>
+
+							<el-table-column label="最后修改日期" prop="lastModifiedDate" width="200" show-overflow-tooltip sortable>
+								<template slot-scope="scope">
+									<span>{{ scope.row.lastModifiedDate.substring(0,16) }}</span>
+								</template>
+							</el-table-column>
 
                             <el-table-column label="操作" width="172">
                                 <template slot-scope="scope">

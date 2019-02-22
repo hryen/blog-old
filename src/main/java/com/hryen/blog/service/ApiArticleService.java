@@ -40,9 +40,9 @@ public class ApiArticleService {
     }
 
     // 2.获取所有文章 不包含回收站里的 带分页 按日期排序
-    public List<Article> getAllArticleWithPage(Integer pageSize, Integer currentPage) {
+    public List<Article> listArticleWithPage(Integer pageSize, Integer currentPage) {
         Pagination pagination = new Pagination(currentPage, pageSize, this.getAllArticleTotalRecord());
-        return articleMapper.getAllArticleWithPage(pagination.getStartIndex(), pageSize);
+        return articleMapper.listArticleWithPage(pagination.getStartIndex(), pageSize);
     }
 
     // 3.获取回收站里的文章的总数

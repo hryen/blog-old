@@ -24,10 +24,10 @@ public class ApiArticleController {
     }
 
     // 2.获取所有文章 不包含回收站里的 带分页 按日期排序
-    @GetMapping("/getAllArticleWithPage")
-    public List<Article> getAllArticleWithPage(Integer pageSize, Integer currentPage) {
+    @GetMapping("/listArticleWithPage")
+    public List<Article> listArticleWithPage(Integer pageSize, Integer currentPage) {
         if (null == pageSize || null == currentPage) { return null; }
-        return apiArticleService.getAllArticleWithPage(pageSize, currentPage);
+        return apiArticleService.listArticleWithPage(pageSize, currentPage);
     }
 
     // 3.获取回收站里的文章的总数

@@ -22,6 +22,18 @@
         <script src="${request.contextPath}/js/highlight.min.js"></script>
     </#if>
     <title>${title}</title>
+    <style>
+        .table-expand { font-size: 0; }
+        .table-expand label {
+            width: 50px;
+            color: #99a9bf;
+        }
+        .table-expand .el-form-item {
+            margin-right: 0;
+            margin-bottom: 0;
+            width: 50%;
+        }
+    </style>
 </head>
 <body style="margin: 0;">
 <div id="app">
