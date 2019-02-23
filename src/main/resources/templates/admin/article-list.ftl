@@ -122,13 +122,13 @@
 			<el-form-item label="固定链接"><el-input v-model="form.permalink"></el-input></el-form-item>
 			<el-form-item label="分类">
 				<el-select style="width: 100%;" v-model="form.categoryName" placeholder="请选择">
-					<el-option v-for="categoryName in categoryNameList" :value="categoryName"></el-option>
+					<el-option v-for="category in categoryList" :value="category.name"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="标签">
 				<el-select style="width: 100%;" v-model="form.tagNameList" placeholder="请选择或直接输入"
 				multiple filterable allow-create default-first-option clearable>
-					<el-option v-for="tagName in tagNameList" :value="tagName"></el-option>
+					<el-option v-for="tag in tagList" :value="tag.name"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="状态">
@@ -170,39 +170,27 @@
 				total: '',
 				dialogArticleSettings: false,
 				form: {id: '', title: '', permalink: '', status: '', categoryName: '', tagNameList: [], commentStatus: true},
-				categoryNameList: [],
-				tagNameList: []
+				categoryList: [],
+				tagList: []
 			}
 		},
 		
 		mounted() {
 			this.getAllArticleTotalRecord();
 			this.handleListArticleWithPage();
-			this.getCategoryNameList();
-			this.getTagNameList();
 		},
 		
 		methods: {
-			getTagNameList: function () {
-				// 获取全部标签
+			getTagList: function () {
 				this.$axios.get('/admin/api/tag/listAllTag')
-				.then((response) => {
-					// 后台传过来的category是分类对象的数组 但页面的选择器需要的是分类名称的数组
-					for (var i = 0; i < response.data.length; i++) {
-						this.tagNameList.push(response.data[i].name);
-					}
-				});
+						.then((response) => { this.tagList = response.data; });
 			},
-			getCategoryNameList: function () {
-				// 获取全部分类
+
+			getCategoryList: function () {
 				this.$axios.get('/admin/api/category/listAllCategory')
-				.then((response) => {
-					// 后台传过来的category是分类对象的数组 但页面的选择器需要的是分类名称的数组
-					for (var i = 0; i < response.data.length; i++) {
-						this.categoryNameList.push(response.data[i].name);
-					}
-				});
+						.then((response) => { this.categoryList = response.data; });
 			},
+
 			handleFormStatusSelectChange(val) {
 				this.form.status = val;
 			},
@@ -212,10 +200,7 @@
 			handleSubmitForm() {
 				// 先判断标题是否为空 为空不继续执行之后的代码
 				if (this.form.title.trim() === "") {
-					this.$message({
-						type: 'warning',
-						message: '标题不可以为空'
-					});
+					this.$message({type: 'warning', message: '标题不可以为空'});
 					return;
 				}
 				
@@ -244,12 +229,17 @@
             },
 
 			handleSetting: function(row) {
+
+				// 加载分类和标签列表
+				this.getCategoryList();
+				this.getTagList();
+
 				this.form.id = row.id;
 				this.form.title = row.title.trim();
 				this.form.permalink = row.permalink;
 				this.form.categoryName = row.categoryName;
 				
-				// 后台传过来的tag是标签对象的数组 但页面的选择器需要的是标签名称的数组
+				// 后台传过来的tag是 标签对象 的数组 但页面的选择器需要的是 标签名称 的数组
 				this.form.tagNameList = [];
 				for (var i = 0; i < row.tagList.length; i++) {
 					this.form.tagNameList.push(row.tagList[i].name);
@@ -257,23 +247,21 @@
 				
 				this.form.status = row.status;
 
-				if (row.commentStatus) { this.form.commentStatus = "1"; }
-				else { this.form.commentStatus = "0"; }
+				if (row.commentStatus) {
+					this.form.commentStatus = "1";
+				} else {
+					this.form.commentStatus = "0";
+				}
 				
 				this.dialogArticleSettings = true;
 			},
-            handleEdit(row) {
-                window.location.href = "/admin/article/edit/"+row.id;
-            },
-            handleDelete: function(row) {
-                this.doDelete(row.id);
-            },
-            handleSizeChange: function() {
-				this.handleListArticleWithPage();
-            },
-            handleCurrentChange: function() {
-                this.handleListArticleWithPage();
-            },
+            handleEdit: function(row) { window.location.href = "/admin/article/edit/"+row.id; },
+
+            handleDelete: function(row) { this.doDelete(row.id); },
+
+            handleSizeChange: function() { this.handleListArticleWithPage(); },
+
+            handleCurrentChange: function() { this.handleListArticleWithPage(); },
 			
 			// 更新文章设置
 			updateArticleSettingsByArticleId: function (form) {
