@@ -13,7 +13,7 @@ public class AdminArticleController {
     // 1.新建文章页面
     @GetMapping("/new")
     public String getArticleNew() {
-        return "admin/article-new";
+        return "admin/article-new-edit";
     }
 
     // 2.所有文章页面
@@ -32,7 +32,8 @@ public class AdminArticleController {
     @GetMapping("/edit/{articleId}")
     public String getArticleEdit(@PathVariable("articleId") String articleId, Model model) {
         model.addAttribute("articleId", articleId);
-        return "admin/article-edit";
+        model.addAttribute("isEdit", true);
+        return "admin/article-new-edit";
     }
 
 }

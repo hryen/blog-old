@@ -39,8 +39,6 @@
         <el-header style="background-color: #6699CC;height: 80px;border-top-left-radius: 6px;border-top-right-radius: 6px;">
         </el-header>
 
-
-
         <el-container>
             <#-- menu -->
             <el-aside id="left-menu" width="240px">
@@ -78,7 +76,6 @@
                         <el-menu-item index="4"><i class="el-icon-menu"></i><span slot="title">标签管理</span>
                         </el-menu-item>
                     </a>
-
 
                     <a style="text-decoration: none;" href="${request.contextPath}/admin/settings">
                         <el-menu-item index="5"><i class="el-icon-setting"></i><span slot="title">博客设置</span>
