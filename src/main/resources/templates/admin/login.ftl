@@ -83,7 +83,7 @@
         if (clientHeight < 700) {
             card.style.marginTop = '0';
         } else {
-            card.style.marginTop = '-208px';
+            card.style.marginTop = '-200px';
         }
     }
 
