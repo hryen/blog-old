@@ -3,6 +3,7 @@ package com.hryen.blog.web.admin;
 import com.hryen.blog.model.Result;
 import com.hryen.blog.model.User;
 import com.hryen.blog.service.AdminUserService;
+import com.hryen.blog.service.CommonService;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -25,6 +26,9 @@ public class AdminLoginController {
 
     @Autowired
     private AdminUserService adminUserService;
+
+    @Autowired
+    private CommonService commonService;
 
     // admin登录页面
     @GetMapping("/login")
@@ -55,6 +59,8 @@ public class AdminLoginController {
             return "redirect:/admin";
         }
 
+        String blogTitle = commonService.getBlogTitle();
+        model.addAttribute("blogTitle", blogTitle);
         // 返回登录页面
         return "admin/login";
     }

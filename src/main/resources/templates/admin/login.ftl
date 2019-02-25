@@ -7,45 +7,36 @@
     <script src="${request.contextPath}/js/vue.min.js"></script>
     <script src="${request.contextPath}/js/element-ui.min.js"></script>
     <script src="${request.contextPath}/js/axios.min.js"></script>
-    <title>Sign in</title>
+    <title>Login - ${blogTitle}</title>
+    <style>
+        input, label { margin-bottom: 20px; }
+    </style>
 </head>
 <body style="margin: 0;">
 <div id="app">
     <el-container>
         <el-main id="main" style="display: flex;">
             <div style="width: 360px;margin: auto;">
-                <el-card class="box-card" style="padding: 40px 0 20px 0;">
-                    <div slot="header" class="clearfix"><span>Sign in</span></div>
+                <el-card id="card" style="padding: 30px 0 20px 0;">
+                    <#--form title-->
+                    <div slot="header"><span>Log in to ${blogTitle}</span></div>
 
-                    <el-input v-model="form.username" type="text" placeholder="Username"
-                              autofocus style="margin-bottom: 20px;">
-                    </el-input>
+                    <#--username-->
+                    <el-input v-model="username" type="text" placeholder="Username" autofocus></el-input>
 
-                    <el-input v-model="form.password" type="password" placeholder="Passowrd"
-                              style="margin-bottom: 20px;">
-                    </el-input>
+                    <#--password-->
+                    <el-input v-model="password" type="password" placeholder="Passowrd"></el-input>
 
-                    <el-checkbox v-model="form.remember" style="margin-bottom: 20px;">Remember me</el-checkbox>
+                    <#--remember me-->
+                    <el-checkbox v-model="remember">Remember me</el-checkbox>
 
-                    <el-button type="primary" @click="formSubmit" style="width: 100%;">Sign in</el-button>
+                    <#--submit-->
+                    <el-button type="primary" @click="doLogin" style="width: 100%;">Log in</el-button>
                 </el-card>
             </div>
-
         </el-main>
     </el-container>
 </div>
-
-<script>
-    function setMainHeight() {
-        var main = document.getElementById('main');
-        var clientHeight = document.documentElement.clientHeight;
-        main.style.height = clientHeight+'px';
-    }
-
-    setMainHeight();
-
-    window.onresize = function () { setMainHeight(); }
-</script>
 
 <script>
     Vue.prototype.$axios = axios.create({ baseURL: '${request.contextPath}' });
@@ -53,36 +44,58 @@
     var Main = {
         data() {
             return {
-                form: {
-                    username: '',
-                    password: '',
-                    remember: true
-                }
+                username: '',
+                password: '',
+                remember: true
             }
         },
 
-        mounted() {},
-
         methods: {
-            formSubmit: function () {
+            doLogin: function () {
                 this.$axios.post('/admin/login', {
-                    username: this.form.username,
-                    password: this.form.password,
-                    remember: this.form.remember
+                    username: this.username,
+                    password: this.password,
+                    remember: this.remember
                 }).then((response) => {
-                    console.log(response);
-                if (response.data.result) {
-                    window.location.href = "/admin/index";
-                } else {
-                    this.$message({type: 'error', message: response.data.message});
-                }
-            }).catch((error) => { console.log(error); });
+                    if (response.data.result) {
+                        window.location.href = "/admin/index";
+                    } else {
+                        this.$message({type: 'error', message: response.data.message});
+                    }
+                }).catch((error) => { console.log(error); });
             }
         }
     };
 
     var Ctor = Vue.extend(Main);
     new Ctor().$mount('#app');
+</script>
+
+<#--set main height and card margin-->
+<script>
+    function setMainHeight(clientHeight) {
+        var main = document.getElementById('main');
+        main.style.height = clientHeight+'px';
+    }
+
+    function setCardMarginTop(clientHeight) {
+        var card = document.getElementById('card');
+        if (clientHeight < 700) {
+            card.style.marginTop = '0';
+        } else {
+            card.style.marginTop = '-208px';
+        }
+    }
+
+    var clientHeight = document.documentElement.clientHeight;
+    setMainHeight(clientHeight);
+    setCardMarginTop(clientHeight);
+
+    window.onresize = function () {
+        var clientHeight = document.documentElement.clientHeight;
+        setMainHeight(clientHeight);
+        setCardMarginTop(clientHeight);
+    }
 </script>
 
 </body>
