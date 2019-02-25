@@ -139,7 +139,7 @@
                             cm.focus();
                         },
                         className: "fa fa-superscript",
-                        title: "Insert Superscript",
+                        title: "Insert Superscript"
                     },
                     {
                         name: "subscript",
@@ -149,7 +149,7 @@
                             cm.focus()
                         },
                         className: "fa fa-subscript",
-                        title: "Insert Subscript",
+                        title: "Insert Subscript"
                     },
                     {
                         name: "tasks",
@@ -162,7 +162,7 @@
                             cm.focus();
                         },
                         className: "fa fa-check-square",
-                        title: "Insert Task List",
+                        title: "Insert Task List"
                     },
                     {
                         name: "readMore",
@@ -172,11 +172,18 @@
                             cm.focus();
                         },
                         className: "fa fa-ellipsis-h",
-                        title: "Insert ReadMore",
+                        title: "Insert ReadMore"
                     },
                     "|", "preview","side-by-side","fullscreen","guide"
                 ];
                 this.easyMDE = new EasyMDE({
+                    <#if !(isEdit!false)>
+                    autosave: {
+                        enabled: true,
+                        uniqueId: "1",
+                        delay: 1000
+                    },
+                    </#if>
                     toolbar: toolbarIcons,
                     element: document.getElementById('markdownEditorTextarea'),
                     indentWithTabs: false,

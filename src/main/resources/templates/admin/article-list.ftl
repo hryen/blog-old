@@ -116,7 +116,7 @@
 	
 	
 <#-- dialogArticleSettings -->
-	<el-dialog title="设置" :visible.sync="dialogArticleSettings" width="30%">
+	<el-dialog title="设置" :visible.sync="dialogArticleSettingsVisible" width="30%">
 		<el-form :model="form" label-width="80px">
 			<el-form-item label="标题"><el-input v-model="form.title"></el-input></el-form-item>
 			<el-form-item label="固定链接"><el-input v-model="form.permalink"></el-input></el-form-item>
@@ -168,7 +168,7 @@
 				pageSize: 10,
 				currentPage: 1,
 				total: '',
-				dialogArticleSettings: false,
+				dialogArticleSettingsVisible: false,
 				form: {id: '', title: '', permalink: '', status: '', categoryName: '', tagNameList: [], commentStatus: true},
 				categoryList: [],
 				tagList: []
@@ -204,7 +204,7 @@
 					return;
 				}
 				
-				this.dialogArticleSettings = false;
+				this.dialogArticleSettingsVisible = false;
 				
 				if (this.form.commentStatus === "1") { this.form.commentStatus = true; }
 				else { this.form.commentStatus = false; }
@@ -217,7 +217,7 @@
 			},
 
 			handleClose: function() {
-				this.dialogArticleSettings = false;
+				this.dialogArticleSettingsVisible = false;
 			},
 
 			handleView: function(row) {
@@ -253,7 +253,7 @@
 					this.form.commentStatus = "0";
 				}
 				
-				this.dialogArticleSettings = true;
+				this.dialogArticleSettingsVisible = true;
 			},
             handleEdit: function(row) { window.location.href = "/admin/article/edit/"+row.id; },
 

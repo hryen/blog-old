@@ -15,10 +15,10 @@ public class ApiUploadController {
 
     // 上传文件
     @PostMapping("/upload")
-    public UploadResult upload(MultipartFile multipartFile) {
+    public UploadResult upload(MultipartFile file) {
         try {
             // 获取提交的文件名称
-            String originalFilename = multipartFile.getOriginalFilename();
+            String originalFilename = file.getOriginalFilename();
 
             // 将文件重新命名 加上日期前缀
             String newFilename = new Date().getTime() + "_" + originalFilename;
@@ -26,7 +26,7 @@ public class ApiUploadController {
             // 创建目录对象 类似/upload/2019/02
             File resourcesDir = ResourceUtils.getFile("classpath:");
             File staticDir = new File(resourcesDir, "static");
-            File uploadDir = new File(staticDir, "upload");
+            File uploadDir = new File(staticDir, "uploads");
             File yearDir = new File(uploadDir, new SimpleDateFormat("yyyy").format(new Date()));
             File monthDir = new File(yearDir, new SimpleDateFormat("MM").format(new Date()));
 
@@ -37,7 +37,7 @@ public class ApiUploadController {
             File uploadFile = new File(monthDir, newFilename);
 
             // 执行上传
-            multipartFile.transferTo(uploadFile);
+            file.transferTo(uploadFile);
 
             // 文件上传后的uri
             String uploadFileUri = "/upload/"+yearDir.getName()+"/"+monthDir.getName()+"/"+newFilename;
