@@ -12,7 +12,7 @@
         input, label { margin-bottom: 20px; }
     </style>
 </head>
-<body style="margin: 0;">
+<body style="margin: 0;background-color: #fafafa">
 <div id="app">
     <el-container>
         <el-main id="main" style="display: flex;">
