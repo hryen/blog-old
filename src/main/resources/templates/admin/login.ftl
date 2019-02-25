@@ -95,7 +95,7 @@
         var clientHeight = document.documentElement.clientHeight;
         setMainHeight(clientHeight);
         setCardMarginTop(clientHeight);
-    }
+    };
 </script>
 
 </body>
