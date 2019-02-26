@@ -64,6 +64,16 @@
                     }
                 }).catch((error) => { console.log(error); });
             }
+        },
+
+        created() {
+            var lett = this;
+            document.onkeydown = function(e) {
+                var key = window.event.keyCode;
+                if (key == 13) {
+                    lett.doLogin();
+                }
+            }
         }
     };
 
