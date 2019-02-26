@@ -167,7 +167,7 @@
 				loading: true,
 				pageSize: 10,
 				currentPage: 1,
-				total: '',
+				total: 0,
 				dialogArticleSettingsVisible: false,
 				form: {id: '', title: '', permalink: '', status: '', categoryName: '', tagNameList: [], commentStatus: true},
 				categoryList: [],

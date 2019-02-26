@@ -67,18 +67,23 @@
                         </a>
                     </el-submenu>
 
+                    <a style="text-decoration: none;" href="${request.contextPath}/admin/uploads">
+                        <el-menu-item index="3"><i class="el-icon-menu"></i><span slot="title">附件管理</span>
+                        </el-menu-item>
+                    </a>
+
                     <a style="text-decoration: none;" href="${request.contextPath}/admin/categories">
-                        <el-menu-item index="3"><i class="el-icon-menu"></i><span slot="title">分类管理</span>
+                        <el-menu-item index="4"><i class="el-icon-menu"></i><span slot="title">分类管理</span>
                         </el-menu-item>
                     </a>
 
                     <a style="text-decoration: none;" href="${request.contextPath}/admin/tags">
-                        <el-menu-item index="4"><i class="el-icon-menu"></i><span slot="title">标签管理</span>
+                        <el-menu-item index="5"><i class="el-icon-menu"></i><span slot="title">标签管理</span>
                         </el-menu-item>
                     </a>
 
                     <a style="text-decoration: none;" href="${request.contextPath}/admin/settings">
-                        <el-menu-item index="5"><i class="el-icon-setting"></i><span slot="title">博客设置</span>
+                        <el-menu-item index="6"><i class="el-icon-setting"></i><span slot="title">博客设置</span>
                         </el-menu-item>
                     </a>
 
