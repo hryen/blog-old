@@ -16,8 +16,8 @@
 <div id="app">
     <el-container>
         <el-main id="main" style="display: flex;">
-            <div style="width: 360px;margin: auto;">
-                <el-card id="card" style="padding: 30px 0 20px 0;">
+            <div style="width: 350px;margin: auto;">
+                <el-card id="card" style="padding: 30px 0 10px 0;">
                     <#--form title-->
                     <div slot="header"><span>Log in to ${blogTitle}</span></div>
 
