@@ -19,7 +19,7 @@ public class IndexService {
     @Autowired
     private ArticleMapper articleMapper;
 
-    @Cacheable(value = "blog_index", key = "'articleList'")
+    @Cacheable(value = "blog_index", key = "'articleList_page_'+#pageNumber")
     public List<Article> getIndexWithPage(Integer pageNumber, Integer startIndex) {
 
         // 创建文章集合
@@ -34,9 +34,6 @@ public class IndexService {
         // 查询最新文章 带分页
         List<Article> newestArticleList = articleMapper.getNewestArticlesWithPage(startIndex, commonService.getIndexPageSize());
         articleList.addAll(newestArticleList);
-
-//        // 更新文章的标题
-//        ArticleUtils.updateTitle(articleList, 30);
 
         return articleList;
     }

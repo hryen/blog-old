@@ -35,8 +35,8 @@ public class AdminUserService {
 
     }
 
-    public User getUserById(String uid) {
-        return adminUserMapper.getUserById(uid);
+    public User getUserById(String id) {
+        return adminUserMapper.getUserById(id);
     }
 
 }

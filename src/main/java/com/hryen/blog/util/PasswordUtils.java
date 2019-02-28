@@ -10,7 +10,7 @@ public class PasswordUtils {
     }
 
     // 传入字符串 和 加密过的字符串 进行对比
-    // rawPassword 用户输入的密码 encodedPassword 数据库加密过的密码
+    // rawPassword=用户输入的密码   encodedPassword=数据库加密过的密码
     public static boolean matches(String rawPassword, String encodedPassword) {
         return new BCryptPasswordEncoder().matches(rawPassword, encodedPassword);
     }

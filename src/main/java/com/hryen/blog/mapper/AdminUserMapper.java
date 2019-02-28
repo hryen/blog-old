@@ -12,7 +12,7 @@ public interface AdminUserMapper {
     User getUserByUsername(String username);
 
     // 根据id获取user
-    @Select("SELECT * FROM user WHERE id = #{uid}")
-    User getUserById(String uid);
+    @Select("SELECT * FROM user WHERE id = #{id}")
+    User getUserById(String id);
 
 }

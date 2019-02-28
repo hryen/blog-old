@@ -18,23 +18,27 @@ public class ApiCacheService {
 
     // 1.清除首页文章缓存
     public void cleanIndexArticleListCache() {
-        stringRedisTemplate.delete("blog_index::articleList");
-        logger.info("Clean index articles list cache");
+        deleteKeysWithPattern("blog_index::articleList*");
+        logger.info("Clean index article list cache");
     }
 
     // 2.清除所有文章缓存
     public void cleanArticleCache() {
-        Set<String> keys = stringRedisTemplate.keys("blog_article*");
-        stringRedisTemplate.delete(keys);
+        deleteKeysWithPattern("blog_article*");
         logger.info("Clean articles cache");
     }
 
     // 3.清除所有博客设置缓存
     public void cleanBlogSysConfigCache() {
-        Set<String> keys = stringRedisTemplate.keys("blog_sys.config*");
-        keys.add("blog_common::navigationList");
-        stringRedisTemplate.delete(keys);
+        deleteKeysWithPattern("blog_sys.config*");
+        stringRedisTemplate.delete("blog_common::navigationList");
         logger.info("Clean blog sysconfig cache");
+    }
+
+    // 根据key的名称pattern删除keys
+    private void deleteKeysWithPattern(String pattern) {
+        Set<String> keys = stringRedisTemplate.keys(pattern);
+        stringRedisTemplate.delete(keys);
     }
 
 }
