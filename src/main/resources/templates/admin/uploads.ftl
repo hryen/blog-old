@@ -49,7 +49,7 @@
                 </template>
             </el-table-column>
 
-            <el-table-column prop="path" label="URL" min-width="420" show-overflow-tooltip>
+            <el-table-column prop="path" label="路径" min-width="420" show-overflow-tooltip>
                 <template slot-scope="scope">
                     <el-button size="mini" icon="el-icon-document" circle @click="handleCopyURL(scope.row.path)"></el-button>
                     <span style="margin-left: 5px;">{{ scope.row.path }}</span>
