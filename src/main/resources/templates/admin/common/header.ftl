@@ -41,7 +41,7 @@
                 <el-popover placement="bottom" width="200" trigger="hover">
 
                     <div style="width: 100%; text-align: center;margin-bottom: 20px;">
-                        <img width="80px" height="80px" style="border-radius: 50%;"
+                        <img width="120px" height="120px" style="border-radius: 50%;"
                              src="${Session["user"].avatar}">
                         <p style="margin-top: 0;">${Session["user"].username}</p>
                     </div>
