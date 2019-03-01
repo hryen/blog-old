@@ -103,7 +103,7 @@ public class ApiArticleService {
         article.setLastModifiedDate(new Date());
 
         // insert
-        articleMapper.newArticle(article);
+        articleMapper.save(article);
 
         // 向数据库插入文章与标签的关系
         List<Tag> tagList = article.getTagList();

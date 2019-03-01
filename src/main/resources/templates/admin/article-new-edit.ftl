@@ -342,6 +342,10 @@
                     status: this.article.status
                 }).then((response) => {
                     if (response.data.result) {
+                        // 发布成功 清除编辑器自动保存内容
+                        this.easyMDE.value("");
+                        var storage = window.localStorage;
+                        storage.removeItem("smde_1");
                         // 发布成功 提示点击确定返回文章列表
                         this.$alert('发布成功，点击确定返回文章列表', '提示', {
                             type: 'success',

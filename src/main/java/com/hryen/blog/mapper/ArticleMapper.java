@@ -185,7 +185,7 @@ public interface ArticleMapper {
             "#{article.publishDate}, #{article.lastModifiedDate}," +
             "#{article.categoryName}, #{article.summary}, #{article.markdownContent}," +
             "#{article.htmlContent}, #{article.status}, #{article.commentStatus})")
-    void newArticle(@Param("article") Article article);
+    void save(@Param("article") Article article);
 
     // 8.按文章id更新文章内容和设置
     @Update("UPDATE article SET title=#{title}," +
