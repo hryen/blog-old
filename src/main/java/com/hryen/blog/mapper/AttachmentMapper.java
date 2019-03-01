@@ -3,7 +3,6 @@ package com.hryen.blog.mapper;
 import com.hryen.blog.model.Attachment;
 import org.apache.ibatis.annotations.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Mapper

@@ -17,8 +17,7 @@
                     <template>
                         <el-table size="medium" stripe :data="tableData"
 						:default-sort="{prop: 'publishDate', order: 'descending'}"
-						v-loading="loading" max-height="666" tooltip-effect="dark"
-						style="width: 100%;">
+						v-loading="loading" max-height="666" tooltip-effect="dark">
 
 							<el-table-column type="expand">
 								<template slot-scope="props">
