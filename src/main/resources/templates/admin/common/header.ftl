@@ -41,18 +41,18 @@
                 <el-popover placement="bottom" width="200" trigger="hover">
 
                     <div style="width: 100%; text-align: center;margin-bottom: 20px;">
-                        <img width="120px" height="120px" style="border-radius: 50%;"
+                        <img width="100px" height="100px" style="border-radius: 50%;"
                              src="${Session["user"].avatar}">
                         <p style="margin-top: 0;">${Session["user"].username}</p>
                     </div>
 
                     <div style="float: left;">
-                        <el-button plain size="mini"
+                        <el-button size="mini"
                                    @click="window.open('/')">首页</el-button>
                     </div>
 
                     <div style="float: right;">
-                        <el-button plain size="mini"
+                        <el-button size="mini" type="danger"
                                    @click="window.location.href='/admin/logout'">退出</el-button>
                     </div>
 
