@@ -12,7 +12,9 @@ public class User implements Serializable {
 
     private String password;
 
-    private String mail;
+    private String email;
+
+    private String avatar;
 
     public String getId() {
         return id;
@@ -38,11 +40,19 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

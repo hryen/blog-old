@@ -14,7 +14,7 @@
     function setLeftMenuHeight() {
         var leftMenu = document.getElementById('left-menu');
         var clientHeight = document.documentElement.clientHeight;
-        leftMenu.style.height = (clientHeight - 80)+'px';
+        leftMenu.style.height = (clientHeight - 60)+'px';
     }
 
     setLeftMenuHeight();

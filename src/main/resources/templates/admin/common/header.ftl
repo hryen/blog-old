@@ -36,7 +36,31 @@
 <div id="app">
     <el-container>
         <#-- header -->
-        <el-header style="background-color: #6699CC;height: 80px;border-top-left-radius: 6px;border-top-right-radius: 6px;">
+        <el-header style="background-color: #6699CC;height: 60px;padding: 10px 20px;">
+            <el-row style="text-align: right">
+                <el-popover placement="bottom" width="200" trigger="hover">
+
+                    <div style="width: 100%; text-align: center;margin-bottom: 20px;">
+                        <img width="80px" height="80px" style="border-radius: 50%;"
+                             src="${Session["user"].avatar}">
+                        <p style="margin-top: 0;">${Session["user"].username}</p>
+                    </div>
+
+                    <div style="float: left;">
+                        <el-button plain size="mini"
+                                   @click="window.open('/')">首页</el-button>
+                    </div>
+
+                    <div style="float: right;">
+                        <el-button plain size="mini"
+                                   @click="window.location.href='/admin/logout'">退出</el-button>
+                    </div>
+
+                    <img slot="reference" width="40px" height="40px" style="border-radius: 50%;"
+                         src="${Session["user"].avatar}">
+                </el-popover>
+
+            </el-row>
         </el-header>
 
         <el-container>
