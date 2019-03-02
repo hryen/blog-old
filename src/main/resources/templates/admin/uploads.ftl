@@ -63,7 +63,8 @@
 
             <el-table-column label="操作" width="200">
                 <template slot-scope="scope">
-                    <el-button size="mini" type="danger" icon="el-icon-delete" circle @click="handleDelete(scope.row)"></el-button>
+                    <el-button size="small" type="info" icon="el-icon-download" circle @click="window.open(scope.row.path)"></el-button>
+                    <el-button size="small" type="danger" icon="el-icon-delete" circle @click="handleDelete(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
