@@ -91,7 +91,7 @@
                         </a>
                     </el-submenu>
 
-                    <a style="text-decoration: none;" href="${request.contextPath}/admin/uploads">
+                    <a style="text-decoration: none;" href="${request.contextPath}/admin/attachments">
                         <el-menu-item index="3"><i class="el-icon-menu"></i><span slot="title">附件管理</span>
                         </el-menu-item>
                     </a>

@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminUploadsController {
+public class AdminAttachmentsController {
 
-    @GetMapping("/uploads")
+    @GetMapping("/attachments")
     public String getAdminUploads() {
-        return "admin/uploads";
+        return "admin/attachments";
     }
 }
