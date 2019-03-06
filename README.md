@@ -1,4 +1,4 @@
-# blog
+# About
 
 A blog application based Spring Boot.
 
