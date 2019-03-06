@@ -25,13 +25,12 @@
         </el-dialog>
 
         <el-row>
-            <el-button icon="el-icon-refresh" size="mini" @click="handleReload">刷新</el-button>
-            <el-button type="primary" icon="el-icon-upload" size="mini" @click="openDialogUpload">上传</el-button>
+            <el-button icon="el-icon-refresh" size="small" @click="handleReload">刷新</el-button>
+            <el-button type="primary" icon="el-icon-upload" size="small" @click="openDialogUpload">上传</el-button>
         </el-row>
 
-        <el-table v-loading="loading" stripe :data="tableData"
-                  :default-sort="{prop: 'uploaded', order: 'descending'}"
-                  tooltip-effect="dark" style="width: 100%">
+        <el-table v-loading="loading" stripe :data="tableData" tooltip-effect="dark"
+                  :default-sort="{prop: 'uploaded', order: 'descending'}">
             <el-table-column type="index" width="50"></el-table-column>
 
             <el-table-column prop="name" label="名称" width="200" show-overflow-tooltip sortable></el-table-column>
