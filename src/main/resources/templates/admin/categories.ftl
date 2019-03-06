@@ -2,16 +2,51 @@
 <#assign activeMenu = "4">
 <#include "common/header.ftl">
 
-            <el-container>
-                <el-main>
+<el-container>
+    <el-main>
+        <#--dialog-->
+        <el-dialog :title.sync="dialogTitle" :visible.sync="dialogVisible" width="30%">
+            <el-form :model="form" label-width="60px">
+                <el-form-item label="名称">
+                    <el-input v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="描述">
+                    <el-input type="textarea" rows="4" v-model="form.description"></el-input>
+                </el-form-item>
+            </el-form>
 
-                </el-main>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="handleSubmit">确 定</el-button>
+            </span>
+        </el-dialog>
 
-                <!-- footer -->
-                <#include "common/footer.ftl">
-            </el-container>
-        </el-container>
-    </el-container>
+        <el-row>
+            <el-button icon="el-icon-refresh" size="small" @click="listCategories">刷新</el-button>
+            <el-button type="primary" size="small" @click="openDialogCreate">新建</el-button>
+        </el-row>
+
+        <el-table v-loading="loading" stripe :data="tableData" tooltip-effect="dark">
+            <el-table-column type="index" width="50"></el-table-column>
+
+            <el-table-column prop="name" label="名称" show-overflow-tooltip></el-table-column>
+
+            <el-table-column prop="description" label="描述" show-overflow-tooltip></el-table-column>
+
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button size="mini" icon="el-icon-setting" @click="handleEdit(scope.row)"></el-button>
+                    <el-button type="danger" size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </el-main>
+
+    <!-- footer -->
+    <#include "common/footer.ftl">
+</el-container>
+</el-container>
+</el-container>
 
 
 </div>
@@ -23,17 +58,97 @@
 
     var Main = {
         data() {
-            return {}
+            return {
+                tableData: [],
+                loading: false,
+                dialogVisible: false,
+                dialogTitle: '',
+                form: {
+                    id: null,
+                    name: '',
+                    description: ''
+                }
+            }
         },
 
-        mounted() {},
+        mounted() {
+            this.listCategories();
+        },
 
-        methods: {}
+        methods: {
+            openDialogCreate: function() {
+                this.dialogTitle = '新建';
+                this.form.id = null;
+                this.form.name = '';
+                this.form.description = '';
+                this.dialogVisible = true;
+            },
+
+            handleEdit: function(row) {
+                this.dialogTitle = '编辑';
+                this.form.id = row.id;
+                this.form.name = row.name;
+                this.form.description = row.description;
+                this.dialogVisible = true;
+            },
+
+            handleSubmit: function() {
+              console.log(this.form);
+              if (this.form.id == null) {
+                  console.log('新建');
+              } else {
+                  console.log('编辑');
+              }
+              this.dialogVisible = false;
+            },
+
+            handleDelete: function(row) {
+                this.$confirm('此操作不可逆，确定要删除此附件吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    // 执行删除
+                    this.$axios.post('/admin/api/attachment/delete', {
+                        id: row.id
+                    }).then((response) => {
+                        if (response.data.result) {
+                    this.$message({
+                        type: 'success',
+                        message: response.data.message
+                    });
+
+                    // 删除成功 刷新列表
+                    this.handleReload();
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: response.data.message
+                    });
+                }
+            }).catch((error) => { console.log(error); });
+
+            });
+
+            },
+
+            listCategories: function() {
+                this.loading = true;
+                this.$axios.get('/admin/api/category/listAllCategory')
+                    .then((response) => {
+                    this.tableData = response.data;
+                this.loading = false;
+            }).catch((error) => {
+                    this.loading = false;
+                console.log(error);
+            });
+            }
+
         }
+    };
 
-    var Ctor = Vue.extend(Main)
-    new Ctor().$mount('#app')
+    var Ctor = Vue.extend(Main);
+    new Ctor().$mount('#app');
 </script>
-
 </body>
 </html>

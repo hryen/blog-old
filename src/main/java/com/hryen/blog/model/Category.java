@@ -7,6 +7,9 @@ public class Category implements Serializable {
 
     private static final long serialVersionUID = -788803066400445194L;
 
+    // id
+    private String id;
+
     // 名称
     private String name;
 
@@ -15,6 +18,14 @@ public class Category implements Serializable {
 
     // 分类下文章数
     private Integer articleCount;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
