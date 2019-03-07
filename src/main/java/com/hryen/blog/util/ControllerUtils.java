@@ -49,7 +49,7 @@ public class ControllerUtils {
 
         String blogTitle = commonService.getBlogTitle();
         String blogDescription = commonService.getBlogDescription();
-        List<Navigation> navigationList = commonService.getNavigation();
+        List<Navigation> navigationList = commonService.listNavigation();
         String blogOwner = commonService.getBlogOwner();
 
         List<Tag> tagList = tagService.getAllTags();

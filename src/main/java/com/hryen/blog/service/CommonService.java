@@ -73,8 +73,8 @@ public class CommonService {
 
     // 获取导航list
     @Cacheable(value = "blog_common", key = "'navigationList'", unless="#result == null")
-    public List<Navigation> getNavigation() {
-        return commonMapper.getNavigations();
+    public List<Navigation> listNavigation() {
+        return commonMapper.listNavigation();
     }
 
 }
