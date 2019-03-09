@@ -12,12 +12,13 @@ public class AdminInterceptorHandler implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 如果用户未登录 返回401
         Object user = request.getSession().getAttribute("user");
-        if (null == user) {
+        if (null != user) {
+            // 如果用户已登录 则放行
+            return true;
+        } else {
             response.sendError(401);
             return false;
         }
-        // 如果用户已登录 则放行
-        return true;
     }
 
 }
