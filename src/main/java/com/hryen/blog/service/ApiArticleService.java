@@ -13,7 +13,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -33,6 +32,9 @@ public class ApiArticleService {
 
     @Autowired
     private Snowflake snowflake;
+
+    @Autowired
+    private ApiCacheService apiCacheService;
 
     // 1.获取所有文章的总数 不包含回收站里的
     public Integer getAllArticleTotalRecord() {
@@ -77,8 +79,6 @@ public class ApiArticleService {
 
         //删除redis
         cleanRedisArticleByArticleId(id);
-
-
     }
 
     // 7.按文章id将文章从已删除修改为已隐藏
@@ -111,6 +111,8 @@ public class ApiArticleService {
             articleMapper.insertArticleBindTag(article.getId(), tag.getName());
         }
 
+        // clean index cache
+        apiCacheService.cleanIndexArticleListCache();
     }
 
     // 9.根据文章id更新文章 包含内容
