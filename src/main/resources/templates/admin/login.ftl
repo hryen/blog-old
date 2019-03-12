@@ -67,13 +67,8 @@
         },
 
         created() {
-            var lett = this;
-            document.onkeydown = function(e) {
-                var key = window.event.keyCode;
-                if (key == 13) {
-                    lett.doLogin();
-                }
-            }
+            var thisVue = this;
+            document.onkeydown = function(event) { if (event.keyCode == 13) { thisVue.doLogin(); } }
         }
     };
 
