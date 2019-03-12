@@ -11,7 +11,7 @@
                         <el-breadcrumb-item>所有文章</el-breadcrumb-item>
                     </el-breadcrumb>
 					<el-row style="float: right;">
-						<el-button size="mini" icon="el-icon-refresh" plain @click="handleListArticleWithPage()">刷新</el-button>
+						<el-button size="mini" icon="el-icon-refresh" plain @click="loadTableData()">刷新</el-button>
 					</el-row>
 <#-- table -->
                     <template>
@@ -175,11 +175,14 @@
 		},
 		
 		mounted() {
-			this.getAllArticleTotalRecord();
-			this.handleListArticleWithPage();
+			this.loadTableData();
 		},
 		
 		methods: {
+			loadTableData: function() {
+				this.getAllArticleTotalRecord();
+				this.handleListArticleWithPage();
+			},
 			getTagList: function () {
 				this.$axios.get('/admin/api/tag/listAllTag')
 						.then((response) => { this.tagList = response.data; });
@@ -258,9 +261,9 @@
 
             handleDelete: function(row) { this.doDelete(row.id); },
 
-            handleSizeChange: function() { this.handleListArticleWithPage(); },
+            handleSizeChange: function() { this.loadTableData(); },
 
-            handleCurrentChange: function() { this.handleListArticleWithPage(); },
+            handleCurrentChange: function() { this.loadTableData(); },
 			
 			// 更新文章设置
 			updateArticleSettingsByArticleId: function (form) {
@@ -280,7 +283,7 @@
 							message: response.data.message
 						});
 						// 更新成功 刷新文章列表
-						this.handleListArticleWithPage();
+						this.loadTableData();
 					} else {
 						this.$message({
 							type: 'error',
@@ -341,7 +344,7 @@
 								message: response.data.message
 							});
 							// 删除成功 刷新文章列表
-							this.handleListArticleWithPage();
+							this.loadTableData();
 							// 总数减一 就不去服务器在查了
 							this.total--;
 						} else {
