@@ -9,7 +9,7 @@
     <script src="${request.contextPath}/js/axios.min.js"></script>
     <title>Login - ${blogTitle}</title>
     <style>
-        input, label { margin-bottom: 20px; }
+        .el-input, .el-checkbox { margin-bottom: 20px; }
     </style>
 </head>
 <body style="margin: 0;background-color: #fafafa">
@@ -25,7 +25,7 @@
                     <el-input v-model="username" type="text" placeholder="Username" autofocus></el-input>
 
                     <#--password-->
-                    <el-input v-model="password" type="password" placeholder="Passowrd"></el-input>
+                    <el-input v-model="password" type="password" show-password placeholder="Passowrd"></el-input>
 
                     <#--remember me-->
                     <el-checkbox v-model="remember">Remember me</el-checkbox>
