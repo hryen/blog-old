@@ -3,7 +3,6 @@
 <head>
     <title>${title!}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="${request.contextPath}/css/github-markdown.css">
     <link rel="stylesheet" href="${request.contextPath}/css/hryen.css">
     <meta charset="utf-8"/>
