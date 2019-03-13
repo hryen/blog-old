@@ -1,4 +1,4 @@
-package com.hryen.blog.web.admin;
+package com.hryen.blog.web.controller.admin;
 
 import com.hryen.blog.model.Result;
 import com.hryen.blog.model.User;

@@ -70,7 +70,8 @@
 							
                             <el-table-column label="标题" prop="title"  show-overflow-tooltip sortable></el-table-column>
 
-							<el-table-column label="分类" prop="categoryName" width="200" show-overflow-tooltip sortable></el-table-column>
+							<el-table-column label="分类" prop="categoryName" width="200" show-overflow-tooltip sortable>
+							</el-table-column>
 							
 							<el-table-column label="发布日期" prop="publishDate" width="200" show-overflow-tooltip sortable>
 							    <template slot-scope="scope">
@@ -79,7 +80,8 @@
 							    </template>
 							</el-table-column>
 
-							<el-table-column label="最后修改日期" prop="lastModifiedDate" width="200" show-overflow-tooltip sortable>
+							<el-table-column label="最后修改日期" prop="lastModifiedDate" width="200"
+											 show-overflow-tooltip sortable>
 								<template slot-scope="scope">
 									<span>{{ scope.row.lastModifiedDate.substring(0,16) }}</span>
 								</template>
@@ -88,9 +90,12 @@
                             <el-table-column label="操作" width="240">
                                 <template slot-scope="scope">
                                 	<el-button size="mini" icon="el-icon-view" @click="handleView(scope.row)"></el-button>
-                                	<el-button size="mini" icon="el-icon-setting" @click="handleSetting(scope.row)"></el-button>
-                                	<el-button size="mini" type="info" icon="el-icon-edit-outline" @click="handleEdit(scope.row)"></el-button>
-                                	<el-button size="mini" type="danger" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
+                                	<el-button size="mini" icon="el-icon-setting" @click="handleSetting(scope.row)">
+									</el-button>
+                                	<el-button size="mini" type="info" icon="el-icon-edit-outline"
+											   @click="handleEdit(scope.row)"></el-button>
+                                	<el-button size="mini" type="danger" icon="el-icon-delete"
+											   @click="handleDelete(scope.row)"></el-button>
                                 </template>
                             </el-table-column>
 							

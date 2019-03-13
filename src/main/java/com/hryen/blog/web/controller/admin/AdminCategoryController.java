@@ -1,4 +1,4 @@
-package com.hryen.blog.web.admin;
+package com.hryen.blog.web.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminAttachmentsController {
+public class AdminCategoryController {
 
-    @GetMapping("/attachments")
-    public String getAdminUploads() {
-        return "admin/attachments";
+    @GetMapping("/categories")
+    public String getAdminCategories() {
+        return "admin/categories";
     }
+
 }

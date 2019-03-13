@@ -1,4 +1,4 @@
-package com.hryen.blog.web.admin.api;
+package com.hryen.blog.web.controller.admin.api;
 
 import com.hryen.blog.model.Attachment;
 import com.hryen.blog.model.Result;

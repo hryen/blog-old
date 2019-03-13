@@ -1,4 +1,4 @@
-package com.hryen.blog.web.admin;
+package com.hryen.blog.web.controller.admin;
 
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
