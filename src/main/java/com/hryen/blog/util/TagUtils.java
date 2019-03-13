@@ -13,7 +13,7 @@ public class TagUtils {
         while (iterator.hasNext()) {
             Tag tag = iterator.next();
             // 如果标签下文章数为0 将此标签从list中移除
-            if (tag.getArticleCount() == 0) {
+            if (0 == tag.getArticleCount()) {
                 iterator.remove();
             } else {
                 tag.setLevel(getTagLevel(tag));
@@ -34,11 +34,8 @@ public class TagUtils {
      */
     public static Integer getTagLevel(Tag tag) {
 
-        if (null == tag || null == tag.getArticleCount()) {
-            return null;
-        }
-
         Integer articleCount = tag.getArticleCount();
+
         if (articleCount >= 0 && articleCount <= 2) {
             return 6;
         } else if (articleCount >= 3 && articleCount <= 5) {
