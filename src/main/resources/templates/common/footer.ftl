@@ -3,7 +3,7 @@
 </footer>
 </div>
 
-<div id="backtotop">
+<div id="backToTop">
     <a href="javascript:backToTop();" title="Back to top">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#222222">
             <path fill="none" d="M0 0h24v24H0V0z"/>

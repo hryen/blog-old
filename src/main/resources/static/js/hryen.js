@@ -1,18 +1,16 @@
-/* (c) 2019 by Henry Chen */
-
 // Back to top
 if (document.documentElement.scrollTop < 300) {
-	document.getElementById("backtotop").setAttribute('hidden', 'true');
+	document.getElementById("backToTop").setAttribute('hidden', 'true');
 }
 
 window.onscroll = function() {
 	var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     if (scrollTop < 300) {
-		document.getElementById("backtotop").setAttribute('hidden', 'true');
+		document.getElementById("backToTop").setAttribute('hidden', 'true');
     } else {
-        document.getElementById("backtotop").removeAttribute('hidden');
+        document.getElementById("backToTop").removeAttribute('hidden');
     }
-}
+};
 
 function backToTop() {
     var duration = 150; // 返回顶部的时间
