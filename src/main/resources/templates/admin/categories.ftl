@@ -33,6 +33,8 @@
 
             <el-table-column prop="description" label="描述" show-overflow-tooltip></el-table-column>
 
+            <el-table-column prop="articleCount" label="文章数"></el-table-column>
+
             <el-table-column label="操作">
                 <template slot-scope="scope">
                     <el-button size="mini" icon="el-icon-setting" @click="handleEdit(scope.row)"></el-button>
@@ -93,23 +95,67 @@
             },
 
             handleSubmit: function() {
-              console.log(this.form);
-              if (this.form.id == null) {
-                  console.log('新建');
-              } else {
-                  console.log('编辑');
-              }
-              this.dialogVisible = false;
+                if (this.form.id == null) {
+                    this.saveCategory();
+                } else {
+                    this.updateCategory();
+                }
+                this.dialogVisible = false;
+            },
+
+            saveCategory: function() {
+                this.$axios.post('/admin/api/category/save', {
+                    name: this.form.name,
+                    description: this.form.description
+                }).then((response) => {
+                    if (response.data.result) {
+                    this.$message({
+                        type: 'success',
+                        message: response.data.message
+                    });
+
+                    // 添加成功 刷新列表
+                    this.listCategories();
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: response.data.message
+                    });
+                }
+            }).catch((error) => { console.log(error); });
+            },
+
+            updateCategory: function() {
+                this.$axios.post('/admin/api/category/update', {
+                    id: this.form.id,
+                    name: this.form.name,
+                    description: this.form.description
+                }).then((response) => {
+                    if (response.data.result) {
+                    this.$message({
+                        type: 'success',
+                        message: response.data.message
+                    });
+
+                    // 更新成功 刷新列表
+                    this.listCategories();
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: response.data.message
+                    });
+                }
+            }).catch((error) => { console.log(error); });
             },
 
             handleDelete: function(row) {
-                this.$confirm('此操作不可逆，确定要删除此附件吗?', '提示', {
+                this.$confirm('此操作不可逆，该分类下的文章将被设置成未分类，确定要删除此分类吗?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
                     // 执行删除
-                    this.$axios.post('/admin/api/attachment/delete', {
+                    this.$axios.post('/admin/api/category/delete', {
                         id: row.id
                     }).then((response) => {
                         if (response.data.result) {
@@ -119,7 +165,7 @@
                     });
 
                     // 删除成功 刷新列表
-                    this.handleReload();
+                    this.listCategories();
                 } else {
                     this.$message({
                         type: 'error',
