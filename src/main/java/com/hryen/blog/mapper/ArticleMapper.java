@@ -1,5 +1,6 @@
 package com.hryen.blog.mapper;
 
+import com.hryen.blog.model.Category;
 import org.apache.ibatis.annotations.*;
 import com.hryen.blog.model.Article;
 import org.apache.ibatis.mapping.FetchType;
@@ -19,15 +20,17 @@ public interface ArticleMapper {
     Integer getArticleTotalRecord();
 
     // 根据分类name查询文章数 不计算隐藏文章
-    @Select("SELECT COUNT(0) FROM article WHERE category_name=#{categoryName} AND status IN(0,2)")
+    @Select("SELECT COUNT(0) FROM article WHERE category_id=(SELECT id FROM category WHERE name=#{categoryName})" +
+            "AND status IN(0,2)")
     Integer getArticleTotalRecordByCategoryName(String categoryName);
 
-    // 根据分类name查询文章数
-    @Select("SELECT COUNT(0) FROM article WHERE category_name=#{categoryName}")
-    Integer countArticleTotalRecordByCategoryName(String categoryName);
+    // 根据分类id查询文章数
+    @Select("SELECT COUNT(0) FROM article WHERE category_id=#{categoryId}")
+    Integer countArticleTotalRecordByCategoryId(String categoryId);
 
     // 根据标签name查询文章数 不计算隐藏文章
-    @Select("SELECT COUNT(0) FROM article WHERE id IN(SELECT article_id FROM article_tag WHERE tag_name=#{tagName}) AND status IN(0,2)")
+    @Select("SELECT COUNT(0) FROM article WHERE id IN(SELECT article_id FROM article_tag WHERE tag_name=#{tagName})" +
+            "AND status IN(0,2)")
     Integer getArticleTotalRecordByTagName(String tagName);
 
     // 根据标签name查询文章数
@@ -42,7 +45,8 @@ public interface ArticleMapper {
             @Result(column = "last_modified_date", property = "lastModifiedDate"),
             @Result(column = "markdown_content", property = "markdownContent"),
             @Result(column = "html_content", property = "htmlContent"),
-            @Result(column = "category_name", property = "categoryName"),
+            @Result(column = "category_id", property = "category", javaType = Category.class,
+                    one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
                     many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
@@ -57,7 +61,8 @@ public interface ArticleMapper {
             @Result(column = "last_modified_date", property = "lastModifiedDate"),
             @Result(column = "markdown_content", property = "markdownContent"),
             @Result(column = "html_content", property = "htmlContent"),
-            @Result(column = "category_name", property = "categoryName"),
+            @Result(column = "category_id", property = "category", javaType = Category.class,
+                    one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
                     many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
@@ -72,7 +77,8 @@ public interface ArticleMapper {
             @Result(column = "last_modified_date", property = "lastModifiedDate"),
             @Result(column = "markdown_content", property = "markdownContent"),
             @Result(column = "html_content", property = "htmlContent"),
-            @Result(column = "category_name", property = "categoryName"),
+            @Result(column = "category_id", property = "category", javaType = Category.class,
+                    one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
                     many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId", fetchType = FetchType.LAZY))
@@ -80,34 +86,42 @@ public interface ArticleMapper {
     List<Article> getNewestArticlesWithPage(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
 
     // 根据分类name查询非隐藏文章 按日期排序 带分页
-    @Select("SELECT * FROM article WHERE status IN(0,2) AND category_name=#{categoryName} ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
+    @Select("SELECT * FROM article WHERE status IN(0,2) AND category_id=(SELECT id FROM category WHERE name=#{categoryName})" +
+            "ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
     @Results({
             @Result(column = "id", property = "id", id = true),
             @Result(column = "publish_date", property = "publishDate"),
             @Result(column = "last_modified_date", property = "lastModifiedDate"),
             @Result(column = "markdown_content", property = "markdownContent"),
             @Result(column = "html_content", property = "htmlContent"),
-            @Result(column = "category_name", property = "categoryName"),
+            @Result(column = "category_id", property = "category", javaType = Category.class,
+                    one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
                     many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId", fetchType = FetchType.LAZY))
     })
-    List<Article> getArticlesByCategoryNameWithPage(@Param("categoryName") String categoryName, @Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
+    List<Article> getArticlesByCategoryNameWithPage(@Param("categoryName") String categoryName,
+                                                    @Param("startIndex") Integer startIndex,
+                                                    @Param("pageSize") Integer pageSize);
 
     // 根据标签name查询非隐藏文章 按日期排序 带分页
-    @Select("SELECT * FROM article WHERE id IN(SELECT article_id FROM article_tag WHERE tag_name=#{tagName}) AND status IN(0,2) ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
+    @Select("SELECT * FROM article WHERE id IN(SELECT article_id FROM article_tag WHERE tag_name=#{tagName})" +
+            "AND status IN(0,2) ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
     @Results({
             @Result(column = "id", property = "id", id = true),
             @Result(column = "publish_date", property = "publishDate"),
             @Result(column = "last_modified_date", property = "lastModifiedDate"),
             @Result(column = "markdown_content", property = "markdownContent"),
             @Result(column = "html_content", property = "htmlContent"),
-            @Result(column = "category_name", property = "categoryName"),
+            @Result(column = "category_id", property = "category", javaType = Category.class,
+                    one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
                     many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId", fetchType = FetchType.LAZY))
     })
-    List<Article> getArticlesByTagNameWithPage(@Param("tagName") String tagName, @Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
+    List<Article> getArticlesByTagNameWithPage(@Param("tagName") String tagName,
+                                               @Param("startIndex") Integer startIndex,
+                                               @Param("pageSize") Integer pageSize);
 
     // 获取所有文章 不包含已标记为删除的 带分页 按日期排序
     @Select("SELECT * FROM article WHERE status != 3 ORDER BY publish_date DESC LIMIT #{startIndex},#{pageSize}")
@@ -117,7 +131,8 @@ public interface ArticleMapper {
             @Result(column = "last_modified_date", property = "lastModifiedDate"),
             @Result(column = "markdown_content", property = "markdownContent"),
             @Result(column = "html_content", property = "htmlContent"),
-            @Result(column = "category_name", property = "categoryName"),
+            @Result(column = "category_id", property = "category", javaType = Category.class,
+                    one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
                     many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
@@ -148,7 +163,8 @@ public interface ArticleMapper {
             @Result(column = "last_modified_date", property = "lastModifiedDate"),
             @Result(column = "markdown_content", property = "markdownContent"),
             @Result(column = "html_content", property = "htmlContent"),
-            @Result(column = "category_name", property = "categoryName"),
+            @Result(column = "category_id", property = "category", javaType = Category.class,
+                    one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
                     many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
@@ -158,14 +174,14 @@ public interface ArticleMapper {
     // 5.按文章id更新文章设置
     @Update("UPDATE article SET title=#{title}," +
             "permalink=#{permalink}," +
-            "category_name=#{categoryName}," +
+            "category_id=#{categoryId}," +
             "comment_status=#{commentStatus}," +
             "last_modified_date=#{lastModifiedDate}," +
             "status=#{status} WHERE id=#{id}")
     void updateArticleSettingsByArticleId(@Param("id") String id,
                                           @Param("title") String title,
                                           @Param("permalink") String permalink,
-                                          @Param("categoryName") String categoryName,
+                                          @Param("categoryId") String categoryName,
                                           @Param("commentStatus") boolean commentStatus,
                                           @Param("lastModifiedDate") Date lastModifiedDate,
                                           @Param("status") Integer status);
@@ -178,19 +194,19 @@ public interface ArticleMapper {
     // 7.新建文章
     @Insert("INSERT INTO article(id, title," +
             "permalink, publish_date, last_modified_date," +
-            "category_name, summary, markdown_content," +
+            "category_id, summary, markdown_content," +
             "html_content, status, comment_status)" +
             "VALUES" +
             "(#{article.id}, #{article.title}, #{article.permalink}," +
             "#{article.publishDate}, #{article.lastModifiedDate}," +
-            "#{article.categoryName}, #{article.summary}, #{article.markdownContent}," +
+            "#{article.category.id}, #{article.summary}, #{article.markdownContent}," +
             "#{article.htmlContent}, #{article.status}, #{article.commentStatus})")
     void save(@Param("article") Article article);
 
     // 8.按文章id更新文章内容和设置
     @Update("UPDATE article SET title=#{title}," +
             "permalink=#{permalink}," +
-            "category_name=#{categoryName}," +
+            "category_id=#{categoryId}," +
             "comment_status=#{commentStatus}," +
             "last_modified_date=#{lastModifiedDate}," +
             "status=#{status}," +
@@ -200,7 +216,7 @@ public interface ArticleMapper {
     void updateArticleSettingsAndContentByArticleId(@Param("id") String id,
                                           @Param("title") String title,
                                           @Param("permalink") String permalink,
-                                          @Param("categoryName") String categoryName,
+                                          @Param("categoryId") String categoryName,
                                           @Param("commentStatus") boolean commentStatus,
                                           @Param("lastModifiedDate") Date lastModifiedDate,
                                           @Param("status") Integer status,

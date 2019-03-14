@@ -70,7 +70,7 @@
 							
                             <el-table-column label="标题" prop="title"  show-overflow-tooltip sortable></el-table-column>
 
-							<el-table-column label="分类" prop="categoryName" width="200" show-overflow-tooltip sortable>
+							<el-table-column label="分类" prop="category.name" width="200" show-overflow-tooltip sortable>
 							</el-table-column>
 							
 							<el-table-column label="发布日期" prop="publishDate" width="200" show-overflow-tooltip sortable>
@@ -125,8 +125,8 @@
 			<el-form-item label="标题"><el-input v-model="form.title"></el-input></el-form-item>
 			<el-form-item label="固定链接"><el-input v-model="form.permalink"></el-input></el-form-item>
 			<el-form-item label="分类">
-				<el-select style="width: 100%;" v-model="form.categoryName" placeholder="请选择">
-					<el-option v-for="category in categoryList" :value="category.name"></el-option>
+				<el-select style="width: 100%;" v-model="form.category.id" placeholder="请选择">
+					<el-option v-for="category in categoryList" :value="category.id" :label="category.name"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="标签">
@@ -173,7 +173,18 @@
 				currentPage: 1,
 				total: 0,
 				dialogArticleSettingsVisible: false,
-				form: {id: '', title: '', permalink: '', status: '', categoryName: '', tagNameList: [], commentStatus: true},
+				form: {
+					id: '',
+					title: '',
+					permalink: '',
+					status: '',
+					category: {
+						id: '',
+						name: ''
+					},
+					tagNameList: [],
+					commentStatus: true
+				},
 				categoryList: [],
 				tagList: []
 			}
@@ -244,7 +255,7 @@
 				this.form.id = row.id;
 				this.form.title = row.title.trim();
 				this.form.permalink = row.permalink;
-				this.form.categoryName = row.categoryName;
+				this.form.category.id = row.category.id;
 				
 				// 后台传过来的tag是 标签对象 的数组 但页面的选择器需要的是 标签名称 的数组
 				this.form.tagNameList = [];
@@ -277,7 +288,7 @@
 					title: form.title,
 					permalink: form.permalink,
 					status: form.status,
-					categoryName: form.categoryName,
+					category: form.category,
 					tagNameList: form.tagNameList,
 					commentStatus: form.commentStatus
 				})

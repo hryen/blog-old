@@ -147,7 +147,8 @@ public class ApiArticleService {
         String title = (String) data.get("title");
         String permalink = (String) data.get("permalink");
         Integer status = Integer.valueOf(String.valueOf(data.get("status")));
-        String categoryName = (String) data.get("categoryName");
+        LinkedHashMap<String, String> categoryMap = (LinkedHashMap) data.get("category");
+        String categoryId = categoryMap.get("id");
         boolean commentStatus = (boolean) data.get("commentStatus");
         ArrayList<String> tagNameList = (ArrayList) data.get("tagNameList");
 
@@ -162,7 +163,7 @@ public class ApiArticleService {
             articleMapper.updateArticleSettingsAndContentByArticleId(id,
                     title,
                     permalink,
-                    categoryName,
+                    categoryId,
                     commentStatus,
                     new Date(),
                     status,
@@ -174,7 +175,7 @@ public class ApiArticleService {
             articleMapper.updateArticleSettingsByArticleId(id,
                     title,
                     permalink,
-                    categoryName,
+                    categoryId,
                     commentStatus,
                     new Date(),
                     status);

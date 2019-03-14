@@ -12,10 +12,21 @@ public interface CategoryMapper {
     // 1.获取所有分类
     @Select("SELECT * FROM category")
     @Results({
-            @Result(column = "name", property = "name", id = true),
-            @Result(column = "name", property = "articleCount", javaType = Integer.class,
-                    one = @One(select = "com.hryen.blog.mapper.ArticleMapper.countArticleTotalRecordByCategoryName", fetchType = FetchType.LAZY))
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "id", property = "articleCount", javaType = Integer.class,
+            one = @One(select = "com.hryen.blog.mapper.ArticleMapper.countArticleTotalRecordByCategoryId",
+                    fetchType = FetchType.LAZY))
     })
     List<Category> listAllCategory();
+
+    // 2.根据id获取分类
+    @Select("SELECT * FROM category WHERE id=#{id}")
+    @Results({
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "id", property = "articleCount", javaType = Integer.class,
+                    one = @One(select = "com.hryen.blog.mapper.ArticleMapper.countArticleTotalRecordByCategoryId",
+                            fetchType = FetchType.LAZY))
+    })
+    Category getCategoryById(String id);
 
 }

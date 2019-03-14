@@ -36,9 +36,9 @@
         </div>
 
         <#--category-->
-        <el-select v-model="article.categoryName" placeholder="请选择分类"
+        <el-select v-model="article.category.id" placeholder="请选择分类"
                    style="width: calc(50% - 13px);margin: 0 10px 10px 0">
-            <el-option v-for="category in categoryList" :value="category.name"></el-option>
+            <el-option v-for="category in categoryList" :value="category.id" :label="category.name"></el-option>
         </el-select>
 
         <#--tags-->
@@ -94,7 +94,9 @@
                     markdownContent: '',
                     htmlContent: '',
                     summary: '',
-                    categoryName: '',
+                    category: {
+                        id: ''
+                    },
                     tagNameList: [],
                     commentStatus: true,
                     status: '0'
@@ -225,7 +227,7 @@
                         this.article.title = response.data.title;
                         this.article.permalink = response.data.permalink;
                         this.article.markdownContent = response.data.markdownContent;
-                        this.article.categoryName = response.data.categoryName;
+                        this.article.category = response.data.category;
                         this.article.commentStatus = response.data.commentStatus;
                         this.article.status = response.data.status;
 
@@ -269,7 +271,7 @@
                     htmlContent: this.article.htmlContent,
                     markdownContent: this.article.markdownContent,
                     summary: this.article.summary,
-                    categoryName: this.article.categoryName,
+                    category: this.article.category,
                     tagNameList: this.article.tagNameList,
                     commentStatus: this.article.commentStatus,
                     status: this.article.status
@@ -294,9 +296,9 @@
                     return;
                 }
 
-                // 如果没有选择分类
-                if (this.article.categoryName === "") {
-                    this.article.categoryName = "Uncategorized";
+                // 如果没有选择分类 id是1的分类是未分类
+                if (this.article.category.id === "") {
+                    this.article.category.id = "1";
                 }
 
                 // permalink
@@ -336,7 +338,7 @@
                     markdownContent: this.article.markdownContent,
                     htmlContent: this.article.htmlContent,
                     summary: this.article.summary,
-                    categoryName: this.article.categoryName,
+                    category: this.article.category,
                     tagList: tagList,
                     commentStatus: this.article.commentStatus,
                     status: this.article.status

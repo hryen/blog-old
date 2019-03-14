@@ -29,7 +29,7 @@ public class Article implements Serializable {
     private Date lastModifiedDate;
 
     // 分类
-    private String categoryName;
+    private Category category;
 
     // 标签
     private List<Tag> tagList;
@@ -89,12 +89,12 @@ public class Article implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public List<Tag> getTagList() {
@@ -153,7 +153,7 @@ public class Article implements Serializable {
                 ", permalink='" + permalink + '\'' +
                 ", publishDate=" + publishDate +
                 ", lastModifiedDate=" + lastModifiedDate +
-                ", categoryName='" + categoryName + '\'' +
+                ", category=" + category +
                 ", tagList=" + tagList +
                 ", summary='" + summary + '\'' +
                 ", markdownContent='" + markdownContent + '\'' +

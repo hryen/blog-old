@@ -71,7 +71,7 @@
 
 							<el-table-column label="标题" prop="title"  show-overflow-tooltip sortable></el-table-column>
 
-							<el-table-column label="分类" prop="categoryName" width="200" show-overflow-tooltip sortable></el-table-column>
+							<el-table-column label="分类" prop="category.name" width="200" show-overflow-tooltip sortable></el-table-column>
 
 							<el-table-column label="发布日期" prop="publishDate" width="200" show-overflow-tooltip sortable>
 								<template slot-scope="scope">
