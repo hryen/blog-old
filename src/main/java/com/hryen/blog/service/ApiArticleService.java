@@ -62,6 +62,8 @@ public class ApiArticleService {
     @Transactional
     public void updateArticleSettingsByArticleId(Map data) {
         updateArticleSettingsAndContent(data, false);
+        // clean index cache
+        apiCacheService.cleanIndexArticleListCache();
     }
 
     // 6.根据文章id删除文章 realDelete为true代表删除 为false代表标记为删除
@@ -79,6 +81,9 @@ public class ApiArticleService {
 
         //删除redis
         cleanRedisArticleByArticleId(id);
+
+        // clean index cache
+        apiCacheService.cleanIndexArticleListCache();
     }
 
     // 7.按文章id将文章从已删除修改为已隐藏
@@ -86,6 +91,9 @@ public class ApiArticleService {
     public void restoreArticleById(String articleId) {
         articleMapper.updateArticleStatusByArticleId(articleId, 1);
         cleanRedisArticleByArticleId(articleId);
+
+        // clean index cache
+        apiCacheService.cleanIndexArticleListCache();
 
         logger.info("Restore article: " + articleId);
     }
@@ -119,6 +127,8 @@ public class ApiArticleService {
     @Transactional
     public void updateArticleByArticleId(Map data) {
         updateArticleSettingsAndContent(data, true);
+        // clean index cache
+        apiCacheService.cleanIndexArticleListCache();
     }
 
     // 按文章id删除redis
