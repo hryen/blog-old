@@ -48,7 +48,7 @@
                 </div>
             </#list>
 
-            <#--<#include "common/pagination.ftl">-->
+            <#include "common/pagination.ftl">
 
         </div>
 
