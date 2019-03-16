@@ -1,6 +1,7 @@
 package com.hryen.blog.mapper;
 
 import com.hryen.blog.model.Category;
+import com.hryen.blog.model.Comment;
 import org.apache.ibatis.annotations.*;
 import com.hryen.blog.model.Article;
 import org.apache.ibatis.mapping.FetchType;
@@ -49,7 +50,11 @@ public interface ArticleMapper {
                     one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
-                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
+                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId")),
+            @Result(column = "id", property = "commentList", javaType = List.class,
+                    many = @Many(select = "com.hryen.blog.mapper.CommentMapper.listCommentsByArticleId")),
+            @Result(column = "id", property = "commentCount", javaType = Integer.class,
+            one = @One(select = "com.hryen.blog.mapper.CommentMapper.countCommentTotalRecordByArticleId"))
     })
     Article getArticleByArticlePermalinkOrId(String str);
 
@@ -65,7 +70,11 @@ public interface ArticleMapper {
                     one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
-                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
+                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId")),
+            @Result(column = "id", property = "commentList", javaType = List.class,
+                    many = @Many(select = "com.hryen.blog.mapper.CommentMapper.listCommentsByArticleId")),
+            @Result(column = "id", property = "commentCount", javaType = Integer.class,
+                    one = @One(select = "com.hryen.blog.mapper.CommentMapper.countCommentTotalRecordByArticleId"))
     })
     Article getStickyArticle();
 
@@ -81,7 +90,11 @@ public interface ArticleMapper {
                     one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
-                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId", fetchType = FetchType.LAZY))
+                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId", fetchType = FetchType.LAZY)),
+            @Result(column = "id", property = "commentList", javaType = List.class,
+                    many = @Many(select = "com.hryen.blog.mapper.CommentMapper.listCommentsByArticleId")),
+            @Result(column = "id", property = "commentCount", javaType = Integer.class,
+                    one = @One(select = "com.hryen.blog.mapper.CommentMapper.countCommentTotalRecordByArticleId"))
     })
     List<Article> getNewestArticlesWithPage(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
 
@@ -98,7 +111,11 @@ public interface ArticleMapper {
                     one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
-                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId", fetchType = FetchType.LAZY))
+                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId", fetchType = FetchType.LAZY)),
+            @Result(column = "id", property = "commentList", javaType = List.class,
+                    many = @Many(select = "com.hryen.blog.mapper.CommentMapper.listCommentsByArticleId")),
+            @Result(column = "id", property = "commentCount", javaType = Integer.class,
+                    one = @One(select = "com.hryen.blog.mapper.CommentMapper.countCommentTotalRecordByArticleId"))
     })
     List<Article> getArticlesByCategoryNameWithPage(@Param("categoryName") String categoryName,
                                                     @Param("startIndex") Integer startIndex,
@@ -117,7 +134,11 @@ public interface ArticleMapper {
                     one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
-                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId", fetchType = FetchType.LAZY))
+                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId", fetchType = FetchType.LAZY)),
+            @Result(column = "id", property = "commentList", javaType = List.class,
+                    many = @Many(select = "com.hryen.blog.mapper.CommentMapper.listCommentsByArticleId")),
+            @Result(column = "id", property = "commentCount", javaType = Integer.class,
+                    one = @One(select = "com.hryen.blog.mapper.CommentMapper.countCommentTotalRecordByArticleId"))
     })
     List<Article> getArticlesByTagNameWithPage(@Param("tagName") String tagName,
                                                @Param("startIndex") Integer startIndex,
@@ -135,7 +156,11 @@ public interface ArticleMapper {
                     one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
-                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
+                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId")),
+            @Result(column = "id", property = "commentList", javaType = List.class,
+                    many = @Many(select = "com.hryen.blog.mapper.CommentMapper.listCommentsByArticleId")),
+            @Result(column = "id", property = "commentCount", javaType = Integer.class,
+                    one = @One(select = "com.hryen.blog.mapper.CommentMapper.countCommentTotalRecordByArticleId"))
     })
     List<Article> listArticleWithPage(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
 
@@ -167,7 +192,11 @@ public interface ArticleMapper {
                     one = @One(select = "com.hryen.blog.mapper.CategoryMapper.getCategoryById")),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "id", property = "tagList", javaType = List.class,
-                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId"))
+                    many = @Many(select = "com.hryen.blog.mapper.TagMapper.getTagsByArticleId")),
+            @Result(column = "id", property = "commentList", javaType = List.class,
+                    many = @Many(select = "com.hryen.blog.mapper.CommentMapper.listCommentsByArticleId")),
+            @Result(column = "id", property = "commentCount", javaType = Integer.class,
+                    one = @One(select = "com.hryen.blog.mapper.CommentMapper.countCommentTotalRecordByArticleId"))
     })
     List<Article> getTrashArticleWithPage(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
 

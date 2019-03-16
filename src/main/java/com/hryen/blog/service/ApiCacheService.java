@@ -19,20 +19,22 @@ public class ApiCacheService {
     // 1.清除首页文章缓存
     public void cleanIndexArticleListCache() {
         deleteKeysWithPattern("blog_index::articleList*");
-        logger.info("Clean index article list cache");
     }
 
     // 2.清除所有文章缓存
     public void cleanArticleCache() {
         deleteKeysWithPattern("blog_article*");
-        logger.info("Clean articles cache");
+    }
+
+    // 2.1.按 文章id 或 固定链接 清除文章缓存
+    public void cleanArticleCache(String str) {
+        stringRedisTemplate.delete("blog_article::" + str);
     }
 
     // 3.清除所有博客设置缓存
     public void cleanBlogSysConfigCache() {
         deleteKeysWithPattern("blog_sys.config*");
         stringRedisTemplate.delete("blog_common::navigationList");
-        logger.info("Clean blog sysconfig cache");
     }
 
     // 根据key的名称pattern删除keys

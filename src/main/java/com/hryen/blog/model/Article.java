@@ -49,6 +49,12 @@ public class Article implements Serializable {
     // 是否允许评论
     private boolean commentStatus;
 
+    // 评论list
+    private List<Comment> commentList;
+
+    // 评论数
+    private Integer commentCount;
+
     public String getId() {
         return id;
     }
@@ -145,21 +151,19 @@ public class Article implements Serializable {
         this.commentStatus = commentStatus;
     }
 
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", permalink='" + permalink + '\'' +
-                ", publishDate=" + publishDate +
-                ", lastModifiedDate=" + lastModifiedDate +
-                ", category=" + category +
-                ", tagList=" + tagList +
-                ", summary='" + summary + '\'' +
-                ", markdownContent='" + markdownContent + '\'' +
-                ", htmlContent='" + htmlContent + '\'' +
-                ", status=" + status +
-                ", commentStatus=" + commentStatus +
-                '}';
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
     }
 }
