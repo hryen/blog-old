@@ -1,5 +1,5 @@
 <#assign title = "分类管理">
-<#assign activeMenu = "4">
+<#assign activeMenu = "5">
 <#include "common/header.ftl">
 
 <el-container>

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class ApiArticleService {
@@ -64,6 +63,7 @@ public class ApiArticleService {
         updateArticleSettingsAndContent(data, false);
         // clean index cache
         apiCacheService.cleanIndexArticleListCache();
+
     }
 
     // 6.根据文章id删除文章 realDelete为true代表删除 为false代表标记为删除
@@ -80,7 +80,7 @@ public class ApiArticleService {
         }
 
         //删除redis
-        cleanRedisArticleByArticleId(id);
+        apiCacheService.cleanArticleCache(id);
 
         // clean index cache
         apiCacheService.cleanIndexArticleListCache();
@@ -90,7 +90,7 @@ public class ApiArticleService {
     @Transactional
     public void restoreArticleById(String articleId) {
         articleMapper.updateArticleStatusByArticleId(articleId, 1);
-        cleanRedisArticleByArticleId(articleId);
+        apiCacheService.cleanArticleCache(articleId);
 
         // clean index cache
         apiCacheService.cleanIndexArticleListCache();
@@ -129,20 +129,6 @@ public class ApiArticleService {
         updateArticleSettingsAndContent(data, true);
         // clean index cache
         apiCacheService.cleanIndexArticleListCache();
-    }
-
-    // 按文章id删除redis
-    private void cleanRedisArticleByArticleId(String id) {
-        if (null != id) {
-            stringRedisTemplate.boundValueOps("blog_article::" + id).expire(0, TimeUnit.SECONDS);
-        }
-    }
-
-    // 按文章固定链接删除redis
-    private void cleanRedisArticleByArticlePermalink(String permalink) {
-        if (null != permalink) {
-            stringRedisTemplate.boundValueOps("blog_article::" + permalink).expire(0, TimeUnit.SECONDS);
-        }
     }
 
     // 根据文章id获取文章
@@ -205,8 +191,7 @@ public class ApiArticleService {
         }
 
         //删除redis
-        cleanRedisArticleByArticleId(id);
-        cleanRedisArticleByArticlePermalink(permalink);
+        apiCacheService.cleanArticleCache(id);
     }
 
 }

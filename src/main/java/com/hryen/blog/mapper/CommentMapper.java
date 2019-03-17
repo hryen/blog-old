@@ -29,9 +29,9 @@ public interface CommentMapper {
             @Result(column = "article_id", property = "articleId"),
             @Result(column = "parent_id", property = "parentId"),
             @Result(column = "parent_id", property = "parentComment", javaType = Comment.class,
-            one = @One(select = "com.hryen.blog.mapper.CommentMapper.getCommentByCommentId")),
+                    one = @One(select = "com.hryen.blog.mapper.CommentMapper.getCommentByCommentId")),
             @Result(column = "id", property = "childCommentList", javaType = List.class,
-            many = @Many(select = "com.hryen.blog.mapper.CommentMapper.listChildComments"))
+                    many = @Many(select = "com.hryen.blog.mapper.CommentMapper.listChildComments"))
     })
     List<Comment> listCommentsByArticleId(String id);
 
@@ -68,5 +68,24 @@ public interface CommentMapper {
                     many = @Many(select = "com.hryen.blog.mapper.CommentMapper.listChildComments"))
     })
     Comment getCommentByCommentId(String id);
+
+    // 7.获取所有评论 带分页 按日期排序
+    @Select("SELECT * FROM `comment` ORDER BY `publish_date` DESC LIMIT #{startIndex},#{pageSize}")
+    @Results({
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "publish_date", property = "publishDate"),
+            @Result(column = "email_md5", property = "emailMD5"),
+            @Result(column = "article_id", property = "articleId"),
+            @Result(column = "parent_id", property = "parentId"),
+            @Result(column = "parent_id", property = "parentComment", javaType = Comment.class,
+                    one = @One(select = "com.hryen.blog.mapper.CommentMapper.getCommentByCommentId")),
+            @Result(column = "id", property = "childCommentList", javaType = List.class,
+                    many = @Many(select = "com.hryen.blog.mapper.CommentMapper.listChildComments"))
+    })
+    List<Comment> listCommentsWithPage(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
+
+    // 8.get all comment total record
+    @Select("SELECT COUNT(0) FROM `comment`")
+    Integer getAllCommentTotalRecord();
 
 }

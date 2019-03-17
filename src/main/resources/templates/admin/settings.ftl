@@ -1,5 +1,5 @@
 <#assign title = "博客设置">
-<#assign activeMenu = "5">
+<#assign activeMenu = "6">
 <#include "common/header.ftl">
 
             <el-container>

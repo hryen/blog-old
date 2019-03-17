@@ -4,16 +4,15 @@ import com.hryen.blog.mapper.ArticleMapper;
 import com.hryen.blog.mapper.CommentMapper;
 import com.hryen.blog.model.Article;
 import com.hryen.blog.model.Comment;
+import com.hryen.blog.model.Pagination;
 import com.hryen.blog.util.MD5Utils;
 import com.hryen.blog.util.Snowflake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.DigestUtils;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ApiCommentService {
@@ -76,7 +75,6 @@ public class ApiCommentService {
 
             // clean cache
             apiCacheService.cleanArticleCache(articleId);
-            apiCacheService.cleanArticleCache(article.getPermalink());
         } else {
             throw new Exception("This article does not allow comments");
         }
@@ -85,8 +83,33 @@ public class ApiCommentService {
     // 2.delete
     @Transactional
     public void delete(Comment comment) {
-        String commentId = comment.getId();
-        commentMapper.delete(commentId);
+        // get child comments
+        deleteChildComments(comment.getId());
+
+        // clean cache
+        apiCacheService.cleanArticleCache(comment.getArticleId());
+    }
+
+    // 3.list all
+    public List<Comment> listCommentsWithPage(Integer pageSize, Integer currentPage) {
+        Pagination pagination = new Pagination(currentPage, pageSize, this.getAllCommentTotalRecord());
+        return commentMapper.listCommentsWithPage(pagination.getStartIndex(), pageSize);
+    }
+
+    // 4.get all comment total record
+    public Integer getAllCommentTotalRecord() {
+        return commentMapper.getAllCommentTotalRecord();
+    }
+
+    // 递归删除评论和子评论
+    private void deleteChildComments(String id) {
+        List<Comment> childComments = commentMapper.listChildComments(id);
+        if (childComments.size() > 0) {
+            for (Comment childComment : childComments) {
+                deleteChildComments(childComment.getId());
+            }
+        }
+        commentMapper.delete(id);
     }
 
 }

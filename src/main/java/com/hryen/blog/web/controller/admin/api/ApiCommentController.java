@@ -4,19 +4,17 @@ import com.hryen.blog.model.Comment;
 import com.hryen.blog.model.Result;
 import com.hryen.blog.service.ApiCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/comment")
 public class ApiCommentController {
 
     @Autowired
     private ApiCommentService apiCommentService;
 
-    @PostMapping("/save")
+    @PostMapping("/api/comment/save")
     public Result save(@RequestBody Comment comment) {
         try {
             apiCommentService.save(comment);
@@ -32,7 +30,7 @@ public class ApiCommentController {
         }
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/admin/api/comment/delete")
     public Result delete(@RequestBody Comment comment) {
         try {
             apiCommentService.delete(comment);
@@ -41,6 +39,17 @@ public class ApiCommentController {
             e.printStackTrace();
             return new Result(false, "Failed");
         }
+    }
+
+    @GetMapping("/admin/api/comment/listCommentsWithPage")
+    public List<Comment> listCommentsWithPage(Integer pageSize, Integer currentPage) {
+        if (null == pageSize || null == currentPage) { return null; }
+        return apiCommentService.listCommentsWithPage(pageSize, currentPage);
+    }
+
+    @GetMapping("/admin/api/comment/getAllCommentTotalRecord")
+    public Integer getAllCommentTotalRecord() {
+        return apiCommentService.getAllCommentTotalRecord();
     }
 
 }
