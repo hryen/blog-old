@@ -1,6 +1,7 @@
 package com.hryen.blog.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,6 +23,7 @@ public class Comment implements Serializable {
 
     private String parentId;
 
+    @JsonIgnore
     private Comment parentComment;
 
     private String author;
