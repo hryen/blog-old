@@ -9,7 +9,7 @@
                         <#if comment.emailMD5??>
                             <img src="https://www.gravatar.com/avatar/${comment.emailMD5}?s=48">
                         <#else>
-                            <img src="${request.contextPath}/img/00000000000000000000000000000000.png">
+                            <img src="${request.contextPath}/img/avatar/00000000000000000000000000000000.png">
                         </#if>
                     </div>
 
@@ -46,7 +46,7 @@
                     <#if comment.emailMD5??>
                         <img src="https://www.gravatar.com/avatar/${comment.emailMD5}?s=48">
                     <#else>
-                        <img src="${request.contextPath}/img/00000000000000000000000000000000.png">
+                        <img src="${request.contextPath}/img/avatar/00000000000000000000000000000000.png">
                     </#if>
                 </div>
                 <div class="comment-content-container">
