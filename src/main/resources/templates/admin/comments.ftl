@@ -27,15 +27,9 @@
 
                         <el-table-column label="操作">
                             <template slot-scope="scope">
-                                <el-button size="mini"
-                                           icon="el-icon-view"
-                                           @click="handleView(scope.row)">
-                                </el-button>
-                                <el-button size="mini"
-                                           type="danger"
-                                           icon="el-icon-delete"
-                                           @click="handleDelete(scope.row)">
-                                </el-button>
+                                <el-button size="mini" @click="handleView(scope.row)">查看</el-button>
+                                <el-button size="mini" type="info" @click="handleReply(scope.row)">回复</el-button>
+                                <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
                             </template>
                         </el-table-column>
 
@@ -46,6 +40,14 @@
                                    layout="total, sizes, prev, pager, next, jumper"
                                    :total.sync="total" :page-size.sync="pageSize" :current-page.sync="currentPage">
                     </el-pagination>
+
+                    <el-dialog title="回复" :visible.sync="replyDialogVisible" width="30%" :before-close="handleClose">
+                        <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="content"></el-input>
+                        <span slot="footer" class="dialog-footer">
+                            <el-button @click="dialogVisible = false">取 消</el-button>
+                            <el-button type="primary" @click="submitReply">确 定</el-button>
+                        </span>
+                    </el-dialog>
                 </el-main>
 
                 <!-- footer -->
@@ -68,7 +70,11 @@
                 tableData: [],
                 pageSize: 10,
                 currentPage: 1,
-                total: 0
+                total: 0,
+                replyDialogVisible: false,
+                articleId: '',
+                parentId: '',
+                content: ''
             }
         },
 
@@ -77,6 +83,37 @@
         },
 
         methods: {
+
+            submitReply: function() {
+                this.replyDialogVisible = false;
+                this.$axios.post('/api/comment/save', {
+                    articleId: this.articleId,
+                    parentId: this.parentId,
+                    content: this.content,
+                    author: '${Session["user"].username}',
+                    email: '${Session["user"].email}'
+                }).then((response) => {
+                    if (response.data.result) {
+                    this.$message({type: 'success', message: response.data.message});
+                    // 回复成功 刷新列表
+                    this.loadTableData();
+                    this.content = '';
+                } else {
+                    this.$message({type: 'error', message: response.data.message});
+                }
+            }).catch((error) => {
+                    console.log(error);
+            });
+            },
+
+            handleReply :function(row) {
+                this.replyDialogVisible = true;
+                this.articleId = row.articleId;
+                this.parentId = row.id;
+            },
+
+            handleClose: function(done) { this.$confirm('确认关闭？').then(_ => { done(); }).catch(_ => {}); },
+
             loadTableData: function() {
                 this.getAllCommentTotalRecord();
                 this.listCommentsWithPage();

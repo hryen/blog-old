@@ -44,7 +44,7 @@ public class ApiCommentService {
         }
 
         String url = comment.getUrl();
-        if ("".equals(url.trim())) {
+        if (null == url || "".equals(url.trim())) {
             comment.setUrl(null);
         }
 
