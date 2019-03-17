@@ -197,6 +197,95 @@ body {
 
 .hljs-strong { font-weight: bold; }
 /* hljs end */
+
+/* comment start */
+.comments-count { margin-left: -20px; }
+.comments {
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+.comments a {
+    text-decoration: none;
+    color: #555;
+}
+.comments a:hover {
+    text-decoration: underline;
+}
+.comment {
+    padding-bottom: 10px;
+}
+.comment-author {
+    color: #555;
+    font-size: 14px;
+}
+.comment-date {
+    color: #999;
+    font-size: 11px;
+}
+.comment-avatar {
+    float: left;
+    margin-right: 20px;
+}
+.comment-avatar img {
+    border-radius: 50%;
+}
+.comment-content-container {
+    margin-left: 68px;
+}
+.comment-content-container p {
+    margin: 10px 0;
+}
+.comment-content {
+    font-size: 14px;
+    color: #333;
+}
+.child {
+    margin-left: 68px;
+}
+.reply {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+}
+.reply:hover {
+    text-decoration: underline;
+}
+.comment-form * {
+    box-sizing: border-box;
+}
+.comment-form textarea, .comment-form input {
+    width: 100%;
+    border: #e0e0e0 solid 1px;
+    border-radius: 3px;
+    padding: 10px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    color: #888;
+    font-size: 14px;
+}
+.comment-form textarea:focus, .comment-form input:focus {
+    outline: none;
+    color: #333;
+}
+.comment-form textarea {
+    resize: none;
+    height: 200px;
+}
+.comment-form button {
+    border-radius: 3px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #555;
+    padding: 10px 30px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+.comment-form button:hover {
+    background-color: #555;
+    color: #fff;
+}
+/* comment end */
 /* article page end */
 
 
@@ -394,16 +483,14 @@ h6 {
 
 /* 屏幕宽度小于600px 将nav隐藏 */
 @media (max-width: 600px) {
-    .nav {
-        display: none;
-    }
+    .nav { display: none; }
 }
 
-/*@media (max-width: 960px) {*/
-    /*.articles {*/
-        /*max-width: 100%;*/
-    /*}*/
-/*}*/
+@media (max-width: 860px) {
+    .aside { display: none; }
+    .articles { width: 100%; }
+}
+
 
 /*@media (max-width: 900px) {*/
     /*.aside {*/

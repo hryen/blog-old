@@ -10,10 +10,10 @@ public interface CommentMapper {
 
     // 1.save
     @Insert("INSERT INTO `comment`" +
-            "(`id`, `article_id`, `content`, `publish_date`, `parent_id`, `author`, `email`, `url`)" +
+            "(`id`, `article_id`, `content`, `publish_date`, `parent_id`, `author`, `email`, `email_md5`, `url`)" +
             "VALUES" +
             "(#{comment.id}, #{comment.articleId}, #{comment.content}, #{comment.publishDate}," +
-            "#{comment.parentId}, #{comment.author}, #{comment.email}, #{comment.url})")
+            "#{comment.parentId}, #{comment.author}, #{comment.email}, #{comment.emailMD5}, #{comment.url})")
     void save(@Param("comment") Comment comment);
 
     // 2.delete
@@ -25,6 +25,7 @@ public interface CommentMapper {
     @Results({
             @Result(column = "id", property = "id", id = true),
             @Result(column = "publish_date", property = "publishDate"),
+            @Result(column = "email_md5", property = "emailMD5"),
             @Result(column = "article_id", property = "articleId"),
             @Result(column = "parent_id", property = "parentId"),
             @Result(column = "parent_id", property = "parentComment", javaType = Comment.class,
@@ -39,6 +40,7 @@ public interface CommentMapper {
     @Results({
             @Result(column = "id", property = "id", id = true),
             @Result(column = "publish_date", property = "publishDate"),
+            @Result(column = "email_md5", property = "emailMD5"),
             @Result(column = "article_id", property = "articleId"),
             @Result(column = "parent_id", property = "parentId"),
             @Result(column = "parent_id", property = "parentComment", javaType = Comment.class,
@@ -57,6 +59,7 @@ public interface CommentMapper {
     @Results({
             @Result(column = "id", property = "id", id = true),
             @Result(column = "publish_date", property = "publishDate"),
+            @Result(column = "email_md5", property = "emailMD5"),
             @Result(column = "article_id", property = "articleId"),
             @Result(column = "parent_id", property = "parentId"),
             @Result(column = "parent_id", property = "parentComment", javaType = Comment.class,

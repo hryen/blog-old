@@ -28,6 +28,8 @@ public class Comment implements Serializable {
 
     private String email;
 
+    private String emailMD5;
+
     private String url;
 
     private List<Comment> childCommentList;
@@ -94,6 +96,14 @@ public class Comment implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEmailMD5() {
+        return emailMD5;
+    }
+
+    public void setEmailMD5(String emailMD5) {
+        this.emailMD5 = emailMD5;
     }
 
     public String getUrl() {
