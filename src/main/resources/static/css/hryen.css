@@ -198,6 +198,35 @@ body {
 .hljs-strong { font-weight: bold; }
 /* hljs end */
 
+/* license start */
+.license {
+    padding: 20px 10px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+}
+.license svg {
+    color: #333;
+    margin: 0 2px;
+    width: 24px;
+    height: 24px;
+}
+.license span {
+    margin-left: 6px;
+    color: #666;
+    font-size: 14px;
+}
+.license span a {
+    color: #666;
+    text-decoration: none;
+}
+.license span a:hover {
+    text-decoration: underline;
+}
+/* license end */
+
 /* comment start */
 .comments-count { margin-left: -20px; }
 .comments {
