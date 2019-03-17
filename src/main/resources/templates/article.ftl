@@ -41,11 +41,11 @@
                     <#list childCommentList as comment>
                         <div class="comment child">
                             <#if comment.url?exists>
-                                <p style="color: #555;font-size: 14px;">
-                                    <a href="${comment.url}">${comment.author}</a> Reply @${comment.parentComment.author}
+                                <p id="comment-${comment.id}" style="color: #555;font-size: 14px;">
+                                    <a href="${comment.url}">${comment.author}</a> Reply <a href="#comment-${comment.parentComment.id}">@${comment.parentComment.author}</a>
                                 </p>
                             <#else>
-                                <p style="color: #555;font-size: 14px;">${comment.author} Reply @${comment.parentComment.author}</p>
+                                <p id="comment-${comment.id}" style="color: #555;font-size: 14px;">${comment.author} Reply <a href="#comment-${comment.parentComment.id}">@${comment.parentComment.author}</a>
                             </#if>
                             <p style="color: #999;font-size: 11px;">
                                 ${comment.publishDate?string("MMM dd, yyyy")} at ${comment.publishDate?string("HH:mm")}
@@ -62,9 +62,9 @@
                 <#list article.commentList as comment>
                     <div class="comment">
                         <#if comment.url?exists>
-                            <p style="color: #555;font-size: 14px;"><a href="${comment.url}">${comment.author}</a></p>
+                            <p id="comment-${comment.id}" style="color: #555;font-size: 14px;"><a href="${comment.url}">${comment.author}</a></p>
                         <#else>
-                            <p style="color: #555;font-size: 14px;">${comment.author}</p>
+                            <p id="comment-${comment.id}" style="color: #555;font-size: 14px;">${comment.author}</p>
                         </#if>
 
                         <p style="color: #999;font-size: 11px;">

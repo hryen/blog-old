@@ -35,7 +35,7 @@ public interface CommentMapper {
     List<Comment> listCommentsByArticleId(String id);
 
     // 4.根据parentId查询该评论下的子评论
-    @Select("SELECT * FROM `comment` WHERE `parent_id`=#{id} ORDER BY `publish_date` DESC")
+    @Select("SELECT * FROM `comment` WHERE `parent_id`=#{id} ORDER BY `publish_date` ASC")
     @Results({
             @Result(column = "id", property = "id", id = true),
             @Result(column = "publish_date", property = "publishDate"),
