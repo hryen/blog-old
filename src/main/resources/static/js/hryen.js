@@ -31,7 +31,7 @@ function backToTop() {
 }
 
 
-
+// comment start
 // if article page, load comment-form author,email,url
 var authorElement = document.getElementById('author');
 var emailElement  = document.getElementById('email');
@@ -40,9 +40,9 @@ if (null != authorElement) { authorElement.value = localStorage.getItem("author"
 if (null != emailElement) { emailElement.value = localStorage.getItem("email"); }
 if (null != urlElement) { urlElement.value = localStorage.getItem("url"); }
 
-// Submit Comment
 var parentId = null;
 
+// Submit Comment
 function submitComment(articleId) {
 
     var comment = new Object();
@@ -92,6 +92,7 @@ function submitComment(articleId) {
     }
 }
 
+// reply comment
 function replyComment(id, author) {
     document.getElementById('submitComment').innerText = 'Reply @' + author;
     document.getElementById('cancelReply').removeAttribute('hidden');
@@ -99,11 +100,13 @@ function replyComment(id, author) {
     window.location = "#comment-form";
 }
 
+// cancel reply
 function cancelReply() {
     document.getElementById('cancelReply').setAttribute('hidden', 'true');
     document.getElementById('submitComment').innerText = 'Comment';
     parentId = null;
 }
+// comment end
 
 
 
