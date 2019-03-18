@@ -95,16 +95,17 @@ body {
 }
 
 .article .title {
-    margin: 0.3em 0;
-    font-size: 2em;
+    margin: 0 0 0.35em 0;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 1.5rem;
+    font-weight: 500;
     line-height: 1.2;
-    font-weight: 400;
-    color: #24292e;
+    letter-spacing: 0.0075em;
 }
 
 .article .info {
     margin-top: 0;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: rgba(0, 0, 0, 0.87);
     font-size: 0.9rem;
     font-weight: 400;
@@ -223,7 +224,7 @@ body {
 .comments-count { margin-left: -20px; }
 .comments {
     padding-left: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .comments a {
     text-decoration: none;
@@ -355,15 +356,6 @@ body {
     width: 66.666667%;
     padding: 18px;
     box-sizing: border-box;
-}
-
-.article .title {
-    margin: 0 0 0.35em 0;
-    color: rgba(0, 0, 0, 0.87);
-    font-size: 1.5rem;
-    font-weight: 500;
-    line-height: 1.6;
-    letter-spacing: 0.0075em;
 }
 
 .article .title a {
