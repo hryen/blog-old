@@ -1,6 +1,7 @@
 package com.hryen.blog.web.controller.admin.api;
 
 import com.hryen.blog.model.Result;
+import com.hryen.blog.service.ApiCacheService;
 import com.hryen.blog.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,9 @@ public class ApiSysConfigController {
     @Autowired
     private CommonService commonService;
 
+    @Autowired
+    private ApiCacheService apiCacheService;
+
     @PostMapping("/update")
     public Result updateSysConfig(@RequestBody Map data) {
         try {
@@ -27,6 +31,7 @@ public class ApiSysConfigController {
             commonService.updateBlogDescription(blogDescription);
             commonService.updateBlogOwner(blogOwner);
             commonService.updateIndexPageSize(indexPageSize);
+            apiCacheService.cleanBlogSysConfigCache();
 
             return new Result(true, "Successful");
         } catch (Exception e) {
