@@ -35,6 +35,9 @@ public class ApiArticleService {
     @Autowired
     private ApiCacheService apiCacheService;
 
+    @Autowired
+    private ApiCommentService apiCommentService;
+
     // 1.获取所有文章的总数 不包含回收站里的
     public Integer getAllArticleTotalRecord() {
         return articleMapper.getAllArticleTotalRecord();
@@ -72,11 +75,15 @@ public class ApiArticleService {
         if (realDelete) {
             // 根据文章id清除文章与标签的关联
             articleMapper.cleanArticleBindTags(id);
+
+            // delete comments
+            apiCommentService.deleteCommentsByArticleId(id);
+
+            // delete article
             articleMapper.deleteArticleByArticleId(id);
-            logger.info("Delete article: " + id);
+
         } else {
             articleMapper.updateArticleStatusByArticleId(id, 3); // status:3代表已删除
-            logger.info("Hidden article: " + id);
         }
 
         //删除redis

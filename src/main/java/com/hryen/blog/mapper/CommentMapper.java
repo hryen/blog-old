@@ -88,4 +88,8 @@ public interface CommentMapper {
     @Select("SELECT COUNT(0) FROM `comment`")
     Integer getAllCommentTotalRecord();
 
+    // 9.delete comments by article id
+    @Delete("DELETE FROM `comment` WHERE article_id=#{id}")
+    void deleteCommentsByArticleId(String id);
+
 }

@@ -112,4 +112,9 @@ public class ApiCommentService {
         commentMapper.delete(id);
     }
 
+    // delete comments by article id
+    @Transactional
+    public void deleteCommentsByArticleId(String id) {
+        commentMapper.deleteCommentsByArticleId(id);
+    }
 }

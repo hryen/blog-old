@@ -219,7 +219,7 @@
 
 			// 删除文章方法
             doDelete: function (id) {
-				this.$confirm('此操作将不可逆，确定要永久删除此文章吗?', '提示', {
+				this.$confirm('此操作将不可逆，确定要永久删除此文章及其所有评论吗?', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'warning'
