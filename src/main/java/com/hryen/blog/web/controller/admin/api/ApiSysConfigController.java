@@ -32,6 +32,7 @@ public class ApiSysConfigController {
             commonService.updateBlogOwner(blogOwner);
             commonService.updateIndexPageSize(indexPageSize);
             apiCacheService.cleanBlogSysConfigCache();
+            apiCacheService.cleanIndexArticleListCache();
 
             return new Result(true, "Successful");
         } catch (Exception e) {
