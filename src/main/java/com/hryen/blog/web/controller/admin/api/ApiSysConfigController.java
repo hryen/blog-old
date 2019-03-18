@@ -31,6 +31,7 @@ public class ApiSysConfigController {
             commonService.updateBlogDescription(blogDescription);
             commonService.updateBlogOwner(blogOwner);
             commonService.updateIndexPageSize(indexPageSize);
+
             apiCacheService.cleanBlogSysConfigCache();
             apiCacheService.cleanIndexArticleListCache();
 
