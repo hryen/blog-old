@@ -1,6 +1,6 @@
 <#--如果页数大于1 才显示分页div-->
 <#if pagination.totalPage gt 1>
-<div class="pagination">
+<div class="pagination d-flex align-items-center justify-content-center">
     <#--如果当前页大于第一页 那么一定显示第一页和上一页-->
     <#if (pagination.pageNumber gt 1)>
         <a href="?page=1">First</a>
@@ -14,7 +14,7 @@
             <#if i_index lt 5>
                 <#-- 当前页去掉超链接样式 -->
                 <#if i == pagination.pageNumber>
-        <span class="currentPageNumber">${i}</span>
+        <span>${i}</span>
                 <#else>
         <a href="?page=${i}">${i}</a>
                 </#if>
@@ -34,7 +34,7 @@
                 </#if>
                 <#-- 当前页去掉超链接样式 -->
                 <#if i == pagination.pageNumber>
-        <span class="currentPageNumber">${i}</span>
+        <span>${i}</span>
                 <#else>
         <a href="?page=${i}">${i}</a>
                 </#if>
@@ -43,7 +43,7 @@
             <#list pagination.pageNumber-2..pagination.pageNumber+2 as i>
                 <#-- 当前页去掉超链接样式 -->
                 <#if i == pagination.pageNumber>
-        <span class="currentPageNumber">${i}</span>
+        <span>${i}</span>
                 <#else>
         <a href="?page=${i}">${i}</a>
                 </#if>
@@ -57,7 +57,7 @@
         <a href="?page=${pagination.totalPage}">Last (${pagination.totalPage})</a>
     </#if>
     <input id="jumpPageInput" type="number" min="1" name="page">
-    <button class="jumpPage" type="submit" onclick="jumpPage()">Go</button>
+    <button type="submit" onclick="jumpPage()">Go</button>
     <div class="clearfix"></div>
 </div>
 </#if>

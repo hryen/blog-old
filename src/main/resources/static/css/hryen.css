@@ -16,6 +16,8 @@ body {
 
 .align-items-center { align-items: center; }
 
+.justify-content-center { justify-content: center; }
+
 .text-center { text-align: center; }
 
 .vertical-align-text-bottom { vertical-align: text-bottom; }
@@ -195,9 +197,6 @@ body {
 .license {
     padding: 20px 10px;
     border: 1px solid #e0e0e0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 30px 0;
 }
 .license svg {
@@ -374,6 +373,54 @@ body {
     font-weight: 400;
     line-height: 1.66;
     letter-spacing: 0.03333em;
+}
+
+
+
+.pagination {
+    font-size: 14px;
+}
+.pagination a {
+    margin: 0 2px;
+    border-radius: 3px;
+    background-color: #fff;
+    color: #333;
+    border: #333 solid 1px;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+.pagination a:hover {
+    background-color: #333;
+    color: #eee;
+}
+.pagination span {
+    margin: 0 2px;
+    border-radius: 3px;
+    border: #333 solid 1px;
+    background-color: #333;
+    color: #eee;
+    padding: 5px 10px;
+}
+.pagination input {
+    margin: 0 5px 0 10px;
+    padding: 5px 0 5px 10px;
+    outline: none;
+    border: #333 solid 1px;
+    border-radius: 3px;
+    width: 35px;
+}
+.pagination button {
+    outline: none;
+    border-radius: 3px;
+    background-color: #fff;
+    color: #333;
+    border: #333 solid 1px;
+    padding: 5px 10px;
+}
+.pagination button:hover {
+    background-color: #333;
+    color: #eee;
+    cursor: pointer;
 }
 
 
