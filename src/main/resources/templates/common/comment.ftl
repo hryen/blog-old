@@ -78,7 +78,7 @@
 
 <#if article.commentStatus>
     <div id="comment-form" class="comment-form">
-        <p style="margin-bottom: 0;">Leave a Comment</p>
+        <p style="margin: 0;">Leave a Comment</p>
         <p style="float: left;width: 49%;">
             <input id="author" type="text" placeholder="your name (required)">
         </p>

@@ -9,13 +9,6 @@ body {
     margin: 0 auto;
 }
 
-@media (max-width: 1080px) {
-    .container {
-        width: auto;
-        margin: 0 24px;
-    }
-}
-
 
 
 /* common start */
@@ -495,7 +488,21 @@ h6 {
 }
 /* index page end */
 
-/* 屏幕宽度小于600px 将nav隐藏 */
+
+
+/* other */
+.error-info {
+    margin: 20%;
+    font-weight: 400;
+}
+
+@media (max-width: 1080px) {
+    .container {
+        width: auto;
+        margin: 0 24px;
+    }
+}
+
 @media (max-width: 600px) {
     .nav { display: none; }
 }
@@ -503,21 +510,5 @@ h6 {
 @media (max-width: 860px) {
     .aside { display: none; }
     .articles { width: 100%; }
-}
-
-
-/*@media (max-width: 900px) {*/
-    /*.aside {*/
-        /*display: none;*/
-    /*}*/
-    /*.first-article {*/
-        /*padding-right: 46px;*/
-    /*}*/
-/*}*/
-
-
-/* other */
-.error-info {
-    margin: 20%;
-    font-weight: 400;
+    .first-article { padding-right: 46px; }
 }
