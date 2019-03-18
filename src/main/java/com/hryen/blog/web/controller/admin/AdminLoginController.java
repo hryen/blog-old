@@ -2,7 +2,7 @@ package com.hryen.blog.web.controller.admin;
 
 import com.hryen.blog.model.Result;
 import com.hryen.blog.model.User;
-import com.hryen.blog.service.AdminUserService;
+import com.hryen.blog.service.UserService;
 import com.hryen.blog.service.CommonService;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class AdminLoginController {
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    private AdminUserService adminUserService;
+    private UserService userService;
 
     @Autowired
     private CommonService commonService;
@@ -44,7 +44,7 @@ public class AdminLoginController {
         // 如果redis中存在 并且value和UID的值一样 执行登录操作
         if(null != redisUserId && redisUserId.equals(UID)) {
             // 调用service登录的方法
-            User user = adminUserService.getUserById(UID);
+            User user = userService.getUserById(UID);
             // 将该用户放入session
             request.getSession().setAttribute("user", user);
             //跳转到admin首页
@@ -76,7 +76,7 @@ public class AdminLoginController {
         boolean remember = (boolean) data.get("remember");
 
         // 调用service登录的方法
-        User user = adminUserService.login(username, password);
+        User user = userService.login(username, password);
 
         // 如果登录成功
         if (null != user) {

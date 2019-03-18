@@ -1,22 +1,22 @@
 package com.hryen.blog.service;
 
-import com.hryen.blog.mapper.AdminUserMapper;
+import com.hryen.blog.mapper.UserMapper;
 import com.hryen.blog.model.User;
 import com.hryen.blog.util.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminUserService {
+public class UserService {
 
     @Autowired
-    private AdminUserMapper adminUserMapper;
+    private UserMapper userMapper;
 
     // 根据用户名密码进行登录 如果成功 返回该用户 如果失败 返回null
     public User login(String username, String password) {
 
         // 根据用户名从数据库获取该用户
-        User user = adminUserMapper.getUserByUsername(username);
+        User user = userMapper.getUserByUsername(username);
 
         // 如果用户不存在 返回null
         if (null == user) {
@@ -36,7 +36,7 @@ public class AdminUserService {
     }
 
     public User getUserById(String id) {
-        return adminUserMapper.getUserById(id);
+        return userMapper.getUserById(id);
     }
 
 }

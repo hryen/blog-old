@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
-public interface AdminUserMapper {
+public interface UserMapper {
 
     // 根据username获取user
     @Select("SELECT * FROM user WHERE username = #{username}")
