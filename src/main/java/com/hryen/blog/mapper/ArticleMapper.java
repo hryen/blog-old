@@ -1,7 +1,6 @@
 package com.hryen.blog.mapper;
 
 import com.hryen.blog.model.Category;
-import com.hryen.blog.model.Comment;
 import org.apache.ibatis.annotations.*;
 import com.hryen.blog.model.Article;
 import org.apache.ibatis.mapping.FetchType;
