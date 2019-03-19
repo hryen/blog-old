@@ -31,7 +31,7 @@
                 <#if article_index = 0 && article.status == '2'>
                     <#continue>
                 </#if>
-                <div class="article" style="padding: 24px 0;">
+                <div class="index-article">
 
                     <#if article.permalink??>
                         <h6 class="title"><a href="${request.contextPath}/article/${article.permalink}">${article.title}</a></h6>
@@ -41,7 +41,7 @@
 
                     <p class="date">${article.publishDate?string("MMM dd, yyyy")}</p>
 
-                    <div class="markdown-body" style="max-width: 100%;">
+                    <div class="markdown-body">
                         ${article.summary}
                     </div>
 

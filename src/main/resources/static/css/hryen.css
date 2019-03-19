@@ -1,6 +1,10 @@
+html { box-sizing: border-box; }
+
+* { box-sizing: inherit; }
+
 body {
     margin: 0;
-    background-color: #ffffff;
+    background-color: #fff;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
@@ -18,7 +22,7 @@ body {
 
 .justify-content-center { justify-content: center; }
 
-.text-center { text-align: center; }
+.text-align-center { text-align: center; }
 
 .vertical-align-text-bottom { vertical-align: text-bottom; }
 /* common end */
@@ -27,20 +31,21 @@ body {
 
 /* header start */
 .header {
-    height: 63px;
+    height: 64px;
     border-bottom: 1px solid #e0e0e0;
     padding: 0 24px;
 }
 
-.site-title { flex: 1; }
-
-.site-title a {
+.header a {
     color: rgba(0, 0, 0, 0.87);
-    text-decoration: none;
     font-size: 1.5rem;
     font-weight: 400;
     line-height: 1.33;
-    letter-spacing: 0em;
+    letter-spacing: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-decoration: none;
 }
 /* header end */
 
@@ -48,18 +53,21 @@ body {
 
 /* nav start */
 .nav {
-    justify-content: space-between;
     height: 48px;
     padding: 0 24px;
+    justify-content: space-between;
 }
 
 .nav a {
-    color: #000;
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0.01071em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: rgba(0, 0, 0, 0.87);
 }
 
 .nav a:hover { text-decoration: underline; }
@@ -73,20 +81,29 @@ body {
     margin-bottom: 32px;
 }
 
-.footer p {
+.footer .copy {
     color: rgba(0, 0, 0, 0.54);
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0.01071em;
+    margin: 0;
 }
+/* footer end */
 
+
+
+/* back to top start */
 #backToTop {
     position: fixed;
     right: 2%;
     top: 90%;
 }
-/* footer end */
+
+#backToTop svg:hover {
+    fill: #555;
+}
+/* back to top end */
 
 
 
@@ -127,18 +144,18 @@ body {
     text-decoration: underline;
 }
 
-.article .markdown-body {
+.article .article-content {
     box-sizing: border-box;
     margin-bottom: 30px;
 }
 
 @media (max-width: 767px) {
     .article { padding: 0; }
-    .article .markdown-body { max-width: 100%; }
+    .article .article-content { max-width: 100%; }
 }
 
 /* hljs start */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* https://github.com/highlightjs/highlight.js/blob/master/src/styles/tomorrow.css */
 /* Tomorrow Comment */
 .hljs-comment,
 .hljs-quote { color: #8e908c; }
@@ -199,21 +216,25 @@ body {
     border: 1px solid #e0e0e0;
     margin: 30px 0;
 }
+
 .license svg {
     color: #333;
     margin: 0 2px;
     width: 24px;
     height: 24px;
 }
+
 .license span {
     margin-left: 6px;
     color: #666;
     font-size: 14px;
 }
+
 .license span a {
     color: #666;
     text-decoration: none;
 }
+
 .license span a:hover {
     text-decoration: underline;
 }
@@ -221,60 +242,76 @@ body {
 
 /* comment start */
 .comments-count { margin-left: -20px; }
+
 .comments {
     padding-left: 20px;
     margin-bottom: 10px;
 }
+
 .comments a {
     text-decoration: none;
     color: #555;
 }
+
 .comments a:hover {
     text-decoration: underline;
 }
+
 .comment {
     padding-bottom: 10px;
 }
+
 .comment-author {
     color: #555;
     font-size: 14px;
 }
+
 .comment-date {
     color: #999;
     font-size: 11px;
 }
+
 .comment-avatar {
     float: left;
     margin-right: 20px;
 }
+
 .comment-avatar img {
     border-radius: 50%;
 }
+
 .comment-content-container {
     margin-left: 68px;
 }
+
 .comment-content-container p {
     margin: 10px 0;
 }
+
 .comment-content {
     font-size: 14px;
     color: #333;
 }
+
 .child {
     margin-left: 68px;
 }
+
 .reply {
     margin-left: 10px;
     font-size: 14px;
     color: #000;
     text-decoration: none;
 }
+
 .reply:hover {
     text-decoration: underline;
 }
+
 .comment-form * {
     box-sizing: border-box;
 }
+
 .comment-form textarea, .comment-form input {
     width: 100%;
     border: #e0e0e0 solid 1px;
@@ -284,14 +321,17 @@ body {
     color: #888;
     font-size: 14px;
 }
+
 .comment-form textarea:focus, .comment-form input:focus {
     outline: none;
     color: #333;
 }
+
 .comment-form textarea {
     resize: none;
     height: 200px;
 }
+
 .comment-form button {
     border-radius: 3px;
     background-color: #fff;
@@ -302,6 +342,7 @@ body {
     cursor: pointer;
     outline: none;
 }
+
 .comment-form button:hover {
     background-color: #555;
     color: #fff;
@@ -348,7 +389,7 @@ body {
 .content {
     display: flex;
     width: calc(100% + 40px);
-    margin: 24px -20px -20px -20px;
+    margin: 22px -20px -20px -20px;
 }
 
 .articles {
@@ -357,16 +398,33 @@ body {
     box-sizing: border-box;
 }
 
-.article .title a {
+.articles>*:first-child {
+    padding-top: 0;
+}
+
+.index-article {
+    padding: 22px 0;
+}
+
+.index-article .title {
+    margin: 0 0 0.35em 0;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 1.45rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.0075em;
+}
+
+.index-article .title a {
     text-decoration: none;
     color: #222;
 }
 
-.article .title a:hover {
+.index-article .title a:hover {
     color: #666;
 }
 
-.article .date {
+.index-article .date {
     margin: 0 0 16px 0;
     color: rgba(0, 0, 0, 0.87);
     font-size: 0.75rem;
@@ -505,19 +563,6 @@ body {
 
 
 /* tags end  */
-
-
-
-h6 {
-    margin: 0;
-    margin-bottom: 0.35em;
-    color: rgba(0, 0, 0, 0.87);
-    font-size: 1.25rem;
-    font-weight: 500;
-    line-height: 1.6;
-    letter-spacing: 0.0075em;
-}
-
 .articles hr {
     height: 1px;
     margin: 0;
@@ -543,7 +588,11 @@ h6 {
 }
 
 @media (max-width: 600px) {
-    .nav { display: none; }
+    .header {
+        height: 48px;
+        padding: 0 16px;
+    }
+    .nav { padding: 0 16px; }
 }
 
 @media (max-width: 860px) {

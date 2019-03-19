@@ -1,7 +1,8 @@
+</div><#--/container-->
+
 <footer class="footer">
-    <p class="text-center">&copy; ${.now?string("yyyy")} by ${blogOwner}.</p>
+    <p class="copy text-align-center">&copy; ${.now?string("yyyy")} by ${blogOwner!}.</p>
 </footer>
-</div>
 
 <div id="backToTop">
     <a href="javascript:backToTop();" title="Back to top">

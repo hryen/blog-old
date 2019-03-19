@@ -29,7 +29,7 @@
                 </#list>
             </#if>
         </p>
-        <div class="markdown-body">
+        <div class="markdown-body article-content">
             ${article.htmlContent}
         </div>
 
