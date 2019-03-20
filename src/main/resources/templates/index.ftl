@@ -8,9 +8,9 @@
         <#if articleList[0].status == '2'>
             <div class="first-article">
             <#if articleList[0].permalink??>
-                <h2><a href="${request.contextPath}/article/${articleList[0].permalink}">${articleList[0].title}</a></h2>
+                <h1><a href="${request.contextPath}/article/${articleList[0].permalink}">${articleList[0].title}</a></h1>
             <#else>
-                <h2><a href="${request.contextPath}/article/${articleList[0].id}">${articleList[0].title}</a></h2>
+                <h1><a href="${request.contextPath}/article/${articleList[0].id}">${articleList[0].title}</a></h1>
             </#if>
             ${articleList[0].summary}
             </div>
@@ -22,9 +22,6 @@
     <div class="content">
 
         <div class="articles">
-
-            <#--<h6>Latest articles</h6>-->
-            <#--<hr>-->
 
             <#list articleList as article>
                 <#--如果list第一篇文章是置顶文章 跳过此次遍历 因为这个文章在上面已经显示成置顶文章了-->
