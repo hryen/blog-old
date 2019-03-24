@@ -120,10 +120,11 @@ public class ApiArticleService {
         // insert
         articleMapper.save(article);
 
-        // 向数据库插入文章与标签的关系
+        // 向数据库插入 标签 和 文章与标签的关系
         List<Tag> tagList = article.getTagList();
         for (Tag tag : tagList) {
-            articleMapper.insertArticleBindTag(article.getId(), tag.getName());
+            articleMapper.insertArticleBindTag(article.getId(), tag.getName()); //save article <-> tag
+            tagMapper.save(tag.getName()); // save tag
         }
 
         // clean index cache
@@ -192,7 +193,7 @@ public class ApiArticleService {
             // 将标签转成全小写
             tagName = tagName.toLowerCase();
             // 尝试添加标签
-            tagMapper.insertArticleBindTag(tagName);
+            tagMapper.save(tagName);
             // 将文章和标签关联
             articleMapper.insertArticleBindTag(id, tagName);
         }

@@ -38,6 +38,6 @@ public interface TagMapper {
 
     // 3.向tag表添加一个tag 如果已存在 则更新name
     @Insert("INSERT INTO tag(name) VALUES (#{tagName}) ON DUPLICATE KEY UPDATE name=#{tagName}")
-    void insertArticleBindTag(@Param("tagName") String tagName);
+    void save(@Param("tagName") String tagName);
 
 }
