@@ -1,3 +1,6 @@
+// Console - welcome message
+console.log("%c\n(@^_^@)~\n","color:#666666;font-size:12px;");
+
 // Back to top
 if (document.documentElement.scrollTop < 300) {
 	document.getElementById("backToTop").setAttribute('hidden', 'true');
