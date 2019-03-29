@@ -405,6 +405,23 @@ body {
     padding-top: 0;
 }
 
+.index-h6 {
+    margin: 0 0 0.35em 0;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+}
+
+.index-hr {
+    height: 1px;
+    margin: 0;
+    border: none;
+    flex-shrink: 0;
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
 .index-article {
     padding: 22px 0;
 }
@@ -564,13 +581,6 @@ body {
 
 
 /* tags end  */
-.articles hr {
-    height: 1px;
-    margin: 0;
-    border: none;
-    flex-shrink: 0;
-    background-color: rgba(0, 0, 0, 0.12);
-}
 /* index page end */
 
 

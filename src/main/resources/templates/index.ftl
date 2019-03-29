@@ -23,6 +23,9 @@
 
         <div class="articles">
 
+            <h6 class="index-h6">From the Firehose</h6>
+            <hr class="index-hr">
+
             <#list articleList as article>
                 <#--如果list第一篇文章是置顶文章 跳过此次遍历 因为这个文章在上面已经显示成置顶文章了-->
                 <#if article_index = 0 && article.status == '2'>
