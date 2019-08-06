@@ -392,7 +392,7 @@ body {
 .content {
     display: flex;
     width: calc(100% + 40px);
-    margin: 12px -20px -20px -20px;
+    margin: 10px -20px -20px -20px;
 }
 
 .articles {
