@@ -42,7 +42,7 @@
 
                     <div style="width: 100%; text-align: center;margin-bottom: 20px;">
                         <img width="100px" height="100px" style="border-radius: 50%;"
-                             src="${Session["user"].avatar}">
+                             src="${Session["user"].avatar!"${request.contextPath}/img/avatar/00000000000000000000000000000000.png"}">
                         <p style="margin-top: 0;">${Session["user"].username}</p>
                     </div>
 
@@ -57,7 +57,7 @@
                     </div>
 
                     <img slot="reference" width="40px" height="40px" style="border-radius: 50%;"
-                         src="${Session["user"].avatar}">
+                         src="${Session["user"].avatar!"${request.contextPath}/img/avatar/00000000000000000000000000000000.png"}">
                 </el-popover>
 
             </el-row>

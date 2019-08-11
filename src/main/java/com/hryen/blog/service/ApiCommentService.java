@@ -63,8 +63,14 @@ public class ApiCommentService {
             // set publish date
             comment.setPublishDate(new Date());
 
-            // set emailMD5
+            // set email
             String email = comment.getEmail();
+            if (null == email || "".equals(email.trim())) {
+                comment.setEmail(null);
+                email = null;
+            }
+
+            // set emailMD5
             if (null != email) {
                 String emailMD5 = MD5Utils.encode(email.toLowerCase().trim());
                 comment.setEmailMD5(emailMD5);
