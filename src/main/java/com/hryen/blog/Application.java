@@ -1,7 +1,6 @@
 package com.hryen.blog;
 
 import com.hryen.blog.util.Snowflake;
-import com.hryen.blog.util.bcrypt.BCryptPasswordEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
