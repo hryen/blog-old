@@ -2,7 +2,7 @@
 
 * [Spring Boot](https://github.com/spring-projects/spring-boot)
 * [MyBatis](https://github.com/mybatis/mybatis-3)
-* [BCrypt](https://github.com/spring-projects/spring-security/tree/master/crypto/src/main/java/org/springframework/security/crypto/bcrypt)
+* [BCrypt](https://github.com/spring-projects/spring-security/tree/master/crypto/src/main/java/org/springframework/security/crypto/bcrypt) - password encrypt
 * [Freemarker](https://github.com/apache/freemarker) - a template engine
 * [Vue.js](https://github.com/vuejs/vue) - a progressive, incrementally-adoptable JavaScript framework for building UI on the web
 * [Element](https://github.com/ElemeFE/element) - Vue.js 2.0 UI Toolkit for Web
