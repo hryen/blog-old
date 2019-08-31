@@ -1,8 +1,4 @@
-# 关于
-
-一个自用的基于Spring Boot的博客系统
-
-# 感谢
+# Thanks
 
 * [Spring Boot](https://github.com/spring-projects/spring-boot)
 * [MyBatis](https://github.com/mybatis/mybatis-3)
