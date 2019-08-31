@@ -1,8 +1,8 @@
-# About
+# 关于
 
-A blog application based Spring Boot.
+一个自用的基于Spring Boot的博客系统
 
-# Thanks
+# 感谢
 
 * [Spring Boot](https://github.com/spring-projects/spring-boot)
 * [MyBatis](https://github.com/mybatis/mybatis-3)
