@@ -1,3 +1,7 @@
+# 简介
+使用Spring Boot开发的自用博客系统
+
+
 # Thanks
 
 * [Spring Boot](https://github.com/spring-projects/spring-boot)
